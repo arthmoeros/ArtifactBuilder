@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" vc:minVersion="1.1">
+	<xs:element name="ab-forms-config" type="Forms_CT"/>
+	<xs:complexType name="Forms_CT">
+		<xs:sequence>
+			<xs:element name="metadata" type="Metadata_CT">
+				<xs:annotation>
+					<xs:documentation>Agrupa los metadatos asociados a la configuración de
+						formularios</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="form" type="Form_CT" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Debe estar presente por cada formulario de generación para el
+						Generador</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Metadata_CT">
+		<xs:sequence>
+			<xs:element name="generatorKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identificador unico para el generador a nivel de
+						aplicación</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="generatorComponent" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifica el componente de Angular enlazado al
+						formulario</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Titulo del grupo de Formularios</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Form_CT">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="formId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Identificador del formulario para su uso en el
+							HTML</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formTitle" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Titulo del formulario para su
+							despliegue</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formFunction" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Identifica la función del componente Angular que ejecutará
+							la generación de componentes para el formulario
+							indicado</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formElements" type="FormElements_CT">
+					<xs:annotation>
+						<xs:documentation>Agrupa el contenido del formulario</xs:documentation>
+					</xs:annotation>
+					<xs:unique name="UniqueValueKey">
+						<xs:selector xpath="inputGroup/inputs/child::*" /> 
+						<xs:field xpath="@valueKey" /> 
+					</xs:unique>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="generationRequestFileForm">
+				<xs:annotation>
+					<xs:documentation>Si se encuentra presente, se generará el formulario para
+						subida de archivo generado por esta misma aplicación para la construcción de
+						artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FormElements_CT">
+		<xs:sequence>
+			<xs:element name="inputGroup" type="InputGroup_CT" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Agrupa un conjunto de inputs</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InputGroup_CT">
+		<xs:sequence>
+			<xs:element name="groupTitle" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Titulo que describe el conjunto de inputs</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputs" type="GroupInputs_CT">
+				<xs:annotation>
+					<xs:documentation>Inputs pertenecientes al conjunto</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GroupInputs_CT">
+		<xs:all>
+			<xs:element name="text" type="TextInput_CT" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renderiza un input de tipo TEXT y define su asociación a la
+						construcción de artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="NumberInput_CT" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renderiza un input de tipo NUMBER y define su asociación a la
+						construcción de artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="checkbox" type="CheckboxInput_CT" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renderiza un input de tipo CHECKBOX y define su asociación a
+						la construcción de artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="file" type="FileInput_CT" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renderiza un input de tipo FILE y define su asociación a la
+						construcción de artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="choice" type="ChoiceInput_CT" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renderiza un input de tipo SELECT y define su asociación a la
+						construcción de artefactos</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="TextInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="placeholder" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Inserta un texto placeholder dentro del
+								input</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NumberInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="placeholder" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Inserta un texto placeholder dentro del
+								input</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CheckboxInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FileInput_CT">
+		<xs:complexContent>
+			<xs:extension base="MapeableInput_CT"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChoiceInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="options" type="Options_CT">
+						<xs:annotation>
+							<xs:documentation>Lista las opciones disponibles en el
+								SELECT</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CommonInput_CT">
+		<xs:complexContent>
+			<xs:extension base="MapeableInput_CT">
+				<xs:sequence>
+					<xs:element name="defaultValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Establece un valor por defecto para el
+								input</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="helptext" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Agrega un texto descriptivo y de ayuda para el
+								input</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="blocked" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Si se encuentra presente, el input se encontrará
+								deshabilitado</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="required" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Si se encuentra presente, el input deberá ser llenado
+								obligatoriamente para el ingreso del formulario</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="postSubmit" minOccurs="0" maxOccurs="1" type="postSubmit_CT">
+						<xs:annotation>
+							<xs:documentation>Procesado que se realizará al valor ingresado
+								posterior al ingreso del formulario llenado</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MapeableInput_CT">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Etiqueta que identifica el input</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="valueKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Llave identificatoria del valor ingresado, tanto en el
+						componente Angular como en las plantillas de componentes a
+						construir</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Options_CT">
+		<xs:sequence>
+			<xs:element name="option" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="postSubmit_CT">
+		<xs:sequence>
+			<xs:element name="stringOperation" type="stringOperation_ST" minOccurs="1"
+				maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="stringOperation_ST">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="allLowerCase"/>
+			<xs:enumeration value="allUpperCase"/>
+			<xs:enumeration value="startWithUpperCase"/>
+			<xs:enumeration value="startWithLowerCase"/>
+			<xs:enumeration value="blanksToCamelCase"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
