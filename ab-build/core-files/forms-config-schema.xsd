@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="abFormsConfig" type="FormsConfig_CT"/>
+	<xs:complexType name="FormsConfig_CT">
+		<xs:sequence>
+			<xs:element name="metadata" type="Metadata_CT">
+				<xs:annotation>
+					<xs:documentation>Groups metadata for the forms config</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="form" type="Form_CT" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Contains each form configuration</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Metadata_CT">
+		<xs:sequence>
+			<xs:element name="generatorKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Unique key identifier for the forms config, application level</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="generatorComponent" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Indicates the Angular component name which is linked to the forms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title for the form group</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Description for the form group</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Form_CT">
+		<xs:choice>
+			<xs:sequence>
+				<xs:element name="formId" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Form ID for its use on the Angular Template</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formTitle" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Form title to display</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formDescription" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Form description to display</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formFunction" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>Indicates the function name to execute on the form's submission, this on the specified Angular component on the metadata</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="formElements" type="FormElements_CT">
+					<xs:annotation>
+						<xs:documentation>Groups the form content</xs:documentation>
+					</xs:annotation>
+					<xs:unique name="UniqueValueKey">
+						<xs:selector xpath="inputGroup/inputs/child::*" /> 
+						<xs:field xpath="@valueKey" /> 
+					</xs:unique>
+				</xs:element>
+			</xs:sequence>
+			<xs:element name="generationRequestFileForm">
+				<xs:annotation>
+					<xs:documentation>If this element is present instead a whole form, then ArtifactBuilder will render a generation request file upload form</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="FormElements_CT">
+		<xs:sequence>
+			<xs:element name="inputGroup" type="InputGroup_CT" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Groups a list of input elements</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InputGroup_CT">
+		<xs:sequence>
+			<xs:element name="groupTitle" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title for the input group</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="inputs" type="GroupInputs_CT">
+				<xs:annotation>
+					<xs:documentation>Lists the containing input elements</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GroupInputs_CT">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="text" type="TextInput_CT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Renders an input of type TEXT and defines its reference in the artifact building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="number" type="NumberInput_CT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Renders an input of type NUMBER and defines its reference in the artifact building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="checkbox" type="CheckboxInput_CT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Renders an input of type CHECKBOX and defines its reference in the artifact building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="file" type="FileInput_CT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Renders an input of type FILE and defines its reference in the artifact building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="choice" type="ChoiceInput_CT" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Renders an input of type SELECT and defines its reference in the artifact building</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="TextInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="placeholder" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Inserts a placeholder text inside the input box</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NumberInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="placeholder" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Inserts a placeholder text inside the input box</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CheckboxInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FileInput_CT">
+		<xs:complexContent>
+			<xs:extension base="MapeableInput_CT"> </xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChoiceInput_CT">
+		<xs:complexContent>
+			<xs:extension base="CommonInput_CT">
+				<xs:sequence>
+					<xs:element name="options" type="Options_CT">
+						<xs:annotation>
+							<xs:documentation>Lists the contained options available for the SELECT</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CommonInput_CT">
+		<xs:complexContent>
+			<xs:extension base="MapeableInput_CT">
+				<xs:sequence>
+					<xs:element name="defaultValue" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Sets a default value for the input element</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="helptext" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Adds a descriptive help text for the input element</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="blocked" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>If it is present, the input element will be readonly</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="required" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>If it is present, the input element will be rendered as required for the form submit</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="postSubmit" minOccurs="0" maxOccurs="1" type="postSubmit_CT">
+						<xs:annotation>
+							<xs:documentation>Lists the post-submit value processing the input element will have</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MapeableInput_CT">
+		<xs:sequence>
+			<xs:element name="label" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Label for the input element</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="valueKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Identifying key for the value contained in the input element. This is used both in the Angular component as well on the ABTemplates</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Options_CT">
+		<xs:sequence>
+			<xs:element name="option" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Renders an OPTION element with both value and label</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="postSubmit_CT">
+		<xs:sequence>
+			<xs:element name="stringOperation" type="stringOperation_ST" minOccurs="1"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Indicates the execution of a string operation on the input's element value</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="stringOperation_ST">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="allLowerCase"/>
+			<xs:enumeration value="allUpperCase"/>
+			<xs:enumeration value="startWithUpperCase"/>
+			<xs:enumeration value="startWithLowerCase"/>
+			<xs:enumeration value="blanksToCamelCase">
+				<xs:annotation>
+					<xs:documentation>Transforms whitespaces in a sentence to CamelCase (IE: 'get customer info' -> 'getCustomerInfo')</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

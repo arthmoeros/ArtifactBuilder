@@ -1,0 +1,67 @@
+<div>
+  <form #generationForm="ngForm" (ngSubmit)="<!--form.formFunction-->()">
+    <table>
+      :: FOR_GROUP_LIST ::
+        <tr>
+          <td colspan="3">
+            <h4><!--group.groupTitle--></h4>
+          </td>
+        </tr>
+        :: FOR_GROUP_INPUT_LIST ::
+          <tr>
+            <td>
+              <!--input.mapLabel-->
+            </td>
+			:: INPUT_CONTAINER ::
+            :: CHECKBOX ::
+            <td>
+				<input 
+					type="<!--input.type-->" 
+					[(ngModel)]="<!--input.mapValueKey-->" 
+					id="<!--input.mapValueKey-->" 
+					name="<!--input.mapValueKey-->"
+					value="<!--input.commonDefaultValue-->" 
+				/>
+            </td>
+            :: /CHECKBOX ::
+            :: CHOICE ::
+            <td>
+        		<select 
+					[(ngModel)]="<!--input.$mapValueKey-->" 
+					id="<!--input.$mapValueKey-->" 
+					name="<!--input.$mapValueKey-->" 
+					value="<!--input.$commonDefaultValue-->"
+                	<!--input.commonBlocked?=readonly-->
+					<!--input.commonRequired?=required--> >
+					:: CHOICE_OPTIONS ::
+					<option value="<!--input.$choiceOptions.[]-->">
+						<!--input.$choiceOptions.[]-->
+					</option>
+					:: /CHOICE_OPTIONS ::
+				</select>
+            </td>
+            :: /CHOICE ::
+            :: ELSE ::
+            <td>
+				<input type="<!--input.type-->" 
+					[(ngModel)]="<!--input.mapValueKey-->"
+					id="<!--input.mapValueKey-->" 
+					name="<!--input.mapValueKey-->"
+                	value="<!--input.commonDefaultValue-->" 
+					placeholder="<!--input.boxPlaceholder-->"
+					<!--input.commonBlocked?=readonly-->
+					<!--input.commonRequired?=required-->
+				/>
+            </td>
+            :: /ELSE ::
+			:: /INPUT_CONTAINER ::
+            <td>
+              <div class="helptext"><!--input.commonHelptext--></div>
+            </td>
+          </tr>
+        :: /FOR_GROUP_INPUT_LIST ::
+      :: /FOR_GROUP_LIST ::
+    </table>
+    <input type="submit" value="Generar" />
+  </form>
+</div>
