@@ -1,0 +1,105 @@
+<div>
+  <form #generationForm="ngForm" (ngSubmit)="generateSampleArchOSB1()">
+    <table>
+      <tr>
+        <td colspan="3">
+          <h4>General Information</h4>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Additional Folders
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="additionalFolders" id="additionalFolders" name="additionalFolders" value="1" />
+        </td>
+        <td>
+          <div class="helptext">Indicates whether or not to generate additional empty folders</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Business Domain
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="bizDomain" id="bizDomain" name="bizDomain" value="General" placeholder="" required />
+        </td>
+        <td>
+          <div class="helptext">Service's business domain, default is "General"</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Business Entity
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="bizEntity" id="bizEntity" name="bizEntity" value="" placeholder="Put a Biz here" required />
+        </td>
+        <td>
+          <div class="helptext">Business Entity which the service makes use of</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Service ID
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="serviceId" id="serviceId" name="serviceId" value="" placeholder="" required />
+        </td>
+        <td>
+          <div class="helptext">Identification number for the service</div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <h4>General Information</h4>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Additional Folders
+        </td>
+        <td>
+          <input type="checkbox" [(ngModel)]="additionalFolders" id="additionalFolders" name="additionalFolders" value="1" />
+        </td>
+        <td>
+          <div class="helptext">Indicates whether or not to generate additional empty folders</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Business Domain
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="bizDomain" id="bizDomain" name="bizDomain" value="General" placeholder="" required />
+        </td>
+        <td>
+          <div class="helptext">Service's business domain, default is "General"</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Business Entity
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="bizEntity" id="bizEntity" name="bizEntity" value="" placeholder="Put a Biz here" required />
+        </td>
+        <td>
+          <div class="helptext">Business Entity which the service makes use of</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Service ID
+        </td>
+        <td>
+          <input type="number" [(ngModel)]="serviceId" id="serviceId" name="serviceId" value="" placeholder="" required />
+        </td>
+        <td>
+          <div class="helptext">Identification number for the service</div>
+        </td>
+      </tr>
+    </table>
+    <input type="submit" value="Generar" />
+  </form>
+</div>

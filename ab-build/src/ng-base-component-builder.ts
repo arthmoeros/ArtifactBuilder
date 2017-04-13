@@ -2,6 +2,8 @@
 import fs = require("fs");
 import xsdLib = require("libxml-xsd");
 import replaceAll = require("replaceall");
+import shelljs = require("shelljs");
+import pretty = require("pretty");
 import { FormComponent } from "./form-component.entity";
 import { Input } from "./input.entity";
 import { InputGroup } from "./input-group.entity";
@@ -10,23 +12,29 @@ import { Form } from "./form.entity";
 import { FormsConfig } from "./forms-config.entity";
 import { XpathProcessorUtil, ELEMENT_NODE } from "./xpath-processor.util";
 import { StringContainer } from "./string-container";
+import { Logger } from "./logger";
+import { RegexContainer } from "./regex-container";
 
-
+const logger: Logger = new Logger();
 const appSrcFolder: string = "./src/app";
+const abGeneratedFolder: string = appSrcFolder + "/abgenerated/";
 
 const formsConfigFolder: string = appSrcFolder + "/forms-config";
 const abBuildWorkspaceFolder: string = "./ab-build/";
 
 const mainComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/main-component.template.html").toString();
-const regexFormListRadioTmpl = /(:: FORM_LIST_RADIO_TMPL ::)([\s\S]*)(:: \/FORM_LIST_RADIO_TMPL ::)/g
+const regexFormListRadioTmpl = new RegexContainer(/(:: FORM_LIST_RADIO_TMPL ::)([\s\S]*)(:: \/FORM_LIST_RADIO_TMPL ::)/g);
 
 const formComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/form-component.template.html").toString();
-const regexForGroupListTmpl = /(:: FOR_GROUP_LIST ::)([\s\S]*)(:: \/FOR_GROUP_LIST ::)/g
-const regexForGroupInputListTmpl = /(:: FOR_GROUP_INPUT_LIST ::)([\s\S]*)(:: \/FOR_GROUP_INPUT_LIST ::)/g
-const regexInputContainerTmpl = /(:: INPUT_CONTAINER ::)([\s\S]*)(:: \/INPUT_CONTAINER ::)/g
-const regexInputCheckboxTmpl = /(:: CHECKBOX ::)([\s\S]*)(:: \/CHECKBOX ::)/g
-const regexInputChoiceTmpl = /(:: CHOICE ::)([\s\S]*)(:: \/CHOICE ::)/g
-const regexInputElseTmpl = /(:: ELSE ::)([\s\S]*)(:: \/ELSE ::)/g
+const regexForGroupListTmpl = new RegexContainer(/(:: FOR_GROUP_LIST ::)([\s\S]*)(:: \/FOR_GROUP_LIST ::)/g);
+const regexForGroupInputListTmpl = new RegexContainer(/(:: FOR_GROUP_INPUT_LIST ::)([\s\S]*)(:: \/FOR_GROUP_INPUT_LIST ::)/g);
+const regexInputContainerTmpl = new RegexContainer(/(:: INPUT_CONTAINER ::)([\s\S]*)(:: \/INPUT_CONTAINER ::)/g);
+const regexInputCheckboxTmpl = new RegexContainer(/(:: CHECKBOX ::)([\s\S]*)(:: \/CHECKBOX ::)/g);
+const regexInputChoiceTmpl = new RegexContainer(/(:: CHOICE ::)([\s\S]*)(:: \/CHOICE ::)/g);
+const regexInputChoiceOptionsTmpl = new RegexContainer(/(:: CHOICE_OPTIONS ::)([\s\S]*)(:: \/CHOICE_OPTIONS ::)/g);
+const regexInputElseTmpl = new RegexContainer(/(:: ELSE ::)([\s\S]*)(:: \/ELSE ::)/g);
+
+const formComponentGenReqTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/form-component-genreq.template.html").toString();
 
 class NgBaseComponentBuilder {
 
@@ -45,6 +53,13 @@ class NgBaseComponentBuilder {
 
 		let mainComponent: FormComponent = this.renderMainComponentNgTemplate(formsConfig);
 		let formComponents: FormComponent[] = this.renderFormComponentsNgTemplates(formsConfig);
+
+		shelljs.rm("-R", abGeneratedFolder);
+		shelljs.mkdir("-p", abGeneratedFolder + mainComponent.$name);
+		fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/main.component.html", mainComponent.$ngTemplate);
+		formComponents.forEach(formComponent => {
+			fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/" + formComponent.$name + ".component.html", pretty(formComponent.$ngTemplate));
+		});
 	}
 
 	private validateXML(): any {
@@ -59,7 +74,7 @@ class NgBaseComponentBuilder {
 		return null;
 	}
 
-	private processXML():FormsConfig {
+	private processXML(): FormsConfig {
 		let formsConfig: FormsConfig = new FormsConfig();
 
 		let metadata: Metadata = new Metadata();
@@ -88,6 +103,8 @@ class NgBaseComponentBuilder {
 					inputGroups.push(inputGroup);
 				});
 				form.$inputGroupList = inputGroups;
+			} else {
+				form.$formId = "GenReqFileForm";
 			}
 			formList.push(form);
 		});
@@ -98,12 +115,12 @@ class NgBaseComponentBuilder {
 		return formsConfig;
 	}
 
-	private processInputs(inputsNode: Node): Input[]{
+	private processInputs(inputsNode: Node): Input[] {
 		let inputList: Input[] = new Array<Input>();
 		let children: NodeList = inputsNode.childNodes;
 		for (var index = 0; index < children.length; index++) {
 			let child: Node = children.item(index);
-			if(child.nodeType == ELEMENT_NODE){
+			if (child.nodeType == ELEMENT_NODE) {
 				let input: Input = new Input();
 				input.$mapLabel = this.xpath.selectValue("label", child);
 				input.$mapValueKey = this.xpath.selectValue("valueKey", child);
@@ -111,45 +128,45 @@ class NgBaseComponentBuilder {
 				switch (child.nodeName) {
 					case "text":
 						input.$type = "text";
-						this.fillCommonInputInfo(input,child);
+						this.fillCommonInputInfo(input, child);
 						input.$boxPlaceholder = this.xpath.selectValue("placeholder", child);
 						break;
-				
+
 					case "number":
 						input.$type = "number";
-						this.fillCommonInputInfo(input,child);
+						this.fillCommonInputInfo(input, child);
 						input.$boxPlaceholder = this.xpath.selectValue("placeholder", child);
 						break;
-				
+
 					case "checkbox":
 						input.$type = "checkbox";
-						this.fillCommonInputInfo(input,child);
+						this.fillCommonInputInfo(input, child);
 						break;
-				
+					// TODO: develop file upload
 					// case "file":
 					// 	input.$type = "file";
 					// 	break;
-				
+
 					case "choice":
 						input.$type = "choice";
-						this.fillCommonInputInfo(input,child);
+						this.fillCommonInputInfo(input, child);
 						let optionNodes: Node[] = this.xpath.selectNodes("options/option", child);
 						input.$choiceOptions = new Array<string>();
 						optionNodes.forEach(optionNode => {
-							input.$choiceOptions.push(this.xpath.selectValue(".",optionNode));
+							input.$choiceOptions.push(this.xpath.selectValue(".", optionNode));
 						});
 						break;
-				
+
 					default:
 						break;
 				}
+				inputList.push(input);
 			}
 		}
-
 		return inputList;
 	}
 
-	private fillCommonInputInfo(currentInput: Input, currentNodeInput: Node){
+	private fillCommonInputInfo(currentInput: Input, currentNodeInput: Node) {
 		currentInput.$commonDefaultValue = this.xpath.selectValue("defaultValue", currentNodeInput);
 		currentInput.$commonHelptext = this.xpath.selectValue("helptext", currentNodeInput);
 		currentInput.$commonBlocked = this.xpath.isPresent("blocked", currentNodeInput);
@@ -167,20 +184,17 @@ class NgBaseComponentBuilder {
 		let result: string = mainComponentTemplate;
 		result = replaceAll("<!--#TITLE#-->", formsConfig.$metadata.$title, result);
 		result = replaceAll("<!--#DESCRIPTION#-->", formsConfig.$metadata.$description, result);
-		result = result.replace(regexFormListRadioTmpl, this.renderFormListRadioButtons(formsConfig.$forms));
+		result = result.replace(regexFormListRadioTmpl.regex, this.renderFormListRadioButtons(formsConfig.$forms));
 		result = replaceAll("<!--#FORM_DISPLAY#-->", this.renderFormListNgSelectors(formsConfig.$forms), result);
 
 		let mainComponent: FormComponent = new FormComponent();
 		mainComponent.$name = formsConfig.$metadata.$generatorKey;
 		mainComponent.$ngTemplate = result;
-		console.log(result);
 		return mainComponent;
 	}
 
 	private renderFormListRadioButtons(formList: Form[]): string {
-		;
-		var groups = regexFormListRadioTmpl.exec(mainComponentTemplate);
-		let radioTmpl: string = groups[2];
+		let radioTmpl: string = regexFormListRadioTmpl.search(mainComponentTemplate)[2];
 		let result: string = "";
 		formList.forEach(form => {
 			let currentItem: string = radioTmpl;
@@ -210,28 +224,89 @@ class NgBaseComponentBuilder {
 		return result;
 	}
 
-	private renderFormComponentsNgTemplates(formsConfig: FormsConfig): FormComponent[]{
+	private renderFormComponentsNgTemplates(formsConfig: FormsConfig): FormComponent[] {
 		let formComponentList: FormComponent[] = new Array<FormComponent>();
 		formsConfig.$forms.forEach(form => {
-			let ngTemplate: StringContainer = new StringContainer(formComponentTemplate);
-			ngTemplate.replace(regexForGroupListTmpl, this.renderInputGroups(form.$inputGroupList, ngTemplate));
-			ngTemplate.replaceAll("<!--form.formFunction-->", form.$formFunction);
+			if (!form.$isGenerationRequestFileForm) {
+				let ngTemplate: StringContainer = new StringContainer(formComponentTemplate);
+				ngTemplate.replace(regexForGroupListTmpl.regex, this.renderInputGroups(form.$inputGroupList, ngTemplate));
+				ngTemplate.replaceAll("<!--form.formFunction-->", form.$formFunction);
+
+				console.log(ngTemplate.toString());
+				let formComponent: FormComponent = new FormComponent();
+				formComponent.$name = form.$formId;
+				formComponent.$ngTemplate = ngTemplate.toString();
+				formComponentList.push(formComponent);
+			} else {
+				let formComponent: FormComponent = new FormComponent();
+				formComponent.$name = form.$formId;
+				formComponent.$ngTemplate = formComponentGenReqTemplate;
+				formComponentList.push(formComponent);
+
+			}
 		});
-		return null;
+		return formComponentList;
 	}
 
-	private renderInputGroups(inputGroupList: InputGroup[], ngTemplate: StringContainer){
+	private renderInputGroups(inputGroupList: InputGroup[], ngTemplate: StringContainer): StringContainer {
+		let inputGroupListStr: StringContainer = new StringContainer();
+		let inputGroupListTmpl: StringContainer = new StringContainer(regexForGroupListTmpl.search(ngTemplate.toString())[2]);
 		inputGroupList.forEach(inputGroup => {
+			let inputListStr: StringContainer = new StringContainer();
 			inputGroup.$inputList.forEach(input => {
-				ngTemplate.replace(regexForGroupInputListTmpl, this.renderInput(input,ngTemplate));
+				inputListStr.concat(this.renderInput(input, ngTemplate));
 			});
-			ngTemplate.replaceAll("<!--group.groupTitle-->",inputGroup.$groupTitle);
+			inputGroupListTmpl.replace(regexForGroupInputListTmpl.regex, inputListStr.getString());
+			inputGroupListTmpl.replaceAll("<!--group.groupTitle-->", inputGroup.$groupTitle);
+			inputGroupListStr.concat(inputGroupListTmpl.toString());
 		});
-		return null;
+		return inputGroupListStr;
 	}
 
-	private renderInput(input: Input, ngTemplate: StringContainer){
-		return null;
+	private renderInput(input: Input, ngTemplate: StringContainer) {
+		var forGroupInputListTmpl = regexForGroupInputListTmpl.search(ngTemplate.getString());
+		let inputStr: StringContainer = new StringContainer(forGroupInputListTmpl[2]);
+		inputStr.replaceAll("<!--input.mapLabel-->", input.$mapLabel);
+		inputStr.replaceAll("<!--input.commonHelptext-->", input.$commonHelptext);
+		switch (input.$type) {
+			case "checkbox":
+				let tmplCheckbox: StringContainer = new StringContainer(regexInputCheckboxTmpl.search(ngTemplate.getString())[2]);
+				tmplCheckbox.replaceAll("<!--input.type-->", input.$type);
+				tmplCheckbox.replaceAll("<!--input.mapValueKey-->", input.$mapValueKey);
+				tmplCheckbox.replaceAll("<!--input.commonDefaultValue-->", input.$commonDefaultValue);
+				inputStr.replace(regexInputContainerTmpl.regex, tmplCheckbox.getString());
+				break;
+			case "choice":
+				let tmplChoice: StringContainer = new StringContainer(regexInputChoiceTmpl.search(ngTemplate.getString())[2]);
+				tmplChoice.replace(regexInputChoiceOptionsTmpl.regex, this.renderChoiceOptions(input, tmplChoice).toString());
+				tmplChoice.replaceAll("<!--input.type-->", input.$type);
+				tmplChoice.replaceAll("<!--input.commonDefaultValue-->", input.$commonDefaultValue);
+				tmplChoice.replaceAll("<!--input.mapValueKey-->", input.$mapValueKey);
+				tmplChoice.replaceAll("<!--input.commonBlocked?=readonly-->", input.$commonBlocked ? "readonly" : "");
+				tmplChoice.replaceAll("<!--input.commonRequired?=required-->", input.$commonRequired ? "required" : "");
+				inputStr.replace(regexInputContainerTmpl.regex, tmplChoice.getString());
+				break;
+			default:
+				let tmplElse: StringContainer = new StringContainer(regexInputElseTmpl.search(ngTemplate.getString())[2]);
+				tmplElse.replaceAll("<!--input.type-->", input.$type);
+				tmplElse.replaceAll("<!--input.mapValueKey-->", input.$mapValueKey);
+				tmplElse.replaceAll("<!--input.boxPlaceholder-->", input.$boxPlaceholder);
+				tmplElse.replaceAll("<!--input.commonDefaultValue-->", input.$commonDefaultValue);
+				tmplElse.replaceAll("<!--input.commonBlocked?=readonly-->", input.$commonBlocked ? "readonly" : "");
+				tmplElse.replaceAll("<!--input.commonRequired?=required-->", input.$commonRequired ? "required" : "");
+				inputStr.replace(regexInputContainerTmpl.regex, tmplElse.getString());
+				break;
+		}
+		return inputStr;
+	}
+
+	private renderChoiceOptions(input: Input, choiceStr: StringContainer): StringContainer {
+		let optionsStr: StringContainer = new StringContainer();
+		let optionTmpl: StringContainer = new StringContainer(regexInputChoiceOptionsTmpl.search(choiceStr.getString())[2]);
+		input.$choiceOptions.forEach(option => {
+			optionsStr.concat(optionTmpl.replaceAll("<!--input.$choiceOptions.[]-->", option));
+		});
+		return optionsStr;
 	}
 
 }

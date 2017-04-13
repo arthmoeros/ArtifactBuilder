@@ -11,19 +11,34 @@ export class StringContainer{
 		}
 	}
 
-	public concat(str: string){
+	public concat(str: string|StringContainer){
+		if(str instanceof StringContainer){
+			str = str.getString();
+		}
 		this.containedString = this.containedString.concat(str);
 	}
 
-	public replace(find: any, replace: string){
+	public replace(find: any, replace: string|StringContainer): StringContainer{
+		if(replace instanceof StringContainer){
+			replace = replace.getString();
+		}
+		if(find instanceof StringContainer){
+			find = find.getString();
+		}
 		this.containedString = this.containedString.replace(find, replace);
+		return this;
 	}
 
-	public replaceAll(find: any, replace: string){
+	public replaceAll(find: string, replace: string): StringContainer{
 		this.containedString = replaceAll(find,replace,this.containedString);
+		return this;
 	}
 
-	public getString(){
+	public getString(): string{
+		return this.containedString;
+	}
+
+	public toString(): string{
 		return this.containedString;
 	}
 }
