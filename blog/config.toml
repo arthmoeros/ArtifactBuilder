@@ -1,0 +1,7 @@
+baseURL = "https://arthmoeros.github.io/ArtifactBuilder/"
+languageCode = "en-us"
+title = "ArtifactBuilder's dev blog"
+theme = "hugo_theme_aglaus"
+
+[Params]
+  Author = "Arturo Saavedra"

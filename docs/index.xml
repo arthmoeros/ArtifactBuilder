@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ArtifactBuilder&#39;s dev blog</title>
+    <link>https://arthmoeros.github.io/ArtifactBuilder/</link>
+    <description>Recent content on ArtifactBuilder&#39;s dev blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 13 Apr 2017 17:11:57 -0300</lastBuildDate>
+    
+	<atom:link href="https://arthmoeros.github.io/ArtifactBuilder/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Starting a devblog</title>
+      <link>https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/</link>
+      <pubDate>Thu, 13 Apr 2017 17:11:57 -0300</pubDate>
+      
+      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/</guid>
+      <description>Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.
+ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder.</description>
+    </item>
+    
+  </channel>
+</rss>
