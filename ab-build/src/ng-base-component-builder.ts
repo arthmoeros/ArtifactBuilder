@@ -36,6 +36,12 @@ const regexInputElseTmpl = new RegexContainer(/(:: ELSE ::)([\s\S]*)(:: \/ELSE :
 
 const formComponentGenReqTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/form-component-genreq.template.html").toString();
 
+const formComponentComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/form-component.component.ts").toString();
+const regexInputs = new RegexContainer(/(::INPUTS::)([\s\S]*)(::\/INPUTS::)/g);
+
+const formComponentGenReqComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/form-component-genreq.component.ts").toString();
+
+
 class NgBaseComponentBuilder {
 
 	private xmlContents: string = fs.readFileSync(abBuildWorkspaceFolder + "config/sample-arch-osb.xml").toString();
@@ -56,10 +62,13 @@ class NgBaseComponentBuilder {
 
 		shelljs.rm("-R", abGeneratedFolder);
 		shelljs.mkdir("-p", abGeneratedFolder + mainComponent.$name);
-		fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/main.component.html", mainComponent.$ngTemplate);
+		fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/main.component.html", pretty(mainComponent.$ngTemplate));
 		formComponents.forEach(formComponent => {
-			fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/" + formComponent.$name + ".component.html", pretty(formComponent.$ngTemplate));
+			let formComponentName: string = this.convertCamelCaseToDashed(formComponent.$name);
+			fs.writeFileSync(abGeneratedFolder + mainComponent.$name + "/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
 		});
+
+		formComponents = this.renderFormComponentsNgComponents(formsConfig, formComponents);
 	}
 
 	private validateXML(): any {
@@ -68,7 +77,7 @@ class NgBaseComponentBuilder {
 
 		let validationErrors = formsConfigSchema.validate(this.xmlContents);
 		if (validationErrors != null) {
-			console.log(validationErrors.toString());
+			console.error(validationErrors.toString());
 			return validationErrors;
 		}
 		return null;
@@ -232,7 +241,6 @@ class NgBaseComponentBuilder {
 				ngTemplate.replace(regexForGroupListTmpl.regex, this.renderInputGroups(form.$inputGroupList, ngTemplate));
 				ngTemplate.replaceAll("<!--form.formFunction-->", form.$formFunction);
 
-				console.log(ngTemplate.toString());
 				let formComponent: FormComponent = new FormComponent();
 				formComponent.$name = form.$formId;
 				formComponent.$ngTemplate = ngTemplate.toString();
@@ -307,6 +315,22 @@ class NgBaseComponentBuilder {
 			optionsStr.concat(optionTmpl.replaceAll("<!--input.$choiceOptions.[]-->", option));
 		});
 		return optionsStr;
+	}
+
+	private convertCamelCaseToDashed(str: string): string{
+		let result: StringContainer = new StringContainer();
+		for (var index = 0; index < str.length; index++) {
+			var char = str.charAt(index);
+			if(char == char.toUpperCase() && index > 0){
+				result.concat("-");
+			}
+			result.concat(char);
+		}
+		return result.toString().toLowerCase();
+	}
+
+	private renderFormComponentsNgComponents(formsConfig: FormsConfig, formComponents: FormComponent[]): FormComponent[]{
+
 	}
 
 }
