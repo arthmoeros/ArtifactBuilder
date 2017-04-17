@@ -11,33 +11,33 @@
 <link rel="apple-touch-icon" href="https://arthmoeros.github.io/ArtifactBuilder/images/logo.png">
 
 
-<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/">
+<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/">
 
 
     
     <link href="https://fonts.googleapis.com/css?family=Lobster|Lato:400,700" rel="stylesheet">
     
-    <title>Starting a devblog - ArtifactBuilder&#39;s dev blog</title>
+    <title>Roadblocks on Front-end - ArtifactBuilder&#39;s dev blog</title>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     
     
     
-<meta name="description" content="Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder.">
+<meta name="description" content="Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &amp;ldquo;Form&amp;rdquo; part of the application was rendered in runtime using a XML configuration file for each &amp;ldquo;Customer&amp;rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?">
 
-<meta property="og:title" content="Starting a devblog - ArtifactBuilder&#39;s dev blog">
+<meta property="og:title" content="Roadblocks on Front-end - ArtifactBuilder&#39;s dev blog">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/">
+<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/">
 <meta property="og:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 <meta property="og:site_name" content="ArtifactBuilder&#39;s dev blog">
-<meta property="og:description" content="Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder.">
+<meta property="og:description" content="Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &amp;ldquo;Form&amp;rdquo; part of the application was rendered in runtime using a XML configuration file for each &amp;ldquo;Customer&amp;rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/">
-<meta name="twitter:title" content="Starting a devblog - ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:description" content="Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder.">
+<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/">
+<meta name="twitter:title" content="Roadblocks on Front-end - ArtifactBuilder&#39;s dev blog">
+<meta name="twitter:description" content="Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &amp;ldquo;Form&amp;rdquo; part of the application was rendered in runtime using a XML configuration file for each &amp;ldquo;Customer&amp;rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?">
 <meta name="twitter:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 
 
@@ -49,15 +49,15 @@
       "@type": "WebPage",
       "@id":"https://arthmoeros.github.io/ArtifactBuilder/"
     },
-    "headline": "Starting a devblog - ArtifactBuilder&#39;s dev blog",
+    "headline": "Roadblocks on Front-end - ArtifactBuilder&#39;s dev blog",
     "image": {
       "@type": "ImageObject",
       "url": "https://arthmoeros.github.io/ArtifactBuilder/images/default.png",
       "height": 800,
       "width": 800
     },
-    "datePublished": "2017-04-13T17:11:57JST",
-    "dateModified": "2017-04-13T17:11:57JST",
+    "datePublished": "2017-04-17T11:50:17JST",
+    "dateModified": "2017-04-17T11:50:17JST",
     "author": {
       "@type": "Person",
       "name": "ArtifactBuilder&#39;s dev blog"
@@ -72,8 +72,8 @@
         "height": 60
       }
     },
-    "description": "Hi!, Arturo here, I&rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.
-ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &ldquo;Artifact Generation&rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder."
+    "description": "Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &ldquo;Form&rdquo; part of the application was rendered in runtime using a XML configuration file for each &ldquo;Customer&rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.
+So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?"
   }
 </script>
 
@@ -101,14 +101,14 @@ ArtifactBuilder started as a Java Servlet application I made by myself to save t
     <main>
       
 <div class="l-container">
-  <article class="single article-ff49ee590acddb358de335d49647be79">
+  <article class="single article-58e5a86d4a2440bcebea42831b3218ad">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/" class="thumbnail" title="Starting a devblog"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/" class="thumbnail" title="Roadblocks on Front-end"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h1 class="title">Starting a devblog</h1>
+        <h1 class="title">Roadblocks on Front-end</h1>
         <ul class="p-facts">
-          <li><time datetime="2017-04-13T17:11:57JST">Apr 13, 2017</time></li>
+          <li><time datetime="2017-04-17T11:50:17JST">Apr 17, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>
@@ -117,28 +117,29 @@ ArtifactBuilder started as a Java Servlet application I made by myself to save t
   </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&title=Starting%20a%20devblog" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&t=Starting%20a%20devblog" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&text=Starting%20a%20devblog&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Starting%20a%20devblog https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&title=Roadblocks%20on%20Front-end" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&t=Roadblocks%20on%20Front-end" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&text=Roadblocks%20on%20Front-end&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?Roadblocks%20on%20Front-end https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
-  <div class="article-body"><p>Hi!, Arturo here, I&rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is <em>ArtifactBuilder</em>.</p>
+  <div class="article-body"><p>Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &ldquo;Form&rdquo; part of the application was rendered in runtime using a XML configuration file for each &ldquo;Customer&rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.</p>
 
-<p>ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing.
-This application uses three key components to create an &ldquo;Artifact Generation&rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one <em>ArtifactBuilder</em>.</p>
+<p>So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?, it was a challenge, because the JSP version was plain old HTML with a bit of JS and CSS, here I wanted it to be a full fledged Angular Front-end,</p>
 
-<p>This <em>ArtifactBuilder</em> that I&rsquo;m developing now it is written in TypeScript, using Angular for the front-end, and node.js as back-end (I&rsquo;m planning to use MongoDB and even throw Apache Kafka into the mix), you may think that using these may be overkill for a simple file generating application, but the motivation to do this rewrite, it is because I&rsquo;m falling behind in regards to the growing frameworks being used today, so this is a means to &ldquo;update&rdquo; myself.</p>
+<p>I searched thoroughly with an answer to my predicament, but I found nothing, there was no example of an Angular &ldquo;meta&rdquo;-template, I needed to dynamically render Angular templates and components, but there was no way, besides Reflection looked to troublesome for what I wanted to achieve.</p>
+
+<p>So my solution for this situation, was to make a pre-build on compilation time, using a TypeScript &ldquo;script&rdquo; (heh), which makes use of an upgraded XML configuration to build all Forms before compiling TS into JS. This script would take all XML configs and render their respective Angular Templates and Components, it was a very interesting experience, I could get a better grasp at how TypeScript works.</p>
 </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&title=Starting%20a%20devblog" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&t=Starting%20a%20devblog" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f&text=Starting%20a%20devblog&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Starting%20a%20devblog https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2fstarting-a-devblog%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&title=Roadblocks%20on%20Front-end" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&t=Roadblocks%20on%20Front-end" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f&text=Roadblocks%20on%20Front-end&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?Roadblocks%20on%20Front-end https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2froadblocks-on-frontend%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
@@ -149,7 +150,7 @@ This application uses three key components to create an &ldquo;Artifact Generati
         
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/" itemprop="url"><span itemprop="title">post</span></a></li>
         
-        <li>Starting a devblog</li>
+        <li>Roadblocks on Front-end</li>
       </ol>
 
       
@@ -169,14 +170,14 @@ This application uses three key components to create an &ldquo;Artifact Generati
   <section>
     <header><span>Latests</span></header>
     <ul class="p-articles thin">
-      <li><article class="li sm article-58e5a86d4a2440bcebea42831b3218ad">
+      <li><article class="li sm article-ff49ee590acddb358de335d49647be79">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/" class="thumbnail" title="Roadblocks on Front-end"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/" class="thumbnail" title="Starting a devblog"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/">Roadblocks on Front-end</a></h2>
+        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/">Starting a devblog</a></h2>
         <ul class="p-facts">
-          <li><time datetime="2017-04-17T11:50:17JST">Apr 17, 2017</time></li>
+          <li><time datetime="2017-04-13T17:11:57JST">Apr 13, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>

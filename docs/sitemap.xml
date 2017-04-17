@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/</loc>
+    <lastmod>2017-04-17T11:50:17-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/</loc>
     <lastmod>2017-04-13T17:11:57-03:00</lastmod>
   </url>
   
   <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/</loc>
-    <lastmod>2017-04-13T17:11:57-03:00</lastmod>
+    <lastmod>2017-04-17T11:50:17-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -19,7 +24,7 @@
   
   <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/post/</loc>
-    <lastmod>2017-04-13T17:11:57-03:00</lastmod>
+    <lastmod>2017-04-17T11:50:17-03:00</lastmod>
     <priority>0</priority>
   </url>
   
