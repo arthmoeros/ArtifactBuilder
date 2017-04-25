@@ -6,10 +6,19 @@
     <description>Recent content in Posts on ArtifactBuilder&#39;s dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 17 Apr 2017 11:50:17 -0300</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2017 16:36:48 -0300</lastBuildDate>
     
 	<atom:link href="https://arthmoeros.github.io/ArtifactBuilder/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Front-End generation done</title>
+      <link>https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/</link>
+      <pubDate>Tue, 25 Apr 2017 16:36:48 -0300</pubDate>
+      
+      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/</guid>
+      <description>Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&amp;rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&amp;rsquo;s nothing of the sort (Well, I did find an &amp;ldquo;C#&amp;rdquo; like API for TS, but at least it didn&amp;rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&amp;rsquo;t meet my requirements).</description>
+    </item>
     
     <item>
       <title>Roadblocks on Front-end</title>
