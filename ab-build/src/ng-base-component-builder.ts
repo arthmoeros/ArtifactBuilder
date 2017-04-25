@@ -13,6 +13,7 @@ import { FormsConfig } from "./forms-config.entity";
 import { XpathProcessorUtil, ELEMENT_NODE } from "./xpath-processor.util";
 import { StringContainer } from "./string-container";
 import { RegexContainer } from "./regex-container";
+import { GenerationForm } from "./generation-form.entity";
 
 const appSrcFolder: string = "./src/app";
 const abGeneratedFolder: string = appSrcFolder + "/abgenerated/";
@@ -20,6 +21,8 @@ const abGeneratorsFolder: string = appSrcFolder + "/abgenerators/";
 
 const formsConfigFolder: string = appSrcFolder + "/forms-config";
 const abBuildWorkspaceFolder: string = "./ab-build/";
+const abXmlConfigFolder: string = abBuildWorkspaceFolder + "config/abxml";
+const abGeneratorsConfigFolder: string = abBuildWorkspaceFolder + "config/abgenerators";
 
 const mainComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-files/main-component.template.html").toString();
 const regexFormListRadioTmpl = new RegexContainer(/(:: FORM_LIST_RADIO_TMPL ::)([\s\S]*)(:: \/FORM_LIST_RADIO_TMPL ::)/g);
@@ -56,14 +59,45 @@ const regexMainNgComponentsLinks = new RegexContainer(/(::MAIN_NG_COMPONENTS_LIN
 
 class NgBaseComponentBuilder {
 
-	private xmlContents: string = fs.readFileSync(abBuildWorkspaceFolder + "config/sample-arch-osb.xml").toString();
+	private xmlContents: string;
 	private xpath: XpathProcessorUtil;
+	private genReqFileFormGenerated: boolean = false;
+	private genReqFileFormImported: boolean = false;
+	private genReqFileFormDeclared: boolean = false;
 
 	constructor() {
-		this.xpath = new XpathProcessorUtil(this.xmlContents);
 	}
 
 	public main() {
+		shelljs.rm("-R", abGeneratedFolder);
+		shelljs.rm("-R", abGeneratorsFolder);
+		shelljs.mkdir("-p", abGeneratorsFolder);
+		shelljs.cp("-R", abBuildWorkspaceFolder + "config/abgenerators", appSrcFolder);
+		let formConfigFileNames: string[] = shelljs.ls(abXmlConfigFolder);
+		let generationForms: GenerationForm[] = new Array<GenerationForm>();
+		formConfigFileNames.forEach(formConfigFileName => {
+			if (formConfigFileName.indexOf(".xml") != -1) {
+				this.xmlContents = fs.readFileSync(abXmlConfigFolder + "/" + formConfigFileName).toString();
+				this.xpath = new XpathProcessorUtil(this.xmlContents);
+				generationForms.push(this.processConfiguration());
+			}
+		});
+
+
+		let appRoutingModule: string = this.renderAppRoutingModule(generationForms);
+		let appComponent: string = this.renderAppComponent(generationForms);
+		let appModule: string = this.renderAppModule(generationForms);
+
+		fs.writeFileSync(appSrcFolder + "/app-routing.module.ts", appRoutingModule);
+		fs.writeFileSync(appSrcFolder + "/app.component.ts", appComponent);
+		fs.writeFileSync(appSrcFolder + "/app.module.ts", appModule);
+
+		let generatorIndexComponent: string = this.renderGeneratorIndexComponent(generationForms);
+
+		fs.writeFileSync(abGeneratedFolder + "/generator-index.component.ts", generatorIndexComponent);
+	}
+
+	public processConfiguration(): GenerationForm {
 		if (this.validateXML() != null) {
 			return;
 		}
@@ -73,54 +107,63 @@ class NgBaseComponentBuilder {
 		let formComponents: FormComponent[] = this.renderFormComponents(formsConfig);
 
 		let mainComponentName: string = this.convertCamelCaseToDashed(mainComponent.$name);
-		shelljs.rm("-R", abGeneratedFolder);
-		shelljs.rm("-R", abGeneratorsFolder);
 		shelljs.mkdir("-p", abGeneratedFolder + mainComponentName);
-		shelljs.mkdir("-p", abGeneratorsFolder);
-		shelljs.cp("-R", abBuildWorkspaceFolder + "config/abgenerators", appSrcFolder);
+
 		fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + mainComponentName + "-main.component.html", pretty(mainComponent.$ngTemplate));
 		fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + mainComponentName + "-main.component.ts", mainComponent.$ngComponent);
 		formComponents.forEach(formComponent => {
-			let formComponentName: string = this.convertCamelCaseToDashed(formComponent.$name);
-			fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
-			fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.ts", formComponent.$ngComponent);
+			if(formComponent.$isGenReqFileForm){
+				if(!this.genReqFileFormGenerated){
+					let formComponentName: string = this.convertCamelCaseToDashed(formComponent.$name);
+					shelljs.mkdir(abGeneratedFolder + "common-gen/");
+					fs.writeFileSync(abGeneratedFolder + "common-gen/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
+					fs.writeFileSync(abGeneratedFolder + "common-gen/" + formComponentName + ".component.ts", formComponent.$ngComponent);
+					this.genReqFileFormGenerated = true;
+				}
+			}else{
+				let formComponentName: string = this.convertCamelCaseToDashed(formComponent.$name);
+				fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
+				fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.ts", formComponent.$ngComponent);
+			}
 		});
 
-		let appRoutingModule: string = this.renderAppRoutingModule(mainComponent, formComponents);
-		let appComponent: string = this.renderAppComponent(mainComponent, formComponents);
-		let appModule: string = this.renderAppModule(mainComponent, formComponents);
+		let generationForm: GenerationForm = new GenerationForm();
+		generationForm.$mainForm = mainComponent;
+		generationForm.$forms = formComponents;
 
-		fs.writeFileSync(appSrcFolder + "/app-routing.module.ts", appRoutingModule);
-		fs.writeFileSync(appSrcFolder + "/app.component.ts", appComponent);
-		fs.writeFileSync(appSrcFolder + "/app.module.ts", appModule);
-
-		let generatorIndexComponent: string = this.renderGeneratorIndexComponent(mainComponent);
-
-		fs.writeFileSync(abGeneratedFolder + "/generator-index.component.ts", generatorIndexComponent);
+		return generationForm;
 	}
 
-	private renderGeneratorIndexComponent(mainComponent: FormComponent): string {
+	private renderGeneratorIndexComponent(generationForms: GenerationForm[]): string {
 		let result: StringContainer = new StringContainer(tmplGeneratorIndexComponent);
-		result.replace(regexMainNgComponentsLinks.regex, this.renderMainNgComponentsLinks(mainComponent));
+		result.replace(regexMainNgComponentsLinks.regex, this.renderMainNgComponentsLinks(generationForms));
 		return result.toString();
 	}
 
-	private renderMainNgComponentsLinks(mainComponent: FormComponent): string {
+	private renderMainNgComponentsLinks(generationForms: GenerationForm[]): string {
 		let tmpl: string = regexMainNgComponentsLinks.search(tmplGeneratorIndexComponent)[2];
 		let result: StringContainer = new StringContainer();
+		generationForms.forEach(generationForm => {
+			let current: StringContainer = new StringContainer(tmpl);
+			current.replace("<!--component.path-->", this.convertCamelCaseToDashed(generationForm.$mainForm.$name));
+			current.replace("<!--component.name-->", generationForm.$mainForm.$name);
 
-		let current: StringContainer = new StringContainer(tmpl);
-		current.replace("<!--component.path-->", this.convertCamelCaseToDashed(mainComponent.$name));
-		current.replace("<!--component.name-->", mainComponent.$name);
-
-		result.concat(current);
+			result.concat(current);
+		});
 		return result.toString();
 	}
 
-	private renderAppRoutingModule(mainComponent: FormComponent, formComponents: FormComponent[]): string {
+	private renderAppRoutingModule(generationForms: GenerationForm[]): string {
 		let result: StringContainer = new StringContainer(tmplAppRoutingModule);
-		result.replace(regexMainNgComponentsRoutes.regex, this.renderMainNgComponentsRoutes(mainComponent, formComponents));
-		result.replace(regexNgComponentsImports.regex, this.renderNgComponentsImports(mainComponent, formComponents, tmplAppRoutingModule));
+		let mainNgComponentsRoutes: StringContainer = new StringContainer();
+		let ngComponentsImports: StringContainer = new StringContainer();
+		this.genReqFileFormImported = false;
+		generationForms.forEach(generationForm => {
+			mainNgComponentsRoutes.concat(this.renderMainNgComponentsRoutes(generationForm.$mainForm, generationForm.$forms));
+			ngComponentsImports.concat(this.renderNgComponentsImports(generationForm.$mainForm, generationForm.$forms, tmplAppRoutingModule));
+		});
+		result.replace(regexMainNgComponentsRoutes.regex, mainNgComponentsRoutes);
+		result.replace(regexNgComponentsImports.regex, ngComponentsImports);
 		return result.toString();
 	}
 
@@ -155,9 +198,17 @@ class NgBaseComponentBuilder {
 		result.concat(current);
 
 		formComponents.forEach(formComponent => {
+			if(formComponent.$isGenReqFileForm && this.genReqFileFormImported){
+				return;
+			}
 			let current: StringContainer = new StringContainer(tmpl);
 			current.replace("<!--component.className-->", this.convertToClassName(formComponent.$name));
-			current.replace("<!--folder.name-->", this.convertCamelCaseToDashed(mainComponent.$name));
+			if(formComponent.$isGenReqFileForm){
+				current.replace("<!--folder.name-->", "common-gen");
+				this.genReqFileFormImported = true;
+			}else{
+				current.replace("<!--folder.name-->", this.convertCamelCaseToDashed(mainComponent.$name));
+			}
 			current.replace("<!--component.name-->", this.convertCamelCaseToDashed(formComponent.$name));
 			result.concat(current);
 		});
@@ -165,14 +216,22 @@ class NgBaseComponentBuilder {
 		return result.toString();
 	}
 
-	private renderAppComponent(mainComponent: FormComponent, formComponents: FormComponent[]): string {
+	private renderAppComponent(generationForms: GenerationForm[]): string {
 		return tmplAppComponent;
 	}
 
-	private renderAppModule(mainComponent: FormComponent, formComponents: FormComponent[]): string {
+	private renderAppModule(generationForms: GenerationForm[]): string {
 		let result: StringContainer = new StringContainer(tmplAppModule);
-		result.replace(regexNgComponentsDeclaration.regex, this.renderNgComponentsDeclaration(mainComponent, formComponents));
-		result.replace(regexNgComponentsImports.regex, this.renderNgComponentsImports(mainComponent, formComponents, tmplAppModule));
+		let ngComponentsDeclaration: StringContainer = new StringContainer();
+		let ngComponentsImports: StringContainer = new StringContainer();
+		this.genReqFileFormImported = false;
+		this.genReqFileFormDeclared = false;
+		generationForms.forEach(generationForm => {
+			ngComponentsDeclaration.concat(this.renderNgComponentsDeclaration(generationForm.$mainForm, generationForm.$forms));
+			ngComponentsImports.concat(this.renderNgComponentsImports(generationForm.$mainForm, generationForm.$forms, tmplAppModule));
+		});
+		result.replace(regexNgComponentsDeclaration.regex, ngComponentsDeclaration);
+		result.replace(regexNgComponentsImports.regex, ngComponentsImports);
 		return result.toString();
 	}
 
@@ -185,6 +244,12 @@ class NgBaseComponentBuilder {
 		result.concat(current);
 
 		formComponents.forEach(formComponent => {
+			if(formComponent.$isGenReqFileForm){
+				if(this.genReqFileFormDeclared){
+					return;
+				}
+				this.genReqFileFormDeclared = true;
+			}
 			let current: StringContainer = new StringContainer(tmpl);
 			current.replace("<!--component.className-->", this.convertToClassName(formComponent.$name));
 			result.concat(current);
@@ -371,6 +436,7 @@ class NgBaseComponentBuilder {
 			formComponent.$name = form.$formId;
 			formComponent.$ngTemplate = this.renderNgTemplate(form);
 			formComponent.$ngComponent = this.renderNgComponent(form, formsConfig.$metadata);
+			formComponent.$isGenReqFileForm = form.$isGenerationRequestFileForm;
 			formComponentList.push(formComponent);
 		});
 		return formComponentList;
@@ -428,11 +494,11 @@ class NgBaseComponentBuilder {
 					let currentStr: StringContainer = new StringContainer(inputsTmpl);
 					currentStr.replace("<!--input.mapValueKey-->", input.$mapValueKey)
 					let value: string = input.$commonDefaultValue;
-					if(input.$type == "checkbox"){
+					if (input.$type == "checkbox") {
 						value = value == "1" || value == "true" ? "true" : "false";
 					}
 					currentStr.replace("<!--input.commonDefaultValue-->", value);
-					
+
 					inputsStr.concat(currentStr);
 				}
 			});

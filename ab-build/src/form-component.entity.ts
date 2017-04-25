@@ -2,7 +2,7 @@ export class FormComponent{
 	private name: string;
 	private ngTemplate: string;
 	private ngComponent: string;
-
+	private isGenReqFileForm: boolean;
 
 	public get $name(): string {
 		return this.name;
@@ -26,6 +26,14 @@ export class FormComponent{
 
 	public set $ngComponent(value: string) {
 		this.ngComponent = value;
+	}
+
+	public get $isGenReqFileForm(): boolean {
+		return this.isGenReqFileForm;
+	}
+
+	public set $isGenReqFileForm(value: boolean) {
+		this.isGenReqFileForm = value;
 	}
 	
 }

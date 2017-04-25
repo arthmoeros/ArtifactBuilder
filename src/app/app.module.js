@@ -11,9 +11,11 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var generator_index_component_1 = require("./abgenerated/generator-index.component");
+var sample_xml_arch_osb_alt_main_component_1 = require("./abgenerated/sample-xml-arch-osb-alt/sample-xml-arch-osb-alt-main.component");
+var sample_form_one_alt_component_1 = require("./abgenerated/sample-xml-arch-osb-alt/sample-form-one-alt.component");
+var gen_req_file_form_component_1 = require("./abgenerated/common-gen/gen-req-file-form.component");
 var sample_xml_arch_osb_main_component_1 = require("./abgenerated/sample-xml-arch-osb/sample-xml-arch-osb-main.component");
 var sample_form_one_component_1 = require("./abgenerated/sample-xml-arch-osb/sample-form-one.component");
-var gen_req_file_form_component_1 = require("./abgenerated/sample-xml-arch-osb/gen-req-file-form.component");
 var app_routing_module_1 = require("./app-routing.module");
 var AppModule = (function () {
     function AppModule() {
@@ -31,9 +33,11 @@ AppModule = __decorate([
         declarations: [
             app_component_1.AppComponent,
             generator_index_component_1.GeneratorIndexComponent,
+            sample_xml_arch_osb_alt_main_component_1.SampleXMLArchOSBAltStub,
+            sample_form_one_alt_component_1.SampleFormOneAltStub,
+            gen_req_file_form_component_1.GenReqFileFormStub,
             sample_xml_arch_osb_main_component_1.SampleXMLArchOSBStub,
             sample_form_one_component_1.SampleFormOneStub,
-            gen_req_file_form_component_1.GenReqFileFormStub,
         ],
         bootstrap: [app_component_1.AppComponent],
         providers: []
