@@ -17,6 +17,18 @@ export class StringContainer{
 		}
 		this.containedString = this.containedString.concat(str);
 	}
+	
+	public insert(str: string|StringContainer, index: number) {
+		if(str instanceof StringContainer){
+			str = str.getString();
+		}
+    	if(index > 0){
+			this.containedString = this.containedString.replace(new RegExp('.{' + index + '}'), '$&' + str);
+		}else{
+			this.containedString = str.concat(this.containedString);
+		}
+			
+	}
 
 	public replace(find: any, replace: string|StringContainer): StringContainer{
 		if(replace instanceof StringContainer){

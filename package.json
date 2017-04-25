@@ -1,15 +1,16 @@
 {
-  "name": "angular-quickstart",
+  "name": "artifact-builder-frontend",
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
+    "ab-build": "ts-node .\\ab-build\\src\\ng-base-component-builder.ts",
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "build:e2e": "tsc -p e2e/",
     "serve": "lite-server -c=bs-config.json",
     "serve:e2e": "lite-server -c=bs-config.e2e.json",
     "prestart": "npm run build",
-    "start": "concurrently \"npm run build:watch\" \"npm run serve\"",
+    "start": "concurrently \"npm run ab-build && npm run build:watch\" \"npm run serve\"",
     "pree2e": "npm run build:e2e",
     "e2e": "concurrently \"npm run serve:e2e\" \"npm run protractor\" --kill-others --success first",
     "preprotractor": "webdriver-manager update",
@@ -39,7 +40,12 @@
     "rxjs": "5.0.1",
     "shelljs": "^0.7.7",
     "systemjs": "0.19.40",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+    "libxml-xsd": "^0.5.2",
+    "libxmljs": "^0.18.4",
+    "xmldom": "^0.1.27",
+    "replaceall": "^0.1.6",
+    "xpath": "0.0.24"
   },
   "devDependencies": {
     "@types/jasmine": "2.5.36",
@@ -52,17 +58,12 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "libxml-xsd": "^0.5.2",
-    "libxmljs": "^0.18.4",
     "lite-server": "^2.2.2",
     "lodash": "^4.16.4",
     "protractor": "~4.0.14",
-    "replaceall": "^0.1.6",
     "rimraf": "^2.5.4",
     "tslint": "^3.15.1",
-    "typescript": "~2.1.0",
-    "xmldom": "^0.1.27",
-    "xpath": "0.0.24"
+    "typescript": "~2.1.0"
   },
   "repository": {}
 }

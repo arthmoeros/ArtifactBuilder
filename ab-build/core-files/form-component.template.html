@@ -17,20 +17,18 @@
             <td>
 				<input 
 					type="<!--input.type-->" 
-					[(ngModel)]="<!--input.mapValueKey-->" 
+					[(ngModel)]="map.<!--input.mapValueKey-->" 
 					id="<!--input.mapValueKey-->" 
-					name="<!--input.mapValueKey-->"
-					value="<!--input.commonDefaultValue-->" 
+					name="map.<!--input.mapValueKey-->"
 				/>
             </td>
             :: /CHECKBOX ::
             :: CHOICE ::
             <td>
         		<select 
-					[(ngModel)]="<!--input.mapValueKey-->" 
+					[(ngModel)]="map.<!--input.mapValueKey-->" 
 					id="<!--input.mapValueKey-->" 
-					name="<!--input.mapValueKey-->" 
-					value="<!--input.commonDefaultValue-->"
+					name="map.<!--input.mapValueKey-->" 
                 	<!--input.commonBlocked?=readonly-->
 					<!--input.commonRequired?=required--> >
 					:: CHOICE_OPTIONS ::
@@ -44,10 +42,9 @@
             :: ELSE ::
             <td>
 				<input type="<!--input.type-->" 
-					[(ngModel)]="<!--input.mapValueKey-->"
+					[(ngModel)]="map.<!--input.mapValueKey-->"
 					id="<!--input.mapValueKey-->" 
-					name="<!--input.mapValueKey-->"
-                	value="<!--input.commonDefaultValue-->" 
+					name="map.<!--input.mapValueKey-->"
 					placeholder="<!--input.boxPlaceholder-->"
 					<!--input.commonBlocked?=readonly-->
 					<!--input.commonRequired?=required-->
@@ -62,6 +59,6 @@
         :: /FOR_GROUP_INPUT_LIST ::
       :: /FOR_GROUP_LIST ::
     </table>
-    <input type="submit" value="Generar" />
+    <button type="submit" [disabled]="!generationForm.form.valid">Generate</button>
   </form>
 </div>

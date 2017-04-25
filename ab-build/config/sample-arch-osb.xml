@@ -16,7 +16,7 @@
 -->
 <abFormsConfig>
     <metadata>
-        <generatorKey>SampleArchOSB</generatorKey>
+        <generatorKey>SampleXMLArchOSB</generatorKey>
         <generatorComponent>sample-arch-osb-gen.component</generatorComponent>
         <title>OSB Services Generation Sample</title>
         <description>This sample configuration helps as a basis for understanding ArtifactBuilder's XML parsing to Angular Templates</description>

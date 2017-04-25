@@ -5,13 +5,9 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component'
 import { GeneratorIndexComponent } from './abgenerated/generator-index.component';
-
-import { SampleXMLArchOSBStub } from './abgenerated/sample-xml-arch-osb/sample-xml-arch-osb-main.component';
-
-import { SampleFormOneStub } from './abgenerated/sample-xml-arch-osb/sample-form-one.component';
-
-import { GenReqFileFormStub } from './abgenerated/sample-xml-arch-osb/gen-req-file-form.component';
-
+::NGCOMPONENTS_IMPORTS::
+import { <!--component.className-->Stub } from './abgenerated/<!--folder.name-->/<!--component.name-->.component';
+::/NGCOMPONENTS_IMPORTS::
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,13 +21,9 @@ import { AppRoutingModule } from './app-routing.module';
   declarations: [
     AppComponent,
     GeneratorIndexComponent,
-    
-    SampleXMLArchOSBStub,
-    
-    SampleFormOneStub,
-    
-    GenReqFileFormStub,
-    
+    ::NGCOMPONENTS_DECLARATION::
+    <!--component.className-->Stub,
+    ::/NGCOMPONENTS_DECLARATION::
   ],
   bootstrap: [AppComponent],
   providers: [

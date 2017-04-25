@@ -1,20 +1,29 @@
-import generator = require('../abgenerators/<!--meta.generatorComponent-->');
+import generator from './../../abgenerators/<!--meta.generatorComponent-->';
 import { Component } from '@angular/core';
 
 @Component({
 	selector: '<!--(cC2dashed)form.formId-->',
-	templateUrl: './<!--(cC2dashed)form.formId-->.component.html'
+	templateUrl: './<!--(cC2dashed)form.formId-->.component.html',
+	styleUrls: ['/app.component.css']
 })
-export class <!--form.formId-->Stub {
+export class <!--form.className-->Stub {
 
 	private map: {
 		::INPUTS::
-		<!--input.mapValueKey-->: string,
+		<!--input.mapValueKey-->?: string,
 		::/INPUTS::
 	};
+	
+	constructor (){
+		this.map = {
+			::DEFAULT_VALUES::
+			<!--input.mapValueKey-->: "<!--input.commonDefaultValue-->",
+			::/DEFAULT_VALUES::
+		};
+	}
 
-	public <!--input.formId-->Submit(): {
-		generator.<!--form.formFunction-->(map);
+	public <!--form.formFunction-->() {
+		generator.<!--form.formFunction-->(this.map);
 	};
 
 

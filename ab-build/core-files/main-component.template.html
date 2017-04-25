@@ -10,12 +10,7 @@
     <tr>
       :: FORM_LIST_RADIO_TMPL ::
       <td>
-        <input 
-			id="<!--FORM_ID-->ID" 
-			name="selectedGeneratorForm" 
-			type="radio" 
-			value="<!--FORM_ID-->" 
-			onchange="checkOption('<!--FORM_ID-->')"
+        <input id="<!--FORM_ID-->ID" name="selectedGeneratorForm" type="radio" value="<!--FORM_ID-->" [routerLink]="['<!--formLink-->']"
         />
         <label for="<!--FORM_ID-->ID">
 			<!--FORM_TITLE-->
@@ -24,5 +19,7 @@
       :: /FORM_LIST_RADIO_TMPL ::
     </tr>
   </table>
-  <!--#FORM_DISPLAY#-->
+  <div style="border: 2px solid red; padding: 1rem;">
+    <router-outlet></router-outlet>
+  </div>
 </div>

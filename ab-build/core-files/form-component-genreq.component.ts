@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
 })
 export class GenReqFileFormStub {
 
-	private file;
+	private file: any;
 
-	public genReqFileFormSubmit(): {
+	public genReqFileFormSubmit() {
 		//generator.genReqFileForm(file);
 	};
 
