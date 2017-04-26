@@ -11,33 +11,33 @@
 <link rel="apple-touch-icon" href="https://arthmoeros.github.io/ArtifactBuilder/images/logo.png">
 
 
-<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/">
+<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
 
 
     
     <link href="https://fonts.googleapis.com/css?family=Lobster|Lato:400,700" rel="stylesheet">
     
-    <title>Front-End generation done - ArtifactBuilder&#39;s dev blog</title>
+    <title>Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog</title>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     
     
     
-<meta name="description" content="Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&amp;rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&amp;rsquo;s nothing of the sort (Well, I did find an &amp;ldquo;C#&amp;rdquo; like API for TS, but at least it didn&amp;rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&amp;rsquo;t meet my requirements).">
+<meta name="description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways. In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
 
-<meta property="og:title" content="Front-End generation done - ArtifactBuilder&#39;s dev blog">
+<meta property="og:title" content="Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/">
+<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
 <meta property="og:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 <meta property="og:site_name" content="ArtifactBuilder&#39;s dev blog">
-<meta property="og:description" content="Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&amp;rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&amp;rsquo;s nothing of the sort (Well, I did find an &amp;ldquo;C#&amp;rdquo; like API for TS, but at least it didn&amp;rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&amp;rsquo;t meet my requirements).">
+<meta property="og:description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways. In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/">
-<meta name="twitter:title" content="Front-End generation done - ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:description" content="Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&amp;rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&amp;rsquo;s nothing of the sort (Well, I did find an &amp;ldquo;C#&amp;rdquo; like API for TS, but at least it didn&amp;rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&amp;rsquo;t meet my requirements).">
+<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
+<meta name="twitter:title" content="Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog">
+<meta name="twitter:description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways. In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
 <meta name="twitter:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 
 
@@ -49,15 +49,15 @@
       "@type": "WebPage",
       "@id":"https://arthmoeros.github.io/ArtifactBuilder/"
     },
-    "headline": "Front-End generation done - ArtifactBuilder&#39;s dev blog",
+    "headline": "Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog",
     "image": {
       "@type": "ImageObject",
       "url": "https://arthmoeros.github.io/ArtifactBuilder/images/default.png",
       "height": 800,
       "width": 800
     },
-    "datePublished": "2017-04-25T16:36:48JST",
-    "dateModified": "2017-04-25T16:36:48JST",
+    "datePublished": "2017-04-26T18:22:34JST",
+    "dateModified": "2017-04-26T18:22:34JST",
     "author": {
       "@type": "Person",
       "name": "ArtifactBuilder&#39;s dev blog"
@@ -72,7 +72,7 @@
         "height": 60
       }
     },
-    "description": "Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&rsquo;s nothing of the sort (Well, I did find an &ldquo;C#&rdquo; like API for TS, but at least it didn&rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&rsquo;t meet my requirements)."
+    "description": "Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways. In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; for the Artifact Builder&rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax."
   }
 </script>
 
@@ -100,14 +100,14 @@
     <main>
       
 <div class="l-container">
-  <article class="single article-baf24712914c9c35f579e199ef8d2e10">
+  <article class="single article-d2f5d1fec3efe736bb2b710a18637b89">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/" class="thumbnail" title="Front-End generation done"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/" class="thumbnail" title="Tidy and clean refactoring"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h1 class="title">Front-End generation done</h1>
+        <h1 class="title">Tidy and clean refactoring</h1>
         <ul class="p-facts">
-          <li><time datetime="2017-04-25T16:36:48JST">Apr 25, 2017</time></li>
+          <li><time datetime="2017-04-26T18:22:34JST">Apr 26, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>
@@ -116,23 +116,25 @@
   </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&title=Front-End%20generation%20done" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&t=Front-End%20generation%20done" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&text=Front-End%20generation%20done&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Front-End%20generation%20done https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&title=Tidy%20and%20clean%20refactoring" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&t=Tidy%20and%20clean%20refactoring" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&text=Tidy%20and%20clean%20refactoring&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?Tidy%20and%20clean%20refactoring https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
-  <div class="article-body"><p>Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&rsquo;s nothing of the sort (Well, I did find an &ldquo;C#&rdquo; like API for TS, but at least it didn&rsquo;t work quite well for me), so I had to manage with a <strong>String Container</strong>, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&rsquo;t meet my requirements). Internally just manages a &ldquo;contained string&rdquo;, the Container only serves as a &ldquo;reference&rdquo; purpose, to keep my code a bit cleaner. Speaking of that, I&rsquo;ve got lots of refactoring to do, it is quite a mess learning a &ldquo;new&rdquo; syntax and structure, the main script goes over 500 lines and a lot of methods, I think there could be at least 3 coupled classes inside, so it&rsquo;s decoupling time.</p>
+  <div class="article-body"><p>Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.
+In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; for the Artifact Builder&rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.
+I wanted some coloring on these templates, which I named with the &ldquo;abtmpl&rdquo; extension, so I did some research on how to implement custom syntax coloring for a file extension on Visual Studio Code and managed to pull it off. I came with a lot of regex which will prove useful when I implement the parser and processor, but for the time being, the &ldquo;vscode extension&rdquo; is available on the same repo, it recognizes &ldquo;abtmpl&rdquo; files and it colourizes strings, &ldquo;Sub-template sections&rdquo; and &ldquo;Mapped Expressions&rdquo;. It looks very nice.</p>
 </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&title=Front-End%20generation%20done" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&t=Front-End%20generation%20done" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f&text=Front-End%20generation%20done&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Front-End%20generation%20done https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ffrontend-generation-done%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&title=Tidy%20and%20clean%20refactoring" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&t=Tidy%20and%20clean%20refactoring" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&text=Tidy%20and%20clean%20refactoring&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?Tidy%20and%20clean%20refactoring https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
@@ -143,7 +145,7 @@
         
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/" itemprop="url"><span itemprop="title">post</span></a></li>
         
-        <li>Front-End generation done</li>
+        <li>Tidy and clean refactoring</li>
       </ol>
 
       
@@ -163,14 +165,14 @@
   <section>
     <header><span>Latests</span></header>
     <ul class="p-articles thin">
-      <li><article class="li sm article-d2f5d1fec3efe736bb2b710a18637b89">
+      <li><article class="li sm article-baf24712914c9c35f579e199ef8d2e10">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/" class="thumbnail" title="Tidy and clean refactoring"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/" class="thumbnail" title="Front-End generation done"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">Tidy and clean refactoring</a></h2>
+        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/">Front-End generation done</a></h2>
         <ul class="p-facts">
-          <li><time datetime="2017-04-26T18:22:34JST">Apr 26, 2017</time></li>
+          <li><time datetime="2017-04-25T16:36:48JST">Apr 25, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>
