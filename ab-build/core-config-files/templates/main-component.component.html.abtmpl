@@ -1,0 +1,25 @@
+<div>
+  <h1>
+    &{TITLE}
+  </h1>
+  <h5>
+    &{DESCRIPTION}
+  </h5>
+  <h3>Select a generation form</h3>
+  <table>
+    <tr>
+      ::FORM_LIST_RADIO_TMPL::
+      <td>
+        <input id="&{FORM_ID}ID" name="selectedGeneratorForm" type="radio" value="&{FORM_ID}" [routerLink]="['&{formLink}']"
+        />
+        <label for="&{FORM_ID}ID">
+			&{FORM_TITLE}
+		</label>
+      </td>
+      ::/FORM_LIST_RADIO_TMPL::
+    </tr>
+  </table>
+  <div style="padding: 1rem;">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { FormComponent } from "./form-component.entity";
+import { FormComponent } from "./form-component";
 
 export class GenerationForm{
 

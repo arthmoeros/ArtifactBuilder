@@ -1,4 +1,4 @@
-import { Input } from "./input.entity";
+import { Input } from "./input";
 
 export class InputGroup{
 	private groupTitle: string;

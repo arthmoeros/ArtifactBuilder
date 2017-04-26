@@ -1,5 +1,5 @@
-import { Form } from "./form.entity";
-import { Metadata } from "./metadata.entity";
+import { Form } from "./form";
+import { Metadata } from "./metadata";
 
 export class FormsConfig{
 	private metadata:Metadata;

@@ -1,9 +1,9 @@
-import xpath = require("xpath");
-import dom = require("xmldom");
-import fs = require("fs");
+import * as fs from "fs";
+import * as xpath from "xpath";
+import * as xmldom from "xmldom";
 
 export const ELEMENT_NODE: number = 1;
-export class XpathProcessorUtil {
+export class XPathProcessorUtil {
 
 	private rootNode: Node;
 
@@ -12,7 +12,7 @@ export class XpathProcessorUtil {
 	}
 
 	constructor(xmlContent: string) {
-		let xmlDocument: Node = new dom.DOMParser().parseFromString(xmlContent);
+		let xmlDocument: Node = new xmldom.DOMParser().parseFromString(xmlContent);
 		this.rootNode = <Node>xpath.select("/*", xmlDocument)[0];
 	}
 
@@ -30,7 +30,7 @@ export class XpathProcessorUtil {
 		}
 		let foundNodes: Node[] = <Node[]>xpath.select(query, node);
 		if (!foundNodes) {
-			let xmlNode = new dom.XMLSerializer().serializeToString(node);
+			let xmlNode = new xmldom.XMLSerializer().serializeToString(node);
 			throw new Error("XPath expression '" + query + "' didn't get any results using the following XML \n" + xmlNode);
 		} else {
 			return foundNodes;

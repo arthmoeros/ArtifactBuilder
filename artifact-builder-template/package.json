@@ -1,0 +1,26 @@
+{
+    "name": "artifact-builder-template",
+    "displayName": "Artifact Builder Template",
+    "description": "Template Format for Artifact Builder's artifact generation",
+    "version": "0.0.1",
+    "publisher": "arthmoeros",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "abtmpl",
+            "aliases": ["Artifact Builder Template", "abtmpl"],
+            "extensions": [".abtmpl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "abtmpl",
+            "scopeName": "source.abtmpl",
+            "path": "./syntaxes/abtmpl.tmLanguage.json"
+        }]
+    }
+}

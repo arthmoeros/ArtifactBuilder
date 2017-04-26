@@ -1,4 +1,4 @@
-import replaceAll = require("replaceall");
+import * as replaceAll from "replaceall";
 
 export class StringContainer{
 	private containedString: string;

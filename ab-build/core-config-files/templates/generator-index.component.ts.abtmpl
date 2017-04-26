@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <h3>{{title}}</h3>
 	<ul>
 		::MAIN_NG_COMPONENTS_LINKS::
-		<li><a [routerLink]="['/<!--component.path-->']"><!--component.name--></a></li>
+		<li><a [routerLink]="['/&{component.path}']">&{component.name}</a></li>
 		::/MAIN_NG_COMPONENTS_LINKS::
 	</ul>
 	`,

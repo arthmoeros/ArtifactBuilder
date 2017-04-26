@@ -1,4 +1,4 @@
-import { InputGroup } from "./input-group.entity";
+import { InputGroup } from "./input-group";
 
 export class Form {
 	private isGenerationRequestFileForm: boolean;

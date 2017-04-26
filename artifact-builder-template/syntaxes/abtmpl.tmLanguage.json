@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Artifact Builder Template",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#sub-template"
+		},
+		{
+			"include": "#mapped-expression"
+		}
+	],
+	"repository": {
+		"strings": {
+			"patterns": [{
+				"name":"string.quoted.abtmpl",
+				"match": "(\"|')(.*?)(\"|')",
+				"captures": {
+					"2" : { "patterns": [
+						{
+							"include": "#mapped-expression"
+						}
+					]}
+				}
+			}]
+		},
+		"sub-template": {
+			"patterns": [{
+				"name":"markup.bold.abtmpl",
+				"match": "(::)*([a-zA-Z0-9_./]*?)*(::)"
+			}]
+		},
+		"mapped-expression": {
+			"patterns": [{
+				"name":"keyword.control.abtmpl",
+				"match": "(&{) *(\\([a-zA-Z0-9_,]*?\\))? *([a-zA-Z0-9_.]*?) *(\\?)? *(\"[a-zA-Z0-9_. ]*?\")? *('[a-zA-Z0-9_. ]*?')? *(:)? *(\"[a-zA-Z0-9_. ]*?\")? *('[a-zA-Z0-9_. ]*?')? *(})",
+				"captures": {
+					"2" : { "name" : "string.regexp"},
+					"3" : { "name" : "entity.other.attribute-name.scss"},
+					"4" : { "name" : "invalid"},
+					"5" : { "name" : "variable.css"},
+					"6" : { "name" : "variable.css"},
+					"7" : { "name" : "invalid"},
+					"8" : { "name" : "variable.css"},
+					"9" : { "name" : "variable.css"}
+				}
+			}]
+		}
+	},
+	"scopeName": "source.abtmpl"
+}
