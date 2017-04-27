@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/</loc>
+    <lastmod>2017-04-27T18:36:41-03:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/</loc>
     <lastmod>2017-04-26T18:22:34-03:00</lastmod>
   </url>
@@ -23,7 +28,7 @@
   
   <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/</loc>
-    <lastmod>2017-04-26T18:22:34-03:00</lastmod>
+    <lastmod>2017-04-27T18:36:41-03:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -34,7 +39,7 @@
   
   <url>
     <loc>https://arthmoeros.github.io/ArtifactBuilder/post/</loc>
-    <lastmod>2017-04-26T18:22:34-03:00</lastmod>
+    <lastmod>2017-04-27T18:36:41-03:00</lastmod>
     <priority>0</priority>
   </url>
   

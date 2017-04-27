@@ -6,10 +6,20 @@
     <description>Recent content on ArtifactBuilder&#39;s dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Apr 2017 18:22:34 -0300</lastBuildDate>
+    <lastBuildDate>Thu, 27 Apr 2017 18:36:41 -0300</lastBuildDate>
     
 	<atom:link href="https://arthmoeros.github.io/ArtifactBuilder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>template engine is alive</title>
+      <link>https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/</link>
+      <pubDate>Thu, 27 Apr 2017 18:36:41 -0300</pubDate>
+      
+      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/</guid>
+      <description>Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.
+I&amp;rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&amp;rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&amp;rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.</description>
+    </item>
     
     <item>
       <title>Tidy and clean refactoring</title>

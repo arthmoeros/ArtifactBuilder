@@ -11,33 +11,33 @@
 <link rel="apple-touch-icon" href="https://arthmoeros.github.io/ArtifactBuilder/images/logo.png">
 
 
-<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
+<link rel="canonical" href="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/">
 
 
     
     <link href="https://fonts.googleapis.com/css?family=Lobster|Lato:400,700" rel="stylesheet">
     
-    <title>Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog</title>
+    <title>template engine is alive - ArtifactBuilder&#39;s dev blog</title>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     
     
     
-<meta name="description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
+<meta name="description" content="Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.I&amp;rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&amp;rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&amp;rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.">
 
-<meta property="og:title" content="Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog">
+<meta property="og:title" content="template engine is alive - ArtifactBuilder&#39;s dev blog">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
+<meta property="og:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/">
 <meta property="og:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 <meta property="og:site_name" content="ArtifactBuilder&#39;s dev blog">
-<meta property="og:description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
+<meta property="og:description" content="Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.I&amp;rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&amp;rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&amp;rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.">
 <meta property="og:locale" content="ja_JP">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">
-<meta name="twitter:title" content="Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog">
-<meta name="twitter:description" content="Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.">
+<meta name="twitter:url" content="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/">
+<meta name="twitter:title" content="template engine is alive - ArtifactBuilder&#39;s dev blog">
+<meta name="twitter:description" content="Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.I&amp;rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&amp;rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&amp;rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.">
 <meta name="twitter:image" content="https://arthmoeros.github.io/ArtifactBuilder/images/default.png">
 
 
@@ -49,15 +49,15 @@
       "@type": "WebPage",
       "@id":"https://arthmoeros.github.io/ArtifactBuilder/"
     },
-    "headline": "Tidy and clean refactoring - ArtifactBuilder&#39;s dev blog",
+    "headline": "template engine is alive - ArtifactBuilder&#39;s dev blog",
     "image": {
       "@type": "ImageObject",
       "url": "https://arthmoeros.github.io/ArtifactBuilder/images/default.png",
       "height": 800,
       "width": 800
     },
-    "datePublished": "2017-04-26T18:22:34JST",
-    "dateModified": "2017-04-26T18:22:34JST",
+    "datePublished": "2017-04-27T18:36:41JST",
+    "dateModified": "2017-04-27T18:36:41JST",
     "author": {
       "@type": "Person",
       "name": "ArtifactBuilder&#39;s dev blog"
@@ -72,8 +72,8 @@
         "height": 60
       }
     },
-    "description": "Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.
-In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; for the Artifact Builder&rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax."
+    "description": "Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.
+I&rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully."
   }
 </script>
 
@@ -101,14 +101,14 @@ In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; fo
     <main>
       
 <div class="l-container">
-  <article class="single article-d2f5d1fec3efe736bb2b710a18637b89">
+  <article class="single article-b0725a4940dbfdcf6eab13c6496c92c9">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/" class="thumbnail" title="Tidy and clean refactoring"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/" class="thumbnail" title="template engine is alive"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h1 class="title">Tidy and clean refactoring</h1>
+        <h1 class="title">template engine is alive</h1>
         <ul class="p-facts">
-          <li><time datetime="2017-04-26T18:22:34JST">Apr 26, 2017</time></li>
+          <li><time datetime="2017-04-27T18:36:41JST">Apr 27, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>
@@ -117,27 +117,27 @@ In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; fo
   </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&title=Tidy%20and%20clean%20refactoring" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&t=Tidy%20and%20clean%20refactoring" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&text=Tidy%20and%20clean%20refactoring&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Tidy%20and%20clean%20refactoring https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&title=template%20engine%20is%20alive" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&t=template%20engine%20is%20alive" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&text=template%20engine%20is%20alive&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?template%20engine%20is%20alive https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
-  <div class="article-body"><p>Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.</p>
+  <div class="article-body"><p>Well, it took less that I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.</p>
 
-<p>In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; for the Artifact Builder&rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.</p>
+<p>I&rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.</p>
 
-<p>I wanted some coloring on these templates, which I named with the &ldquo;abtmpl&rdquo; extension, so I did some research on how to implement custom syntax coloring for a file extension on Visual Studio Code and managed to pull it off. I came with a lot of regex which will prove useful when I implement the parser and processor, but for the time being, the &ldquo;vscode extension&rdquo; is available on the same repo, it recognizes &ldquo;abtmpl&rdquo; files and it colourizes strings, &ldquo;Sub-template sections&rdquo; and &ldquo;Mapped Expressions&rdquo;. It looks very nice.</p>
+<p>But for the time being, it is a very nice syntax checking template engine, obviously not powerful as other engines out there, but enough for me and what I&rsquo;m trying to achieve.</p>
 </div>
 
   <aside class="p-share">
-  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&title=Tidy%20and%20clean%20refactoring" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
-  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&t=Tidy%20and%20clean%20refactoring" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
-  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f&text=Tidy%20and%20clean%20refactoring&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
-  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
-  <a href="http://line.me/R/msg/text/?Tidy%20and%20clean%20refactoring https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftidy-and-clean-refactoring%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
+  <a href="http://b.hatena.ne.jp/add?mode=confirm&url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&title=template%20engine%20is%20alive" title="はてなブックマーク" class="ht" target="_blank" rel="nofollow"></a>
+  <a href="http://www.facebook.com/sharer.php?u=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&t=template%20engine%20is%20alive" title="Facebookでシェア" class="fb" target="_blank" rel="nofollow"></a>
+  <a href="http://twitter.com/intent/tweet?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f&text=template%20engine%20is%20alive&tw_p=tweetbutton" title="Twitterでシェア" class="tw" target="_blank" rel="nofollow"></a>
+  <a href="https://plus.google.com/share?url=https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f" title="Google Plusでシェア" class="gp" target="_blank" rel="nofollow"></a>
+  <a href="http://line.me/R/msg/text/?template%20engine%20is%20alive https%3a%2f%2farthmoeros.github.io%2fArtifactBuilder%2fpost%2ftemplate-engine-is-alive%2f" title="LINEでシェア" class="ln" target="_blank" rel="nofollow"></a>
 </aside>
 
 
@@ -148,7 +148,7 @@ In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; fo
         
         <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/" itemprop="url"><span itemprop="title">post</span></a></li>
         
-        <li>Tidy and clean refactoring</li>
+        <li>template engine is alive</li>
       </ol>
 
       
@@ -168,14 +168,14 @@ In this work I took the oportunity to write my own &ldquo;syntax rules&rdquo; fo
   <section>
     <header><span>Latests</span></header>
     <ul class="p-articles thin">
-      <li><article class="li sm article-b0725a4940dbfdcf6eab13c6496c92c9">
+      <li><article class="li sm article-d2f5d1fec3efe736bb2b710a18637b89">
   <div class="header-wrapper">
-    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/" class="thumbnail" title="template engine is alive"></a>
+    <a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/" class="thumbnail" title="Tidy and clean refactoring"></a>
     <header class="article-header">
       <div class="clearfix">
-        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/">template engine is alive</a></h2>
+        <h2 class="title"><a href="https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/">Tidy and clean refactoring</a></h2>
         <ul class="p-facts">
-          <li><time datetime="2017-04-27T18:36:41JST">Apr 27, 2017</time></li>
+          <li><time datetime="2017-04-26T18:22:34JST">Apr 26, 2017</time></li>
           <li><a href="https://arthmoeros.github.io/ArtifactBuilder/post/">post</a></li>
           
         </ul>
