@@ -1,2 +1,8 @@
 node_modules/
 src/app/abgenerated/
+src/app/abgenerators/
+src/app/app-routing-module.ts
+src/app/app.component.ts
+src/app/app.module.ts
+src/app/**/*.js
+src/app/**/*.js.map
