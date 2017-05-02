@@ -14,11 +14,7 @@ class AbBuildMain {
 	public main() {
 		console.info("Starting AB-Build");
 		shelljs.rm("-R", abGeneratedFolder);
-		shelljs.rm("-R", abGeneratorsFolder);
 		console.info("Cleaned existing target folders");
-		shelljs.mkdir("-p", abGeneratorsFolder);
-		shelljs.cp("-R", abGeneratorsConfigFolder, appSrcFolder);
-		console.info("Copied Generators");
 		let formConfigFileNames: string[] = shelljs.ls(abXmlConfigFolder);
 		console.info("Found the following files in abxml folder (I will only consider JSON files): "+formConfigFileNames);
 		let generationForms: GenerationForm[] = new Array<GenerationForm>();
