@@ -13,6 +13,8 @@
     The objective is to write each of this configuration file per customer and their 
     architecture standards for naming, structure and certain developing patterns, each 
     form representing a set of artifacts to build following these standards.
+
+TODO: Migrate this and its XSD to JSON
 -->
 <abFormsConfig>
     <metadata>
