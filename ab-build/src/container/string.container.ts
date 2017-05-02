@@ -42,6 +42,9 @@ export class StringContainer{
 	}
 
 	public replaceAll(find: string, replace: string): StringContainer{
+		if(replace == null){
+			replace = "";
+		}
 		this.containedString = replaceAll(find,replace,this.containedString);
 		return this;
 	}

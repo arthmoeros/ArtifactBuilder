@@ -1,4 +1,4 @@
-import generator from './../../abgenerators/&{meta.generatorComponent}';
+import { WorkerServiceConsumer } from "./../../worker-service.consumer";
 import { Component } from '@angular/core';
 
 @Component({
@@ -14,7 +14,7 @@ export class &{form.className}Stub {
 		::/INPUTS::
 	};
 	
-	constructor (){
+	constructor (private workerServiceconsumer: WorkerServiceConsumer){
 		this.map = {
 			::DEFAULT_VALUES::
 			&{input.mapValueKey}: "&{input.commonDefaultValue}",
@@ -23,7 +23,7 @@ export class &{form.className}Stub {
 	}
 
 	public &{form.formFunction}() {
-		generator.&{form.formFunction}(this.map);
+		this.workerServiceconsumer.invoke("&{meta.generatorComponent}", "&{form.formFunction}", this.map);
 	};
 
 

@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as shelljs from "shelljs";
 import { FormsConfig } from "./entity/forms-config";
 import { GenerationForm } from "./entity/generation-form";
-import { XmlConfigUnmarshallUtil } from "./other/xml-config-unmarshall.util";
+import { JSONConfigUnmarshallUtil } from "./other/json-config-unmarshall";
 import { GenerationFormRenderer } from "./renderer/generation-form.renderer";
 import { GenerationFormWriter } from "./other/generation-form.writer";
 import { NgCoreFilesRenderer } from "./renderer/ng-core-files.renderer";
@@ -20,10 +20,10 @@ class AbBuildMain {
 		shelljs.cp("-R", abGeneratorsConfigFolder, appSrcFolder);
 		console.info("Copied Generators");
 		let formConfigFileNames: string[] = shelljs.ls(abXmlConfigFolder);
-		console.info("Found the following files in abxml folder (I will only consider XML files): "+formConfigFileNames);
+		console.info("Found the following files in abxml folder (I will only consider JSON files): "+formConfigFileNames);
 		let generationForms: GenerationForm[] = new Array<GenerationForm>();
 		formConfigFileNames.forEach(formConfigFileName => {
-			if (formConfigFileName.indexOf(".xml") != -1) {
+			if (formConfigFileName.indexOf(".json") != -1) {
 				console.info("Processing file "+formConfigFileName);
 				generationForms.push(this.processConfiguration(formConfigFileName));
 			}
@@ -42,8 +42,8 @@ class AbBuildMain {
 	}
 
 	public processConfiguration(xmlConfigFileName: string): GenerationForm {
-		let formsConfig: FormsConfig = new XmlConfigUnmarshallUtil().unmarshall(xmlConfigFileName);
-		console.info("> XML unmarshalled into FormsConfig");
+		let formsConfig: FormsConfig = new JSONConfigUnmarshallUtil().unmarshall(xmlConfigFileName);
+		console.info("> JSON unmarshalled into FormsConfig");
 		let genForm: GenerationForm = new GenerationFormRenderer().render(formsConfig);
 		console.info("> Generation Form files rendered");
 		return genForm;

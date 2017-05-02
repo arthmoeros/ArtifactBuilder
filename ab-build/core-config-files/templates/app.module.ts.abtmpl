@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component'
 import { GeneratorIndexComponent } from './abgenerated/generator-index.component';
+import { WorkerServiceConsumer } from './worker-service.consumer';
 ::NGCOMPONENTS_IMPORTS::
 import { &{component.className}Stub } from './abgenerated/&{folder.name}/&{component.name}.component';
 ::/NGCOMPONENTS_IMPORTS::
@@ -27,6 +28,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   bootstrap: [AppComponent],
   providers: [
+    WorkerServiceConsumer
   ]
 })
 
