@@ -8,7 +8,7 @@ import { GenerationFormRenderer } from "./renderer/generation-form.renderer";
 import { GenerationFormWriter } from "./other/generation-form.writer";
 import { NgCoreFilesRenderer } from "./renderer/ng-core-files.renderer";
 
-import { abGeneratedFolder, abGeneratorsFolder, abGeneratorsConfigFolder, appSrcFolder, abXmlConfigFolder } from "./constants";
+import { abGeneratedFolder, appSrcFolder, abXmlConfigFolder } from "./constants";
 class AbBuildMain {
 
 	public main() {
