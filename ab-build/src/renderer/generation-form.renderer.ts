@@ -1,3 +1,4 @@
+import { StringContainer, RegexContainer, StringHandlerUtil } from "@ab/common";
 import * as fs from "fs";
 import * as replaceAll from "replaceall";
 
@@ -9,9 +10,6 @@ import { InputGroup } from "./../entity/input-group";
 import { Metadata } from "./../entity/metadata";
 import { Form } from "./../entity/form";
 
-import { StringContainer } from "./../container/string.container";
-import { RegexContainer } from "./../container/regex.container";
-import { StringHandlerUtil } from "./../other/string-handler.util";
 
 import { abBuildWorkspaceFolder } from "./../constants";
 const mainComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/main-component.component.html.abtmpl").toString();
@@ -35,6 +33,8 @@ const regexInputs = new RegexContainer(/(::INPUTS::)([\s\S]*)(::\/INPUTS::)/g);
 const regexInputsDefaultValue = new RegexContainer(/(::DEFAULT_VALUES::)([\s\S]*)(::\/DEFAULT_VALUES::)/g);
 
 const formComponentGenReqComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.abtmpl").toString();
+
+// TODO: Get rid of the replaceall!
 export class GenerationFormRenderer{
 
 	public render(formsConfig: FormsConfig): GenerationForm{

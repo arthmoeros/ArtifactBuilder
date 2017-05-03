@@ -1,4 +1,4 @@
-
+import { StringHandlerUtil } from "@ab/common";
 import * as fs from "fs";
 import * as shelljs from "shelljs";
 import * as pretty from "pretty";
@@ -6,7 +6,6 @@ import * as pretty from "pretty";
 import { GenerationForm } from "./../entity/generation-form";
 import { FormComponent } from "./../entity/form-component";
 
-import { StringHandlerUtil } from "./string-handler.util";
 
 import { appSrcFolder, abGeneratedFolder } from "./../constants";
 export class GenerationFormWriter {

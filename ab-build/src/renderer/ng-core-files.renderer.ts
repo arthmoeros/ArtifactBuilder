@@ -1,11 +1,8 @@
+import { StringContainer, RegexContainer, StringHandlerUtil } from "@ab/common";
 import * as fs from "fs";
 
 import { GenerationForm } from "./../entity/generation-form";
 import { FormComponent } from "./../entity/form-component";
-
-import { StringContainer } from "./../container/string.container";
-import { RegexContainer } from "./../container/regex.container";
-import { StringHandlerUtil } from "./../other/string-handler.util";
 
 import { appSrcFolder, abGeneratedFolder, abBuildWorkspaceFolder } from "./../constants";
 
