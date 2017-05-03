@@ -41,6 +41,14 @@ export class StringContainer{
 		return this;
 	}
 
+	public replaceRange(start: number, end: number, value: string|StringContainer): StringContainer{
+		if(value instanceof StringContainer){
+			value = value.getString();
+		}
+		this.containedString = this.containedString.substr(0,start) + value + this.containedString.substr(end, this.containedString.length);
+		return this;
+	}
+
 	public replaceAll(find: string, replace: string): StringContainer{
 		if(replace == null){
 			replace = "";

@@ -1,7 +1,7 @@
 {
-  "name": "artifact-builder-frontend",
+  "name": "@ab/ui",
   "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "description": "UI generation tool for Artifact Builder",
   "scripts": {
     "ab-build": "ts-node -P .\\ab-build\\src .\\ab-build\\src\\ab-build-main.ts",
     "build": "tsc -p src/",
@@ -23,7 +23,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "dependencies": {
     "@angular/common": "^4.0.3",
     "@angular/compiler": "~4.0.0",
@@ -36,7 +36,6 @@
     "@types/node": "^6.0.68",
     "@types/shelljs": "^0.7.0",
     "@types/xmldom": "^0.1.29",
-    "angular-in-memory-web-api": "~0.3.0",
     "cash": "^0.8.0",
     "core-js": "^2.4.1",
     "file-saver": "^1.3.3",
