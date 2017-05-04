@@ -4,7 +4,7 @@
             "generatorKey": "SampleXMLArchOSB",
             "generatorComponent": "sample-arch-osb-gen",
             "title": "OSB Services Generation Sample",
-            "description": "This sample configuration helps as a basis for understanding ArtifactBuilder's XML parsing to Angular Templates"
+            "description": "This sample configuration helps as a basis for understanding Artifacter's XML parsing to Angular Templates"
         },
         "form": [
             {

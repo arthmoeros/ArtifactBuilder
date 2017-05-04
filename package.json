@@ -1,7 +1,7 @@
 {
   "name": "@ab/ui",
   "version": "1.0.0",
-  "description": "UI generation tool for Artifact Builder",
+  "description": "UI generation tool for Artifacter",
   "scripts": {
     "ab-build": "ts-node -P .\\ab-build\\src .\\ab-build\\src\\ab-build-main.ts",
     "build": "tsc -p src/",

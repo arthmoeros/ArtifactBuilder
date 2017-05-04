@@ -74,7 +74,7 @@
 			</xs:sequence>
 			<xs:element name="generationRequestFileForm">
 				<xs:annotation>
-					<xs:documentation>If this element is present instead a whole form, then ArtifactBuilder will render a generation request file upload form</xs:documentation>
+					<xs:documentation>If this element is present instead a whole form, then Artifacter will render a generation request file upload form</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:choice>

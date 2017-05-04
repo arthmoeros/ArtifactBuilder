@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on ArtifactBuilder&#39;s dev blog</title>
-    <link>https://arthmoeros.github.io/ArtifactBuilder/post/</link>
-    <description>Recent content in Posts on ArtifactBuilder&#39;s dev blog</description>
+    <title>Posts on Artifacter&#39;s dev blog</title>
+    <link>https://arthmoeros.github.io/Artifacter/post/</link>
+    <description>Recent content in Posts on Artifacter&#39;s dev blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Apr 2017 18:36:41 -0300</lastBuildDate>
     
-	<atom:link href="https://arthmoeros.github.io/ArtifactBuilder/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://arthmoeros.github.io/Artifacter/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Template engine is alive</title>
-      <link>https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/</link>
+      <link>https://arthmoeros.github.io/Artifacter/post/template-engine-is-alive/</link>
       <pubDate>Thu, 27 Apr 2017 18:36:41 -0300</pubDate>
       
-      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/template-engine-is-alive/</guid>
+      <guid>https://arthmoeros.github.io/Artifacter/post/template-engine-is-alive/</guid>
       <description>Well, it took less than I thought, but I got a working template engine with syntax checking and all, this has been really fun, and really enlightening about TypeScript, it is quite a mess with regex, but I think it is tidy enough to understand.
 I&amp;rsquo;ve got yet to implement sub-templates (with its proper syntax checking), I think I&amp;rsquo;m going for a recursive invocation approach, but maybe I will have to upgrade the working map model to support nested maps, I will save that for last, I can&amp;rsquo;t think of a use case where sub-templates and nested maps may be needed, if someone requests it with a proper use case I would consider implementing it fully.</description>
     </item>
     
     <item>
       <title>Tidy and clean refactoring</title>
-      <link>https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/</link>
+      <link>https://arthmoeros.github.io/Artifacter/post/tidy-and-clean-refactoring/</link>
       <pubDate>Wed, 26 Apr 2017 18:22:34 -0300</pubDate>
       
-      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/tidy-and-clean-refactoring/</guid>
+      <guid>https://arthmoeros.github.io/Artifacter/post/tidy-and-clean-refactoring/</guid>
       <description>Well, today has been a productive day, I managed to decouple the main process in 4 files/classes, and even reorganized the source files into folders, I think I&amp;rsquo;ve got a bit of OCD with code, renamed a few files and classes there, I&amp;rsquo;m not 100% agreed with Typescript naming conventions, but I think the result was quite tidy anyways.
-In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifact Builder&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.</description>
+In this work I took the oportunity to write my own &amp;ldquo;syntax rules&amp;rdquo; for the Artifacter&amp;rsquo;s templates, I have yet to implement the parser and processor, but I wanted to have an idea about what is going to be with these templates, so, the templates on which the generation forms are based on were written thinking on this syntax.</description>
     </item>
     
     <item>
       <title>Front-End generation done</title>
-      <link>https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/</link>
+      <link>https://arthmoeros.github.io/Artifacter/post/frontend-generation-done/</link>
       <pubDate>Tue, 25 Apr 2017 16:36:48 -0300</pubDate>
       
-      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/frontend-generation-done/</guid>
+      <guid>https://arthmoeros.github.io/Artifacter/post/frontend-generation-done/</guid>
       <description>Whew, dev update. It was hard, but I finally made it, from a single XML file and lots of TypeScript, an Angular app is born, including routing configuration and an index. This was very interesting to pull off because I had to deal with a lot of string management, considering I come from Java&amp;rsquo;s StringBuilder, I needed something like that here in JS/TS. But for my surprise, there&amp;rsquo;s nothing of the sort (Well, I did find an &amp;ldquo;C#&amp;rdquo; like API for TS, but at least it didn&amp;rsquo;t work quite well for me), so I had to manage with a String Container, which only serves the purpose of containing a string instance and manipulating it directly, like a mutable string (which I also found a npm package for, but didn&amp;rsquo;t meet my requirements).</description>
     </item>
     
     <item>
       <title>Roadblocks on Front-end</title>
-      <link>https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/</link>
+      <link>https://arthmoeros.github.io/Artifacter/post/roadblocks-on-frontend/</link>
       <pubDate>Mon, 17 Apr 2017 11:50:17 -0300</pubDate>
       
-      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/roadblocks-on-frontend/</guid>
-      <description>Hi!, dev update, originally in the JSP version of ArtifactBuilder, the &amp;ldquo;Form&amp;rdquo; part of the application was rendered in runtime using a XML configuration file for each &amp;ldquo;Customer&amp;rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.
+      <guid>https://arthmoeros.github.io/Artifacter/post/roadblocks-on-frontend/</guid>
+      <description>Hi!, dev update, originally in the JSP version of Artifacter, the &amp;ldquo;Form&amp;rdquo; part of the application was rendered in runtime using a XML configuration file for each &amp;ldquo;Customer&amp;rdquo;, this process was done via a JSP file rendering a HTML, once this was done the HTML was stored in memory so any subsequent requests would only display the already rendered HTML.
 So, I wanted to do the same in the Angular version of the Front, and then I got my first roadblock, I asked myself, How can I achieve the same thing I did with JSP but without breaking Angular and taking advantage of its features?</description>
     </item>
     
     <item>
       <title>Starting a devblog</title>
-      <link>https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/</link>
+      <link>https://arthmoeros.github.io/Artifacter/post/starting-a-devblog/</link>
       <pubDate>Thu, 13 Apr 2017 17:11:57 -0300</pubDate>
       
-      <guid>https://arthmoeros.github.io/ArtifactBuilder/post/starting-a-devblog/</guid>
-      <description>Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of ArtifactBuilder. First I would like to explain just what the heck is ArtifactBuilder.
-ArtifactBuilder started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one ArtifactBuilder.</description>
+      <guid>https://arthmoeros.github.io/Artifacter/post/starting-a-devblog/</guid>
+      <description>Hi!, Arturo here, I&amp;rsquo;m starting a dev blog about the developing of Artifacter. First I would like to explain just what the heck is Artifacter.
+Artifacter started as a Java Servlet application I made by myself to save time developing OSB proxy services, it evolved until it became a tool for generating any kind of artifacts, nicely packaged and ready for use as a basis for developing. This application uses three key components to create an &amp;ldquo;Artifact Generation&amp;rdquo;, which are: Form, Generator and Configuration, when I get some free time I could explain in depth within another post, but for now I will explain about this one Artifacter.</description>
     </item>
     
   </channel>

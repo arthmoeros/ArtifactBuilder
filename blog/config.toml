@@ -1,6 +1,6 @@
-baseURL = "https://arthmoeros.github.io/ArtifactBuilder/"
+baseURL = "https://arthmoeros.github.io/Artifacter/"
 languageCode = "en-us"
-title = "ArtifactBuilder's dev blog"
+title = "Artifacter's dev blog"
 theme = "hugo_theme_aglaus"
 
 [Params]
