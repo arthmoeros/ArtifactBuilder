@@ -6,15 +6,15 @@ import { FormComponent } from "./../entity/form-component";
 
 import { appSrcFolder, abGeneratedFolder, abBuildWorkspaceFolder } from "./../constants";
 
-const tmplAppRoutingModule: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app-routing.module.ts.abtmpl").toString();
-const tmplAppComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app.component.ts.abtmpl").toString();
-const tmplAppModule: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app.module.ts.abtmpl").toString();
+const tmplAppRoutingModule: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app-routing.module.ts.atmpl").toString();
+const tmplAppComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app.component.ts.atmpl").toString();
+const tmplAppModule: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/app.module.ts.atmpl").toString();
 const regexNgComponentsImports = new RegexContainer(/(::NGCOMPONENTS_IMPORTS::)([\s\S]*)(::\/NGCOMPONENTS_IMPORTS::)/g);
 const regexMainNgComponentsRoutes = new RegexContainer(/(::MAIN_NGCOMPONENTS_ROUTES::)([\s\S]*)(::\/MAIN_NGCOMPONENTS_ROUTES::)/g);
 const regexMainNgComponentChildren = new RegexContainer(/(::MAIN_NGCOMPONENT_CHILDREN::)([\s\S]*)(::\/MAIN_NGCOMPONENT_CHILDREN::)/g);
 const regexNgComponentsDeclaration = new RegexContainer(/(::NGCOMPONENTS_DECLARATION::)([\s\S]*)(::\/NGCOMPONENTS_DECLARATION::)/g);
 
-const tmplGeneratorIndexComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/generator-index.component.ts.abtmpl").toString();
+const tmplGeneratorIndexComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/generator-index.component.ts.atmpl").toString();
 const regexMainNgComponentsLinks = new RegexContainer(/(::MAIN_NG_COMPONENTS_LINKS::)([\s\S]*)(::\/MAIN_NG_COMPONENTS_LINKS::)/g);
 export class NgCoreFilesRenderer {
 
