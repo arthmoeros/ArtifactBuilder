@@ -1,5 +1,5 @@
 {
-  "name": "@ab/ui",
+  "name": "@artifacter/ui",
   "version": "1.0.0",
   "description": "UI generation tool for Artifacter",
   "scripts": {

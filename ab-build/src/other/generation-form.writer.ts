@@ -1,4 +1,4 @@
-import { StringHandlerUtil } from "@ab/common";
+import { StringHandlerUtil } from "@artifacter/common";
 import * as fs from "fs";
 import * as shelljs from "shelljs";
 import * as pretty from "pretty";

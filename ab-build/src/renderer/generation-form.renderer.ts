@@ -1,4 +1,4 @@
-import { StringContainer, RegexContainer, StringHandlerUtil } from "@ab/common";
+import { StringContainer, RegexContainer, StringHandlerUtil } from "@artifacter/common";
 import * as fs from "fs";
 import * as replaceAll from "replaceall";
 
