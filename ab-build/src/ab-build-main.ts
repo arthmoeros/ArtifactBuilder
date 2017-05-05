@@ -1,4 +1,3 @@
-/// <reference path="../../node_modules/@types/node/index.d.ts" />
 import * as fs from "fs";
 import * as shelljs from "shelljs";
 import { FormsConfig } from "./entity/forms-config";
@@ -8,14 +7,23 @@ import { GenerationFormRenderer } from "./renderer/generation-form.renderer";
 import { GenerationFormWriter } from "./other/generation-form.writer";
 import { NgCoreFilesRenderer } from "./renderer/ng-core-files.renderer";
 
-import { abGeneratedFolder, appSrcFolder, abXmlConfigFolder } from "./constants";
+import { generatedFolder, appSrcFolder, uiBuilderConfigFolder } from "./constants";
+
+/**
+ * @class AbBuildMain
+ * @author arthmoeros (Arturo Saavedra) artu.saavedra@gmail.com
+ * 
+ * This singleton class runs the UI generation process for Artifacter, it uses the json configuration files
+ * found at ./ui-builder/config 
+ * 
+ */
 class AbBuildMain {
 
 	public main() {
 		console.info("Starting AB-Build");
-		shelljs.rm("-R", abGeneratedFolder);
+		shelljs.rm("-R", generatedFolder);
 		console.info("Cleaned existing target folders");
-		let formConfigFileNames: string[] = shelljs.ls(abXmlConfigFolder);
+		let formConfigFileNames: string[] = shelljs.ls(uiBuilderConfigFolder);
 		console.info("Found the following files in abxml folder (I will only consider JSON files): "+formConfigFileNames);
 		let generationForms: GenerationForm[] = new Array<GenerationForm>();
 		formConfigFileNames.forEach(formConfigFileName => {

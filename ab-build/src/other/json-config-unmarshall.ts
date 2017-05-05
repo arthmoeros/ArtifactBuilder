@@ -6,13 +6,13 @@ import { Metadata } from "./../entity/metadata";
 import { Form } from "./../entity/form";
 import { FormsConfig } from "./../entity/forms-config";
 
-import { abBuildWorkspaceFolder, abXmlConfigFolder } from "./../constants";
+import { uiBuilderWorkspaceFolder, uiBuilderConfigFolder } from "./../constants";
 export class JSONConfigUnmarshallUtil {
 
 	private config: any;
 
 	public unmarshall(xmlFileName: string): FormsConfig {
-		this.config = JSON.parse(fs.readFileSync(abXmlConfigFolder + "/" + xmlFileName).toString()).abFormsConfig;
+		this.config = JSON.parse(fs.readFileSync(uiBuilderConfigFolder + "/" + xmlFileName).toString()).abFormsConfig;
 
 		if (this.validateJSON() != null) {
 			return;

@@ -7,7 +7,7 @@ import { GenerationForm } from "./../entity/generation-form";
 import { FormComponent } from "./../entity/form-component";
 
 
-import { appSrcFolder, abGeneratedFolder } from "./../constants";
+import { appSrcFolder, generatedFolder } from "./../constants";
 export class GenerationFormWriter {
 
 	private genReqFileFormGenerated: boolean = false;
@@ -18,23 +18,23 @@ export class GenerationFormWriter {
 			let formComponents: FormComponent[] = genForm.$forms;
 
 			let mainComponentName: string = StringHandlerUtil.convertCamelCaseToDashed(mainComponent.$name);
-			shelljs.mkdir("-p", abGeneratedFolder + mainComponentName);
+			shelljs.mkdir("-p", generatedFolder + mainComponentName);
 
-			fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + mainComponentName + "-main.component.html", pretty(mainComponent.$ngTemplate));
-			fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + mainComponentName + "-main.component.ts", mainComponent.$ngComponent);
+			fs.writeFileSync(generatedFolder + mainComponentName + "/" + mainComponentName + "-main.component.html", pretty(mainComponent.$ngTemplate));
+			fs.writeFileSync(generatedFolder + mainComponentName + "/" + mainComponentName + "-main.component.ts", mainComponent.$ngComponent);
 			formComponents.forEach(formComponent => {
 				if (formComponent.$isGenReqFileForm) {
 					if (!this.genReqFileFormGenerated) {
 						let formComponentName: string = StringHandlerUtil.convertCamelCaseToDashed(formComponent.$name);
-						shelljs.mkdir(abGeneratedFolder + "common-gen/");
-						fs.writeFileSync(abGeneratedFolder + "common-gen/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
-						fs.writeFileSync(abGeneratedFolder + "common-gen/" + formComponentName + ".component.ts", formComponent.$ngComponent);
+						shelljs.mkdir(generatedFolder + "common-gen/");
+						fs.writeFileSync(generatedFolder + "common-gen/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
+						fs.writeFileSync(generatedFolder + "common-gen/" + formComponentName + ".component.ts", formComponent.$ngComponent);
 						this.genReqFileFormGenerated = true;
 					}
 				} else {
 					let formComponentName: string = StringHandlerUtil.convertCamelCaseToDashed(formComponent.$name);
-					fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
-					fs.writeFileSync(abGeneratedFolder + mainComponentName + "/" + formComponentName + ".component.ts", formComponent.$ngComponent);
+					fs.writeFileSync(generatedFolder + mainComponentName + "/" + formComponentName + ".component.html", pretty(formComponent.$ngTemplate));
+					fs.writeFileSync(generatedFolder + mainComponentName + "/" + formComponentName + ".component.ts", formComponent.$ngComponent);
 				}
 			});
 		});

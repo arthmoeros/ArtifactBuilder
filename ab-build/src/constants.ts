@@ -1,5 +1,5 @@
 export const appSrcFolder: string = "./src/app";
-export const abGeneratedFolder: string = appSrcFolder + "/abgenerated/";
+export const generatedFolder: string = appSrcFolder + "/generated/";
 
-export const abBuildWorkspaceFolder: string = "./ab-build/";
-export const abXmlConfigFolder: string = abBuildWorkspaceFolder + "config/abjson";
+export const uiBuilderWorkspaceFolder: string = "./ui-builder/";
+export const uiBuilderConfigFolder: string = uiBuilderWorkspaceFolder + "config";

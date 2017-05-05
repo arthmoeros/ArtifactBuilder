@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "UI generation tool for Artifacter",
   "scripts": {
-    "ab-build": "ts-node --no-ignore -P .\\ab-build\\src .\\ab-build\\src\\ab-build-main.ts",
+    "ui-builder": "ts-node --no-ignore -P .\\ui-builder\\src .\\ui-builder\\src\\ui-builder-main.ts",
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "build:e2e": "tsc -p e2e/",

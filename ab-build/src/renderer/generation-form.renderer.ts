@@ -11,13 +11,13 @@ import { Metadata } from "./../entity/metadata";
 import { Form } from "./../entity/form";
 
 
-import { abBuildWorkspaceFolder } from "./../constants";
-const mainComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/main-component.component.html.atmpl").toString();
+import { uiBuilderWorkspaceFolder } from "./../constants";
+const mainComponentTemplate: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/main-component.component.html.atmpl").toString();
 const regexFormListRadioTmpl = new RegexContainer(/(::FORM_LIST_RADIO_TMPL::)([\s\S]*)(::\/FORM_LIST_RADIO_TMPL::)/g);
 
-const mainComponentComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/main-component.component.ts.atmpl").toString();
+const mainComponentComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/main-component.component.ts.atmpl").toString();
 
-const formComponentTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/form-component.component.html.atmpl").toString();
+const formComponentTemplate: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component.component.html.atmpl").toString();
 const regexForGroupListTmpl = new RegexContainer(/(::FOR_GROUP_LIST::)([\s\S]*)(::\/FOR_GROUP_LIST::)/g);
 const regexForGroupInputListTmpl = new RegexContainer(/(::FOR_GROUP_INPUT_LIST::)([\s\S]*)(::\/FOR_GROUP_INPUT_LIST::)/g);
 const regexInputContainerTmpl = new RegexContainer(/(::INPUT_CONTAINER::)([\s\S]*)(::\/INPUT_CONTAINER::)/g);
@@ -26,13 +26,13 @@ const regexInputChoiceTmpl = new RegexContainer(/(::CHOICE::)([\s\S]*)(::\/CHOIC
 const regexInputChoiceOptionsTmpl = new RegexContainer(/(::CHOICE_OPTIONS::)([\s\S]*)(::\/CHOICE_OPTIONS::)/g);
 const regexInputElseTmpl = new RegexContainer(/(::ELSE::)([\s\S]*)(::\/ELSE::)/g);
 
-const formComponentGenReqTemplate: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.html.atmpl").toString();
+const formComponentGenReqTemplate: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.html.atmpl").toString();
 
-const formComponentComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/form-component.component.ts.atmpl").toString();
+const formComponentComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component.component.ts.atmpl").toString();
 const regexInputs = new RegexContainer(/(::INPUTS::)([\s\S]*)(::\/INPUTS::)/g);
 const regexInputsDefaultValue = new RegexContainer(/(::DEFAULT_VALUES::)([\s\S]*)(::\/DEFAULT_VALUES::)/g);
 
-const formComponentGenReqComponent: string = fs.readFileSync(abBuildWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.atmpl").toString();
+const formComponentGenReqComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.atmpl").toString();
 
 // TODO: Get rid of the replaceall!
 export class GenerationFormRenderer{
