@@ -18,7 +18,7 @@ export class WorkerServiceConsumer{
 
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers , responseType: ResponseContentType.Blob});
-        let obs : Observable<Response> = this.http.post("http://localhost:8080/requestArtifactGeneration", JSON.stringify(jsonRequest), options);
+        let obs : Observable<Response> = this.http.post("http://localhost:8080/artifactGenerationRequest", JSON.stringify(jsonRequest), options);
         obs.subscribe((response) => {
             fileSaver(response.blob(), "result.zip");
         });
