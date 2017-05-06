@@ -59,7 +59,7 @@
 				</xs:element>
 				<xs:element name="formFunction" type="xs:string">
 					<xs:annotation>
-						<xs:documentation>Indicates the function name to execute on the form's submission, this on the specified Angular component on the metadata</xs:documentation>
+						<xs:documentation>Indicates the formFunction to execute on the generator on the form's submit</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="formElements" type="FormElements_CT">

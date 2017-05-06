@@ -1,6 +1,5 @@
 import { StringContainer, RegexContainer, StringHandlerUtil } from "@artifacter/common";
 import * as fs from "fs";
-import * as replaceAll from "replaceall";
 
 import { FormsConfig } from "./../entity/forms-config";
 import { GenerationForm } from "./../entity/generation-form";
@@ -34,7 +33,6 @@ const regexInputsDefaultValue = new RegexContainer(/(::DEFAULT_VALUES::)([\s\S]*
 
 const formComponentGenReqComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.atmpl").toString();
 
-// TODO: Get rid of the replaceall!
 export class GenerationFormRenderer{
 
 	public render(formsConfig: FormsConfig): GenerationForm{
@@ -52,53 +50,38 @@ export class GenerationFormRenderer{
 		let mainComponent: FormComponent = new FormComponent();
 		mainComponent.$name = formsConfig.$metadata.$generatorKey;
 
-		let ngTemplate: string = mainComponentTemplate;
-		ngTemplate = replaceAll("&{TITLE}", formsConfig.$metadata.$title, ngTemplate);
-		ngTemplate = replaceAll("&{DESCRIPTION}", formsConfig.$metadata.$description, ngTemplate);
-		ngTemplate = ngTemplate.replace(regexFormListRadioTmpl.regex, this.renderFormListRadioButtons(formsConfig.$forms));
-		ngTemplate = replaceAll("&{FORM_DISPLAY}", this.renderFormListNgSelectors(formsConfig.$forms), ngTemplate);
+		let ngTemplate: StringContainer = new StringContainer(mainComponentTemplate);
+		ngTemplate.replaceAll("&{TITLE}", formsConfig.$metadata.$title);
+		ngTemplate.replaceAll("&{DESCRIPTION}", formsConfig.$metadata.$description);
+		ngTemplate.replace(regexFormListRadioTmpl.regex, this.renderFormListRadioButtons(formsConfig.$forms));
 
 		let ngComponent: StringContainer = new StringContainer(mainComponentComponent);
 		ngComponent.replaceAll("&{(cC2dashed)form.name}", StringHandlerUtil.convertCamelCaseToDashed(mainComponent.$name));
 		ngComponent.replaceAll("&{form.name}", mainComponent.$name);
 		ngComponent.replaceAll("&{form.className}", StringHandlerUtil.convertToClassName(mainComponent.$name));
 
-		mainComponent.$ngTemplate = ngTemplate;
+		mainComponent.$ngTemplate = ngTemplate.toString();
 		mainComponent.$ngComponent = ngComponent.toString();
 		return mainComponent;
 	}
 
 	private renderFormListRadioButtons(formList: Form[]): string {
 		let radioTmpl: string = regexFormListRadioTmpl.search(mainComponentTemplate)[2];
-		let result: string = "";
+		let result: StringContainer = new StringContainer();
 		formList.forEach(form => {
-			let currentItem: string = radioTmpl;
+			let currentItem: StringContainer = new StringContainer(radioTmpl);
 			if (!form.$isGenerationRequestFileForm) {
-				currentItem = replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed(form.$formId), currentItem);
-				currentItem = replaceAll("&{FORM_ID}", form.$formId, currentItem);
-				currentItem = replaceAll("&{FORM_TITLE}", form.$formTitle, currentItem);
+				currentItem.replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed(form.$formId));
+				currentItem.replaceAll("&{FORM_ID}", form.$formId);
+				currentItem.replaceAll("&{FORM_TITLE}", form.$formTitle);
 			} else {
-				currentItem = replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed("GenReqFileForm"), currentItem);
-				currentItem = replaceAll("&{FORM_ID}", "GenReqFileForm", currentItem);
-				currentItem = replaceAll("&{FORM_TITLE}", "Generate using file", currentItem);
+				currentItem.replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed("GenReqFileForm"));
+				currentItem.replaceAll("&{FORM_ID}", "GenReqFileForm");
+				currentItem.replaceAll("&{FORM_TITLE}", "Generate using file");
 			}
-			result = result.concat(currentItem);
+			result.concat(currentItem);
 		});
-		return result;
-	}
-
-	private renderFormListNgSelectors(formList: Form[]): string {
-		let result: string = "";
-		formList.forEach(form => {
-			let currentItem: string = "<&{FORM_ID}></&{FORM_ID}>\n";
-			if (!form.$isGenerationRequestFileForm) {
-				currentItem = replaceAll("&{FORM_ID}", form.$formId, currentItem);
-			} else {
-				currentItem = replaceAll("&{FORM_ID}", "GenReqFileForm", currentItem);
-			}
-			result = result.concat(currentItem);
-		});
-		return result;
+		return result.toString();
 	}
 
 	private renderFormComponents(formsConfig: FormsConfig): FormComponent[] {

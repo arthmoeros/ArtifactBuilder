@@ -12,7 +12,7 @@ export class JSONConfigUnmarshallUtil {
 	private config: any;
 
 	public unmarshall(xmlFileName: string): FormsConfig {
-		this.config = JSON.parse(fs.readFileSync(uiBuilderConfigFolder + "/" + xmlFileName).toString()).abFormsConfig;
+		this.config = JSON.parse(fs.readFileSync(uiBuilderConfigFolder + "/" + xmlFileName).toString()).uiConfig;
 
 		if (this.validateJSON() != null) {
 			return;

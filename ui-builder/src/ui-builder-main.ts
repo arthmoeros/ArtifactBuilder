@@ -10,21 +10,21 @@ import { NgCoreFilesRenderer } from "./renderer/ng-core-files.renderer";
 import { generatedFolder, appSrcFolder, uiBuilderConfigFolder } from "./constants";
 
 /**
- * @class AbBuildMain
+ * @class UIBuilderMain
  * @author arthmoeros (Arturo Saavedra) artu.saavedra@gmail.com
  * 
  * This singleton class runs the UI generation process for Artifacter, it uses the json configuration files
  * found at ./ui-builder/config 
  * 
  */
-class AbBuildMain {
+class UIBuilderMain {
 
 	public main() {
 		console.info("Starting AB-Build");
 		shelljs.rm("-R", generatedFolder);
 		console.info("Cleaned existing target folders");
 		let formConfigFileNames: string[] = shelljs.ls(uiBuilderConfigFolder);
-		console.info("Found the following files in abxml folder (I will only consider JSON files): "+formConfigFileNames);
+		console.info("Found the following files in the config folder (I will only consider JSON files): "+formConfigFileNames);
 		let generationForms: GenerationForm[] = new Array<GenerationForm>();
 		formConfigFileNames.forEach(formConfigFileName => {
 			if (formConfigFileName.indexOf(".json") != -1) {
@@ -55,5 +55,5 @@ class AbBuildMain {
 
 }
 
-var ngb = new AbBuildMain();
+var ngb = new UIBuilderMain();
 ngb.main();

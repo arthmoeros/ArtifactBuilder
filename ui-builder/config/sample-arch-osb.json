@@ -1,5 +1,5 @@
 {
-    "abFormsConfig": {
+    "uiConfig": {
         "metadata": {
             "generatorKey": "SampleXMLArchOSB",
             "generatorComponent": "sample-arch-osb-gen",
