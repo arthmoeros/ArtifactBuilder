@@ -217,16 +217,16 @@ export class GenerationFormRenderer {
 			tmplChoice.replace(regexInputChoiceOptionsTmpl.regex, this.renderChoiceOptions(commonInput, tmplChoice).toString());
 			tmplChoice.replaceAll("&{input.type}", "select");
 			tmplChoice.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
-			tmplChoice.replaceAll("&{input.commonBlocked?\"readonly\"}", commonInput.blocked ? "readonly" : "");
-			tmplChoice.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required ? "required" : "");
+			tmplChoice.replaceAll("&{input.commonReadonly?\"readonly\"}", commonInput.readonly != null ? "readonly" : "");
+			tmplChoice.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required != null ? "required" : "");
 			inputStr.replace(regexInputContainerTmpl.regex, tmplChoice.getString());
 		} else {
 			let tmplElse: StringContainer = new StringContainer(regexInputElseTmpl.search(ngTemplate.getString())[2]);
 			tmplElse.replaceAll("&{input.type}", this.resolveInputTypeString(input));
 			tmplElse.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
 			tmplElse.replaceAll("&{input.boxPlaceholder}", commonInput.placeholder);
-			tmplElse.replaceAll("&{input.commonBlocked?\"readonly\"}", commonInput.blocked ? "readonly" : "");
-			tmplElse.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required ? "required" : "");
+			tmplElse.replaceAll("&{input.commonReadonly?\"readonly\"}", commonInput.readonly != null ? "readonly" : "");
+			tmplElse.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required != null ? "required" : "");
 			inputStr.replace(regexInputContainerTmpl.regex, tmplElse.getString());
 		}
 		return inputStr;

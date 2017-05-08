@@ -36,7 +36,7 @@
                             "description": "Adds a descriptive help text for the input element",
                             "type": "string"
                         },
-                        "blocked": {
+                        "readonly": {
                             "description": "If it is present, the input element will be readonly",
                             "type": "string"
                         },

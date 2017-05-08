@@ -29,7 +29,7 @@
 					[(ngModel)]="map.&{input.mapValueKey}" 
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}" 
-                	&{input.commonBlocked?"readonly"}
+                	&{input.commonReadonly?"readonly"}
 					&{input.commonRequired?"required"} >
 					::CHOICE_OPTIONS::
 					<option value="&{input.choiceOptions}">
@@ -46,7 +46,7 @@
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}"
 					placeholder="&{input.boxPlaceholder}"
-					&{input.commonBlocked?"readonly"}
+					&{input.commonReadonly?"readonly"}
 					&{input.commonRequired?"required"}
 				/>
             </td>

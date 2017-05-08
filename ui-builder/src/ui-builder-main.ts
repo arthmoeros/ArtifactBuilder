@@ -31,7 +31,7 @@ class UIBuilderMain {
 	}
 
 	public main() {
-		console.info("Starting AB-Build");
+		console.info("Starting UI-Builder");
 		shelljs.rm("-R", generatedFolder);
 		console.info("Cleaned existing target folders");
 		let formConfigFileNames: string[] = shelljs.ls(uiBuilderConfigFolder);
