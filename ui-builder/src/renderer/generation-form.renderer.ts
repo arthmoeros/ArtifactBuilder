@@ -1,13 +1,8 @@
 import { StringContainer, RegexContainer, StringHandlerUtil } from "@artifacter/common";
 import * as fs from "fs";
 
-import { FormsConfig } from "./../entity/forms-config";
 import { GenerationForm } from "./../entity/generation-form";
 import { FormComponent } from "./../entity/form-component";
-import { Input } from "./../entity/input";
-import { InputGroup } from "./../entity/input-group";
-import { Metadata } from "./../entity/metadata";
-import { Form } from "./../entity/form";
 
 
 import { uiBuilderWorkspaceFolder } from "./../constants";
@@ -33,11 +28,11 @@ const regexInputsDefaultValue = new RegexContainer(/(::DEFAULT_VALUES::)([\s\S]*
 
 const formComponentGenReqComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.atmpl").toString();
 
-export class GenerationFormRenderer{
+export class GenerationFormRenderer {
 
-	public render(formsConfig: FormsConfig): GenerationForm{
-		let mainComponent: FormComponent = this.renderMainComponent(formsConfig);
-		let formComponents: FormComponent[] = this.renderFormComponents(formsConfig);
+	public render(uiConfig: any): GenerationForm {
+		let mainComponent: FormComponent = this.renderMainComponent(uiConfig);
+		let formComponents: FormComponent[] = this.renderFormComponents(uiConfig);
 
 		let generationForm: GenerationForm = new GenerationForm();
 		generationForm.$mainForm = mainComponent;
@@ -46,14 +41,14 @@ export class GenerationFormRenderer{
 		return generationForm;
 	}
 
-	private renderMainComponent(formsConfig: FormsConfig): FormComponent {
+	private renderMainComponent(uiConfig: any): FormComponent {
 		let mainComponent: FormComponent = new FormComponent();
-		mainComponent.$name = formsConfig.$metadata.$generatorKey;
+		mainComponent.$name = uiConfig.metadata.generatorKey;
 
 		let ngTemplate: StringContainer = new StringContainer(mainComponentTemplate);
-		ngTemplate.replaceAll("&{TITLE}", formsConfig.$metadata.$title);
-		ngTemplate.replaceAll("&{DESCRIPTION}", formsConfig.$metadata.$description);
-		ngTemplate.replace(regexFormListRadioTmpl.regex, this.renderFormListRadioButtons(formsConfig.$forms));
+		ngTemplate.replaceAll("&{TITLE}", uiConfig.metadata.title);
+		ngTemplate.replaceAll("&{DESCRIPTION}", uiConfig.metadata.description);
+		ngTemplate.replace(regexFormListRadioTmpl.regex, this.renderFormListRadioButtons(uiConfig.form));
 
 		let ngComponent: StringContainer = new StringContainer(mainComponentComponent);
 		ngComponent.replaceAll("&{(cC2dashed)form.name}", StringHandlerUtil.convertCamelCaseToDashed(mainComponent.$name));
@@ -65,15 +60,15 @@ export class GenerationFormRenderer{
 		return mainComponent;
 	}
 
-	private renderFormListRadioButtons(formList: Form[]): string {
+	private renderFormListRadioButtons(formList: any[]): string {
 		let radioTmpl: string = regexFormListRadioTmpl.search(mainComponentTemplate)[2];
 		let result: StringContainer = new StringContainer();
 		formList.forEach(form => {
 			let currentItem: StringContainer = new StringContainer(radioTmpl);
-			if (!form.$isGenerationRequestFileForm) {
-				currentItem.replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed(form.$formId));
-				currentItem.replaceAll("&{FORM_ID}", form.$formId);
-				currentItem.replaceAll("&{FORM_TITLE}", form.$formTitle);
+			if (form.generationRequestFileForm == null) {
+				currentItem.replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed(form.formId));
+				currentItem.replaceAll("&{FORM_ID}", form.formId);
+				currentItem.replaceAll("&{FORM_TITLE}", form.formTitle);
 			} else {
 				currentItem.replaceAll("&{formLink}", StringHandlerUtil.convertCamelCaseToDashed("GenReqFileForm"));
 				currentItem.replaceAll("&{FORM_ID}", "GenReqFileForm");
@@ -84,24 +79,24 @@ export class GenerationFormRenderer{
 		return result.toString();
 	}
 
-	private renderFormComponents(formsConfig: FormsConfig): FormComponent[] {
+	private renderFormComponents(uiConfig: any): FormComponent[] {
 		let formComponentList: FormComponent[] = new Array<FormComponent>();
-		formsConfig.$forms.forEach(form => {
+		uiConfig.form.forEach(form => {
 			let formComponent: FormComponent = new FormComponent();
-			formComponent.$name = form.$formId;
+			formComponent.$isGenReqFileForm = form.generationRequestFileForm != null;
+			formComponent.$name = !formComponent.$isGenReqFileForm ? form.formId : "GenReqFileForm";
 			formComponent.$ngTemplate = this.renderNgTemplate(form);
-			formComponent.$ngComponent = this.renderNgComponent(form, formsConfig.$metadata);
-			formComponent.$isGenReqFileForm = form.$isGenerationRequestFileForm;
+			formComponent.$ngComponent = this.renderNgComponent(form, uiConfig.metadata);
 			formComponentList.push(formComponent);
 		});
 		return formComponentList;
 	}
 
-	private renderNgTemplate(form: Form): string {
-		if (!form.$isGenerationRequestFileForm) {
+	private renderNgTemplate(form: any): string {
+		if (form.generationRequestFileForm == null) {
 			let ngTemplate: StringContainer = new StringContainer(formComponentTemplate);
-			ngTemplate.replace(regexForGroupListTmpl.regex, this.renderInputGroups(form.$inputGroupList, ngTemplate));
-			ngTemplate.replaceAll("&{form.formFunction}", form.$formFunction);
+			ngTemplate.replace(regexForGroupListTmpl.regex, this.renderInputGroups(form.formElements.inputGroup, ngTemplate));
+			ngTemplate.replaceAll("&{form.formFunction}", form.formFunction);
 
 			return ngTemplate.toString();
 		} else {
@@ -109,17 +104,17 @@ export class GenerationFormRenderer{
 		}
 	}
 
-	private renderNgComponent(form: Form, meta: Metadata): string {
-		if (!form.$isGenerationRequestFileForm) {
+	private renderNgComponent(form: any, meta: any): string {
+		if (form.generationRequestFileForm == null) {
 			let ngComponent: StringContainer = new StringContainer(formComponentComponent);
-			ngComponent.replace(regexInputs.regex, this.renderComponentInputs(form.$inputGroupList, ngComponent));
-			ngComponent.replace(regexInputsDefaultValue.regex, this.renderComponentInputsDefaultValue(form.$inputGroupList, ngComponent));
-			ngComponent.replaceAll("&{meta.generatorComponent}", meta.$generatorComponent);
-			ngComponent.replaceAll("&{form.formId}", form.$formId);
-			ngComponent.replaceAll("&{form.className}", StringHandlerUtil.convertToClassName(form.$formId));
-			ngComponent.replaceAll("&{form.formFunction}", form.$formFunction);
+			ngComponent.replace(regexInputs.regex, this.renderComponentInputs(form.formElements.inputGroup, ngComponent));
+			ngComponent.replace(regexInputsDefaultValue.regex, this.renderComponentInputsDefaultValue(form.formElements.inputGroup, ngComponent));
+			ngComponent.replaceAll("&{meta.generatorComponent}", meta.generatorComponent);
+			ngComponent.replaceAll("&{form.formId}", form.formId);
+			ngComponent.replaceAll("&{form.className}", StringHandlerUtil.convertToClassName(form.formId));
+			ngComponent.replaceAll("&{form.formFunction}", form.formFunction);
 
-			ngComponent.replaceAll("&{(cC2dashed)form.formId}", StringHandlerUtil.convertCamelCaseToDashed(form.$formId));
+			ngComponent.replaceAll("&{(cC2dashed)form.formId}", StringHandlerUtil.convertCamelCaseToDashed(form.formId));
 
 			return ngComponent.toString();
 		} else {
@@ -127,29 +122,59 @@ export class GenerationFormRenderer{
 		}
 	}
 
-	private renderComponentInputs(inputGroupList: InputGroup[], ngComponent: StringContainer): StringContainer {
+	private renderComponentInputs(inputGroupList: any[], ngComponent: StringContainer): StringContainer {
 		let inputsStr: StringContainer = new StringContainer();
 		let inputsTmpl: string = regexInputs.search(ngComponent.toString())[2];
 		inputGroupList.forEach(inputGroup => {
-			inputGroup.$inputList.forEach(input => {
+			inputGroup.inputs.forEach(input => {
+				input = this.resolveCommonInput(input);
 				let currentStr: StringContainer = new StringContainer(inputsTmpl);
-				currentStr.replace("&{input.mapValueKey}", input.$mapValueKey)
+				currentStr.replace("&{input.mapValueKey}", input.valueKey)
 				inputsStr.concat(currentStr);
 			});
 		});
 		return inputsStr;
 	}
 
-	private renderComponentInputsDefaultValue(inputGroupList: InputGroup[], ngComponent: StringContainer): StringContainer {
+	private resolveCommonInput(input: any): any {
+		if (input.text) {
+			return input.text;
+		} else if (input.number) {
+			return input.number;
+		} else if (input.checkbox) {
+			return input.checkbox;
+		} else if (input.choice) {
+			return input.choice;
+		} else if (input.file) {
+			return input.file;
+		} else {
+			return input;
+		}
+	}
+
+	private resolveInputTypeString(input: any): any {
+		if (input.text) {
+			return "text";
+		} else if (input.number) {
+			return "number";
+		} else if (input.file) {
+			return "file";
+		} else {
+			return "";
+		}
+	}
+
+	private renderComponentInputsDefaultValue(inputGroupList: any[], ngComponent: StringContainer): StringContainer {
 		let inputsStr: StringContainer = new StringContainer();
 		let inputsTmpl: string = regexInputsDefaultValue.search(ngComponent.toString())[2];
 		inputGroupList.forEach(inputGroup => {
-			inputGroup.$inputList.forEach(input => {
-				if (input.$commonDefaultValue) {
+			inputGroup.inputs.forEach(input => {
+				let concreteInput: any = this.resolveCommonInput(input);
+				if (concreteInput.defaultValue) {
 					let currentStr: StringContainer = new StringContainer(inputsTmpl);
-					currentStr.replace("&{input.mapValueKey}", input.$mapValueKey)
-					let value: string = input.$commonDefaultValue;
-					if (input.$type == "checkbox") {
+					currentStr.replace("&{input.mapValueKey}", concreteInput.valueKey)
+					let value: string = concreteInput.defaultValue;
+					if (input.checkbox) {
 						value = value == "1" || value == "true" ? "true" : "false";
 					}
 					currentStr.replace("&{input.commonDefaultValue}", value);
@@ -161,63 +186,57 @@ export class GenerationFormRenderer{
 		return inputsStr;
 	}
 
-	private renderInputGroups(inputGroupList: InputGroup[], ngTemplate: StringContainer): StringContainer {
+	private renderInputGroups(inputGroupList: any[], ngTemplate: StringContainer): StringContainer {
 		let inputGroupListStr: StringContainer = new StringContainer();
 		inputGroupList.forEach(inputGroup => {
 			let inputGroupListTmpl: StringContainer = new StringContainer(regexForGroupListTmpl.search(ngTemplate.toString())[2]);
 			let inputListStr: StringContainer = new StringContainer();
-			inputGroup.$inputList.forEach(input => {
+			inputGroup.inputs.forEach(input => {
 				inputListStr.concat(this.renderInput(input, ngTemplate));
 			});
 			inputGroupListTmpl.replace(regexForGroupInputListTmpl.regex, inputListStr.getString());
-			inputGroupListTmpl.replaceAll("&{group.groupTitle}", inputGroup.$groupTitle);
+			inputGroupListTmpl.replaceAll("&{group.groupTitle}", inputGroup.groupTitle);
 			inputGroupListStr.concat(inputGroupListTmpl.toString());
 		});
 		return inputGroupListStr;
 	}
 
-	private renderInput(input: Input, ngTemplate: StringContainer) {
+	private renderInput(input: any, ngTemplate: StringContainer) {
 		var forGroupInputListTmpl = regexForGroupInputListTmpl.search(ngTemplate.getString());
 		let inputStr: StringContainer = new StringContainer(forGroupInputListTmpl[2]);
-		inputStr.replaceAll("&{input.mapLabel}", input.$mapLabel);
-		inputStr.replaceAll("&{input.commonHelptext}", input.$commonHelptext);
-		switch (input.$type) {
-			case "checkbox":
-				let tmplCheckbox: StringContainer = new StringContainer(regexInputCheckboxTmpl.search(ngTemplate.getString())[2]);
-				tmplCheckbox.replaceAll("&{input.type}", input.$type);
-				tmplCheckbox.replaceAll("&{input.mapValueKey}", input.$mapValueKey);
-				tmplCheckbox.replaceAll("&{input.commonDefaultValue}", input.$commonDefaultValue);
-				inputStr.replace(regexInputContainerTmpl.regex, tmplCheckbox.getString());
-				break;
-			case "choice":
-				let tmplChoice: StringContainer = new StringContainer(regexInputChoiceTmpl.search(ngTemplate.getString())[2]);
-				tmplChoice.replace(regexInputChoiceOptionsTmpl.regex, this.renderChoiceOptions(input, tmplChoice).toString());
-				tmplChoice.replaceAll("&{input.type}", input.$type);
-				tmplChoice.replaceAll("&{input.commonDefaultValue}", input.$commonDefaultValue);
-				tmplChoice.replaceAll("&{input.mapValueKey}", input.$mapValueKey);
-				tmplChoice.replaceAll("&{input.commonBlocked?\"readonly\"}", input.$commonBlocked ? "readonly" : "");
-				tmplChoice.replaceAll("&{input.commonRequired?\"required\"}", input.$commonRequired ? "required" : "");
-				inputStr.replace(regexInputContainerTmpl.regex, tmplChoice.getString());
-				break;
-			default:
-				let tmplElse: StringContainer = new StringContainer(regexInputElseTmpl.search(ngTemplate.getString())[2]);
-				tmplElse.replaceAll("&{input.type}", input.$type);
-				tmplElse.replaceAll("&{input.mapValueKey}", input.$mapValueKey);
-				tmplElse.replaceAll("&{input.boxPlaceholder}", input.$boxPlaceholder);
-				tmplElse.replaceAll("&{input.commonDefaultValue}", input.$commonDefaultValue);
-				tmplElse.replaceAll("&{input.commonBlocked?\"readonly\"}", input.$commonBlocked ? "readonly" : "");
-				tmplElse.replaceAll("&{input.commonRequired?\"required\"}", input.$commonRequired ? "required" : "");
-				inputStr.replace(regexInputContainerTmpl.regex, tmplElse.getString());
-				break;
+		let commonInput: any = this.resolveCommonInput(input);
+		inputStr.replaceAll("&{input.mapLabel}", commonInput.label);
+		inputStr.replaceAll("&{input.commonHelptext}", commonInput.helptext);
+		if (input.checkbox) {
+			let tmplCheckbox: StringContainer = new StringContainer(regexInputCheckboxTmpl.search(ngTemplate.getString())[2]);
+			tmplCheckbox.replaceAll("&{input.type}", "checkbox");
+			tmplCheckbox.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
+			inputStr.replace(regexInputContainerTmpl.regex, tmplCheckbox.getString());
+		} else if (input.choice) {
+			let tmplChoice: StringContainer = new StringContainer(regexInputChoiceTmpl.search(ngTemplate.getString())[2]);
+			tmplChoice.replace(regexInputChoiceOptionsTmpl.regex, this.renderChoiceOptions(commonInput, tmplChoice).toString());
+			tmplChoice.replaceAll("&{input.type}", "select");
+			tmplChoice.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
+			tmplChoice.replaceAll("&{input.commonBlocked?\"readonly\"}", commonInput.blocked ? "readonly" : "");
+			tmplChoice.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required ? "required" : "");
+			inputStr.replace(regexInputContainerTmpl.regex, tmplChoice.getString());
+		} else {
+			let tmplElse: StringContainer = new StringContainer(regexInputElseTmpl.search(ngTemplate.getString())[2]);
+			tmplElse.replaceAll("&{input.type}", this.resolveInputTypeString(input));
+			tmplElse.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
+			tmplElse.replaceAll("&{input.boxPlaceholder}", commonInput.placeholder);
+			tmplElse.replaceAll("&{input.commonBlocked?\"readonly\"}", commonInput.blocked ? "readonly" : "");
+			tmplElse.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required ? "required" : "");
+			inputStr.replace(regexInputContainerTmpl.regex, tmplElse.getString());
 		}
 		return inputStr;
 	}
 
-	private renderChoiceOptions(input: Input, choiceStr: StringContainer): StringContainer {
+	private renderChoiceOptions(input: any, choiceStr: StringContainer): StringContainer {
 		let optionsStr: StringContainer = new StringContainer();
-		input.$choiceOptions.forEach(option => {
+		input.options.forEach(option => {
 			let optionTmpl: StringContainer = new StringContainer(regexInputChoiceOptionsTmpl.search(choiceStr.getString())[2]);
-			optionsStr.concat(optionTmpl.replaceAll("&{input.choiceOptions}", option));
+			optionsStr.concat(optionTmpl.replaceAll("&{input.choiceOptions}", option.option));
 		});
 		return optionsStr;
 	}

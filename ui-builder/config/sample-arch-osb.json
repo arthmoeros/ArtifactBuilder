@@ -105,8 +105,12 @@
                                         "valueKey": "serviceType",
                                         "helptext": "Indicates Service Type",
                                         "options": [
-                                            "ABC",
-                                            "XYZ"
+                                            {
+                                                "option": "ABC"
+                                            },
+                                            {
+                                                "option":"XYZ"
+                                            }
                                         ]
                                     }
                                 }
@@ -116,7 +120,7 @@
                 }
             },
             {
-                "generationRequestFileForm": {}
+                "generationRequestFileForm": ""
             }
         ]
     }
