@@ -1,4 +1,4 @@
-# @artifacter/ui
+# ![artifacter-logo](/src/rsz_artifacter-logo.png)@artifacter/ui
 
 ### UI generation tool for Artifacter
 
