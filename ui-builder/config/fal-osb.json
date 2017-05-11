@@ -1,0 +1,284 @@
+{
+  "uiConfig": {
+    "metadata": {
+      "generatorKey": "FalOSBComponents",
+      "generatorComponent": "fal-osb-gen",
+      "title": "Fal OSB Services Generation",
+      "description": "This configuration provides artifact generation for Fal ATC standards"
+    },
+    "form": [{
+        "formId": "generateExpCompForm",
+        "formTitle": "OSB Generate EXP / COMP",
+        "formDescription": "This form allows generation of EXP and/or COMP layers for OSB projects",
+        "formFunction": "generateExpComp",
+        "formElements": {
+          "inputGroup": [{
+              "groupTitle": "Componentes a generar",
+              "inputs": [{
+                  "checkbox": {
+                    "label": "Generar capa EXP",
+                    "valueKey": "isExp",
+                    "defaultValue": "1",
+                    "blocked": ""
+                  }
+                },
+                {
+                  "checkbox": {
+                    "label": "Generar capa COMP",
+                    "valueKey": "isComp"
+                  }
+                }
+              ]
+            },
+            {
+              "groupTitle": "Servicio / Funcionalidad de Negocio",
+              "inputs": [{
+                  "text": {
+                    "label": "Objeto de Negocio",
+                    "valueKey": "objetoDeNegocio",
+                    "helptext": "Espacio para CamelCase (Ej: 'pago electronico')",
+                    "required": "",
+                    "postSubmit": [{
+                        "stringOperation": "allLowerCase"
+                      },
+                      {
+                        "stringOperation": "blanksToCamelCase"
+                      },
+                      {
+                        "stringOperation": "startWithUpperCase"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Entidad Discreta O.N.",
+                    "valueKey": "entidadDiscreta",
+                    "helptext": "Espacio para CamelCase (Ej: 'solicitud emision')",
+                    "postSubmit": [{
+                        "stringOperation": "allLowerCase"
+                      },
+                      {
+                        "stringOperation": "blanksToCamelCase"
+                      },
+                      {
+                        "stringOperation": "startWithUpperCase"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Operación",
+                    "valueKey": "operacion",
+                    "helptext": "(Verbo infinitivo)",
+                    "required": "",
+                    "postSubmit": [{
+                      "stringOperation": "startWithUpperCase"
+                    }],
+                    "placeholder": "Put a Biz here"
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Versión Servicio",
+                    "valueKey": "versionServicio",
+                    "helptext": "(formato vX.Y)",
+                    "required": "",
+                    "postSubmit": [{
+                      "stringOperation": "startWithLowerCase"
+                    }]
+                  }
+                }
+              ]
+            },
+            {
+              "groupTitle": "Distribución",
+              "inputs": [{
+                  "choice": {
+                    "label": "Negocio",
+                    "valueKey": "negocio",
+                    "required": "",
+                    "options": [{
+                        "option": "TPD"
+                      },
+                      {
+                        "option": "SOD"
+                      },
+                      {
+                        "option": "TOT"
+                      },
+                      {
+                        "option": "CMR"
+                      },
+                      {
+                        "option": "BCO"
+                      },
+                      {
+                        "option": "SEG"
+                      },
+                      {
+                        "option": "VIA"
+                      },
+                      {
+                        "option": "MOV"
+                      },
+                      {
+                        "option": "CORP"
+                      },
+                      {
+                        "option": "FIF"
+                      },
+                      {
+                        "option": "LOG"
+                      },
+                      {
+                        "option": "ECOM"
+                      }
+                    ]
+                  }
+                }, {
+                  "choice": {
+                    "label": "Localización",
+                    "valueKey": "localizacion",
+                    "required": "",
+                    "options": [{
+                        "option": "AR"
+                      },
+                      {
+                        "option": "BR"
+                      },
+                      {
+                        "option": "CL"
+                      },
+                      {
+                        "option": "CO"
+                      },
+                      {
+                        "option": "PE"
+                      },
+                      {
+                        "option": "UY"
+                      },
+                      {
+                        "option": "CORP"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Capa",
+                    "valueKey": "capa",
+                    "helptext": "(\"OSB\" fijo)",
+                    "defaultValue": "OSB",
+                    "required": "",
+                    "blocked": ""
+                  }
+                }, {
+                  "choice": {
+                    "label": "Dominio",
+                    "valueKey": "dominio",
+                    "required": "",
+                    "options": [{
+                        "option": "TPD"
+                      },
+                      {
+                        "option": "SOD"
+                      },
+                      {
+                        "option": "TOT"
+                      },
+                      {
+                        "option": "LOG"
+                      },
+                      {
+                        "option": "OMS"
+                      },
+                      {
+                        "option": "MOB"
+                      },
+                      {
+                        "option": "ECOM"
+                      },
+                      {
+                        "option": "CORP"
+                      },
+                      {
+                        "option": "CMRCL"
+                      },
+                      {
+                        "option": "CMRAR"
+                      },
+                      {
+                        "option": "BCOCL"
+                      },
+                      {
+                        "option": "BCOPE"
+                      },
+                      {
+                        "option": "BCOCO"
+                      },
+                      {
+                        "option": "SEG"
+                      },
+                      {
+                        "option": "MOV"
+                      },
+                      {
+                        "option": "VIA"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "groupTitle": "Versiones técnicas",
+              "inputs": [{
+                  "text": {
+                    "label": "Versión WSDL",
+                    "valueKey": "versionWSDL",
+                    "helptext": "(formato vX.Y)",
+                    "required": "",
+                    "postSubmit": [{
+                        "stringOperation": "startWithLowerCase"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Versión XSD Req",
+                    "valueKey": "versionXSDREQ",
+                    "helptext": "(formato vAAAA.MM)",
+                    "required": "",
+                    "postSubmit": [{
+                        "stringOperation": "startWithLowerCase"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "text": {
+                    "label": "Versión XSD Resp",
+                    "valueKey": "versionXSDRESP",
+                    "helptext": "(formato vAAAA.MM)",
+                    "required": "",
+                    "postSubmit": [{
+                        "stringOperation": "startWithLowerCase"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "generationRequestFileForm": ""
+      }
+    ]
+  }
+}
