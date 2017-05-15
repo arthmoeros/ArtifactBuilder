@@ -127,9 +127,15 @@ export class GenerationFormRenderer {
 		let inputsTmpl: string = regexInputs.search(ngComponent.toString())[2];
 		inputGroupList.forEach(inputGroup => {
 			inputGroup.inputs.forEach(input => {
+				let containingInput = input;
 				input = this.resolveCommonInput(input);
 				let currentStr: StringContainer = new StringContainer(inputsTmpl);
-				currentStr.replace("&{input.mapValueKey}", input.valueKey)
+				currentStr.replace("&{input.mapValueKey}", input.valueKey);
+				if(containingInput.checkbox){
+					currentStr.replace("&{isCheckbox?'boolean':'string'}", "boolean");
+				}else{
+					currentStr.replace("&{isCheckbox?'boolean':'string'}", "string");
+				}
 				inputsStr.concat(currentStr);
 			});
 		});
@@ -170,12 +176,14 @@ export class GenerationFormRenderer {
 		inputGroupList.forEach(inputGroup => {
 			inputGroup.inputs.forEach(input => {
 				let concreteInput: any = this.resolveCommonInput(input);
-				if (concreteInput.defaultValue) {
+				if (concreteInput.defaultValue != null || input.checkbox != null) {
 					let currentStr: StringContainer = new StringContainer(inputsTmpl);
 					currentStr.replace("&{input.mapValueKey}", concreteInput.valueKey)
 					let value: string = concreteInput.defaultValue;
 					if (input.checkbox) {
 						value = value == "1" || value == "true" ? "true" : "false";
+					}else {
+						value = "\""+value+"\"";
 					}
 					currentStr.replace("&{input.commonDefaultValue}", value);
 

@@ -10,14 +10,14 @@ export class &{form.className}Stub {
 
 	private map: {
 		::INPUTS::
-		&{input.mapValueKey}?: string,
+		&{input.mapValueKey}?: &{isCheckbox?'boolean':'string'},
 		::/INPUTS::
 	};
 	
 	constructor (private workerServiceconsumer: WorkerServiceConsumer){
 		this.map = {
 			::DEFAULT_VALUES::
-			&{input.mapValueKey}: "&{input.commonDefaultValue}",
+			&{input.mapValueKey}: &{input.commonDefaultValue},
 			::/DEFAULT_VALUES::
 		};
 	}
