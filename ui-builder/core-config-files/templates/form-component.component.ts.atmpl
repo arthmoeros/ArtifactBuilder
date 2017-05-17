@@ -14,6 +14,11 @@ export class &{form.className}Stub {
 		::/INPUTS::
 	};
 	
+	private postSubmitProcess: any = {
+		::POST_SUBMIT_PROCESS::
+		&{input.mapValueKey}: &{input.jsonStrElementsPostSubmit},
+		::/POST_SUBMIT_PROCESS::
+	}
 	constructor (private workerServiceconsumer: WorkerServiceConsumer){
 		this.map = {
 			::DEFAULT_VALUES::
@@ -23,7 +28,7 @@ export class &{form.className}Stub {
 	}
 
 	public &{form.formFunction}() {
-		this.workerServiceconsumer.invoke("&{meta.generatorComponent}", "&{form.formFunction}", this.map);
+		this.workerServiceconsumer.invoke("&{meta.generatorComponent}", "&{form.formFunction}", this.map, this.postSubmitProcess);
 	};
 
 

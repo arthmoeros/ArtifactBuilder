@@ -24,6 +24,7 @@ const formComponentGenReqTemplate: string = fs.readFileSync(uiBuilderWorkspaceFo
 
 const formComponentComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component.component.ts.atmpl").toString();
 const regexInputs = new RegexContainer(/(::INPUTS::)([\s\S]*)(::\/INPUTS::)/g);
+const regexPostSubmit = new RegexContainer(/(::POST_SUBMIT_PROCESS::)([\s\S]*)(::\/POST_SUBMIT_PROCESS::)/g);
 const regexInputsDefaultValue = new RegexContainer(/(::DEFAULT_VALUES::)([\s\S]*)(::\/DEFAULT_VALUES::)/g);
 
 const formComponentGenReqComponent: string = fs.readFileSync(uiBuilderWorkspaceFolder + "core-config-files/templates/form-component-genreq.component.ts.atmpl").toString();
@@ -108,6 +109,7 @@ export class GenerationFormRenderer {
 		if (form.generationRequestFileForm == null) {
 			let ngComponent: StringContainer = new StringContainer(formComponentComponent);
 			ngComponent.replace(regexInputs.regex, this.renderComponentInputs(form.formElements.inputGroup, ngComponent));
+			ngComponent.replace(regexPostSubmit.regex, this.renderComponentInputsPostSubmit(form.formElements.inputGroup, ngComponent));
 			ngComponent.replace(regexInputsDefaultValue.regex, this.renderComponentInputsDefaultValue(form.formElements.inputGroup, ngComponent));
 			ngComponent.replaceAll("&{meta.generatorComponent}", meta.generatorComponent);
 			ngComponent.replaceAll("&{form.formId}", form.formId);
@@ -137,6 +139,23 @@ export class GenerationFormRenderer {
 					currentStr.replace("&{isCheckbox?'boolean':'string'}", "string");
 				}
 				inputsStr.concat(currentStr);
+			});
+		});
+		return inputsStr;
+	}
+
+	private renderComponentInputsPostSubmit(inputGroupList: any[], ngComponent: StringContainer): StringContainer {
+		let inputsStr: StringContainer = new StringContainer();
+		let inputsTmpl: string = regexPostSubmit.search(ngComponent.toString())[2];
+		inputGroupList.forEach(inputGroup => {
+			inputGroup.inputs.forEach(input => {
+				input = this.resolveCommonInput(input);
+				if(input.postSubmit != null && input.postSubmit.length > 0){
+					let currentStr: StringContainer = new StringContainer(inputsTmpl);
+					currentStr.replace("&{input.mapValueKey}", input.valueKey);
+					currentStr.replace("&{input.jsonStrElementsPostSubmit}", JSON.stringify(input.postSubmit));
+					inputsStr.concat(currentStr);
+				}
 			});
 		});
 		return inputsStr;

@@ -33,7 +33,7 @@
     "@angular/platform-browser": "^4.0.3",
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
-    "@artifacter/common": "^0.9.9",
+    "@artifacter/common": "^0.9.11",
     "@types/node": "^6.0.68",
     "@types/shelljs": "^0.7.0",
     "ajv": "^5.0.1",

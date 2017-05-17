@@ -26,6 +26,7 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      '@artifacter/common': 'npm:@artifacter/common/index.browser.js',
       'file-saver':                'npm:file-saver/FileSaver.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
@@ -39,6 +40,9 @@
         }
       },
       rxjs: {
+        defaultExtension: 'js'
+      },
+      'npm:@artifacter/common':{
         defaultExtension: 'js'
       }
     }
