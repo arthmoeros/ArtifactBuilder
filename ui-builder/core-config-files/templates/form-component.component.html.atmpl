@@ -20,6 +20,7 @@
 					[(ngModel)]="map.&{input.mapValueKey}" 
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}"
+          [disabled]="&{input.commonReadonly?'true':'false'}"
 				/>
             </td>
             ::/CHECKBOX::
@@ -29,7 +30,7 @@
 					[(ngModel)]="map.&{input.mapValueKey}" 
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}" 
-                	&{input.commonReadonly?"readonly"}
+                	[disabled]="&{input.commonReadonly?'true':'false'}"
 					&{input.commonRequired?"required"} >
 					::CHOICE_OPTIONS::
 					<option value="&{input.choiceOptions}">
@@ -46,7 +47,7 @@
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}"
 					placeholder="&{input.boxPlaceholder}"
-					&{input.commonReadonly?"readonly"}
+					[readonly]="&{input.commonReadonly?'true':'false'}"
 					&{input.commonRequired?"required"}
 				/>
             </td>

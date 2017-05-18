@@ -238,13 +238,14 @@ export class GenerationFormRenderer {
 			let tmplCheckbox: StringContainer = new StringContainer(regexInputCheckboxTmpl.search(ngTemplate.getString())[2]);
 			tmplCheckbox.replaceAll("&{input.type}", "checkbox");
 			tmplCheckbox.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
+			tmplCheckbox.replaceAll("&{input.commonReadonly?'true':'false'}", commonInput.blocked != null ? "true" : "false");
 			inputStr.replace(regexInputContainerTmpl.regex, tmplCheckbox.getString());
 		} else if (input.choice) {
 			let tmplChoice: StringContainer = new StringContainer(regexInputChoiceTmpl.search(ngTemplate.getString())[2]);
 			tmplChoice.replace(regexInputChoiceOptionsTmpl.regex, this.renderChoiceOptions(commonInput, tmplChoice).toString());
 			tmplChoice.replaceAll("&{input.type}", "select");
 			tmplChoice.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
-			tmplChoice.replaceAll("&{input.commonReadonly?\"readonly\"}", commonInput.readonly != null ? "readonly" : "");
+			tmplChoice.replaceAll("&{input.commonReadonly?'true':'false'}", commonInput.blocked != null ? "true" : "false");
 			tmplChoice.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required != null ? "required" : "");
 			inputStr.replace(regexInputContainerTmpl.regex, tmplChoice.getString());
 		} else {
@@ -252,7 +253,7 @@ export class GenerationFormRenderer {
 			tmplElse.replaceAll("&{input.type}", this.resolveInputTypeString(input));
 			tmplElse.replaceAll("&{input.mapValueKey}", commonInput.valueKey);
 			tmplElse.replaceAll("&{input.boxPlaceholder}", commonInput.placeholder);
-			tmplElse.replaceAll("&{input.commonReadonly?\"readonly\"}", commonInput.readonly != null ? "readonly" : "");
+			tmplElse.replaceAll("&{input.commonReadonly?'true':'false'}", commonInput.blocked != null ? "true" : "false");
 			tmplElse.replaceAll("&{input.commonRequired?\"required\"}", commonInput.required != null ? "required" : "");
 			inputStr.replace(regexInputContainerTmpl.regex, tmplElse.getString());
 		}

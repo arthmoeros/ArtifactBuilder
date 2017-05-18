@@ -1,4 +1,5 @@
 <div>
+	<div><a [routerLink]="['/generator-index']">Go back to Index</a></div>
   <h1>
     &{TITLE}
   </h1>
