@@ -6,8 +6,8 @@
     "ui-builder": "tsc -p ./ui-builder/src && node ./ui-builder/src/ui-builder-main.js",
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
-    "start": "npm run ui-builder && npm run build && node index.js",
-    "start-dev": "npm run ui-builder && concurrent \"npm run build:watch\" \"node index.js\""
+    "start": "node index.js",
+    "dev": "npm run ui-builder && concurrent \"npm run build:watch\" \"node index.js\""
   },
   "keywords": [],
   "author": "",

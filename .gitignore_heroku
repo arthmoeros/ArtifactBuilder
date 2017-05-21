@@ -1,0 +1,7 @@
+node_modules/
+ui-builder/
+doc-img/
+push_heroku.bat
+.gitignore_origin
+.git
+.git_heroku
