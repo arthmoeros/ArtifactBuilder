@@ -1,26 +1,36 @@
-<div>
-	<div><a [routerLink]="['/generator-index']">Go back to Index</a></div>
-  <h1>
-    &{TITLE}
-  </h1>
-  <h5>
-    &{DESCRIPTION}
-  </h5>
-  <h3>Select a generation form</h3>
-  <table>
-    <tr>
-      ::FORM_LIST_RADIO_TMPL::
-      <td>
-        <input id="&{FORM_ID}ID" name="selectedGeneratorForm" type="radio" value="&{FORM_ID}" [routerLink]="['&{formLink}']"
-        />
-        <label for="&{FORM_ID}ID">
-			&{FORM_TITLE}
-		</label>
-      </td>
-      ::/FORM_LIST_RADIO_TMPL::
-    </tr>
-  </table>
-  <div style="padding: 1rem;">
-    <router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <a [routerLink]="['/generator-index']">Go back to Index</a>
+    </div>
+    <div class="col-xs-12">
+      <h2>
+        &{TITLE}
+      </h2>
+    </div>
+    <div class="col-xs-12">
+      <h5>
+        &{DESCRIPTION}
+      </h5>
+    </div>
+    <div class="col-xs-12">
+      <h3>Select a generation form</h3>
+    </div>
+    <div class="col-xs-12">
+      <ul class="list-group horizontal">
+          ::FORM_LIST_RADIO_TMPL::
+        <li class="list-group-item horizontal">
+            <input id="&{FORM_ID}ID" name="selectedGeneratorForm" type="radio" value="&{FORM_ID}" [routerLink]="['&{formLink}']"
+            />
+            <label for="&{FORM_ID}ID">
+          &{FORM_TITLE}
+        </label>
+        </li>
+          ::/FORM_LIST_RADIO_TMPL::
+      </ul>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

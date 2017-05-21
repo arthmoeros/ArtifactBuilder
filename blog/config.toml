@@ -1,7 +1,0 @@
-baseURL = "https://arthmoeros.github.io/Artifacter/"
-languageCode = "en-us"
-title = "Artifacter's dev blog"
-theme = "hugo_theme_aglaus"
-
-[Params]
-  Author = "Arturo Saavedra"

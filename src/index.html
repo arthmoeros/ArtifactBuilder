@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Artifacter UI</title>
-    <base href="/">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="forms.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
+<head>
+  <title>Artifacter UI</title>
+  <base href="/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="forms.css">
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <!-- Polyfill(s) for older browsers -->
+  <script src="node_modules/core-js/client/shim.min.js"></script>
 
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('main.js').catch(function(err){ console.error(err); });
-    </script>
-  </head>
+  <script src="node_modules/zone.js/dist/zone.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-  <body>
-    <my-app>Loading AppComponent content here ...</my-app>
-  </body>
+  <script src="systemjs.config.js"></script>
+  <script>
+    System.import('main.js').catch(function (err) { console.error(err); });
+  </script>
+  <style>
+    @media (min-width: 900px) {
+      .container-fluid {
+        max-width: 900px;
+        margin-left: 0;
+      }
+    }
+
+    ul.list-group.horizontal:after {
+      clear: both;
+      display: block;
+      content: "";
+    }
+
+    .list-group-item.horizontal {
+      float: left;
+    }
+    .helptext {
+      color: gray;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <my-app>Loading Artifacter...</my-app>
+</body>
+
 </html>

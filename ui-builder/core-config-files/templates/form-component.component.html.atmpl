@@ -1,32 +1,32 @@
 <div>
   <form #generationForm="ngForm" (ngSubmit)="&{form.formFunction}()">
-    <table>
+    <div class="container-fluid">
       ::FOR_GROUP_LIST::
-        <tr>
-          <td colspan="3">
+      <div class="row">
+        <div class="col-sm-12">
             <h4>&{group.groupTitle}</h4>
-          </td>
-        </tr>
+        </div>
+      </div>
         ::FOR_GROUP_INPUT_LIST::
-          <tr>
-            <td>
+      <div class="row">
+        <div class="col-sm-3 col-xs-5">
               &{input.mapLabel}
-            </td>
+        </div>
 			::INPUT_CONTAINER::
             ::CHECKBOX::
-            <td>
-				<input 
+        <div class="col-sm-3 col-xs-7">
+				<input
 					type="&{input.type}" 
 					[(ngModel)]="map.&{input.mapValueKey}" 
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}"
           [disabled]="&{input.commonReadonly?'true':'false'}"
 				/>
-            </td>
+        </div>
             ::/CHECKBOX::
             ::CHOICE::
-            <td>
-        		<select 
+        <div class="col-sm-3 col-xs-7">
+        		<select  class="form-control"
 					[(ngModel)]="map.&{input.mapValueKey}" 
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}" 
@@ -38,11 +38,11 @@
 					</option>
 					::/CHOICE_OPTIONS::
 				</select>
-            </td>
+        </div>
             ::/CHOICE::
             ::ELSE::
-            <td>
-				<input type="&{input.type}" 
+        <div class="col-sm-3 col-xs-7">
+				<input type="&{input.type}"  class="form-control"
 					[(ngModel)]="map.&{input.mapValueKey}"
 					id="&{input.mapValueKey}" 
 					name="map.&{input.mapValueKey}"
@@ -50,16 +50,25 @@
 					[readonly]="&{input.commonReadonly?'true':'false'}"
 					&{input.commonRequired?"required"}
 				/>
-            </td>
+        </div>
             ::/ELSE::
 			::/INPUT_CONTAINER::
-            <td>
+        <div class="col-sm-6 col-xs-12">
               <div class="helptext">&{input.commonHelptext}</div>
-            </td>
-          </tr>
+        </div>
+        <div class="col-xs-12 visible-xs">
+          <hr />
+        </div>
+      </div>
         ::/FOR_GROUP_INPUT_LIST::
       ::/FOR_GROUP_LIST::
-    </table>
-    <button type="submit" [disabled]="!generationForm.form.valid">Generate</button>
+      <div class="row">
+        <div class="col-sm-3 hidden-xs">
+        </div>
+        <div class="col-sm-3 col-xs-12">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!generationForm.form.valid">Generate</button>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
