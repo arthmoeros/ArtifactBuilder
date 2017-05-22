@@ -4,6 +4,7 @@ import { Observable } from "rxjs/Observable";
 
 import { AppComponent } from "./app.component";
 const fileSaver = require("file-saver");
+var deployed;
 
 import { PostSubmitProcessor } from "./post-submit.processor";
 
@@ -35,7 +36,7 @@ export class WorkerServiceConsumer {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob });
         let endpoint = "";
-        if(AppComponent.environment == "DEPLOYED"){
+        if(deployed != null){
             endpoint = WorkerServiceConsumer.config.artifactGenerationRequest.endpoint;
         }else{
             endpoint = WorkerServiceConsumer.config.artifactGenerationRequest.devEndpoint;
