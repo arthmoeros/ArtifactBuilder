@@ -120,7 +120,15 @@ export class NgCoreFilesRenderer {
 	}
 
 	private renderAppComponent(generationForms: GenerationForm[]): string {
-		return tmplAppComponent;
+		let appComponent: StringContainer = new StringContainer(tmplAppComponent);
+		let environment: string = "";
+		if (process.env.PORT) {
+			environment = "DEPLOYED";
+		} else {
+			environment = "DEV";
+		}
+		appComponent.replace("&{environment}", environment);
+		return appComponent.toString();
 	}
 
 	private renderAppModule(generationForms: GenerationForm[]): string {

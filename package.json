@@ -7,7 +7,7 @@
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "start": "node index.js",
-    "dev": "npm run ui-builder && concurrent \"npm run build:watch\" \"node index.js\""
+    "dev": "npm run ui-builder && concurrently \"npm run build:watch\" \"node index.js\""
   },
   "keywords": [],
   "author": "",
@@ -22,8 +22,6 @@
     "@angular/platform-browser-dynamic": "^4.1.3",
     "@angular/router": "^4.1.3",
     "@artifacter/common": "^0.9.11",
-    "@types/node": "^6.0.68",
-    "@types/shelljs": "^0.7.0",
     "ajv": "^5.0.1",
     "ajv-merge-patch": "^3.0.0",
     "core-js": "^2.4.1",
@@ -36,11 +34,11 @@
     "zone.js": "^0.8.9"
   },
   "devDependencies": {
+    "@types/shelljs": "^0.7.0",
     "@types/jasmine": "2.5.36",
     "@types/node": "^6.0.68",
     "canonical-path": "0.0.2",
-    "concurrent": "^0.3.2",
-    "concurrently": "^3.2.0",
+    "concurrently": "^3.4.0",
     "jasmine-core": "~2.4.1",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",

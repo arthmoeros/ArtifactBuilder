@@ -18,6 +18,8 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
+	public static readonly environment: string = "&{environment}";
+
 	title = 'Artifacter User Interface';
 
 }
