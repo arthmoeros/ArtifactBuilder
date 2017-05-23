@@ -22,6 +22,7 @@ export class WorkerServiceConsumer {
     }
 
     public invoke(generator: string, formFunction: string, map: any, postSubmitProcess: any) {
+        document.getElementById("loadingBlocker").className = "app-blocker-loading";
         map = JSON.parse(JSON.stringify(map));
         for (var key in postSubmitProcess) {
             let value: string = map[key];
@@ -44,6 +45,10 @@ export class WorkerServiceConsumer {
         let obs: Observable<Response> = this.http.post(endpoint, JSON.stringify(jsonRequest), options);
         obs.subscribe((response) => {
             fileSaver(response.blob(), "result.zip");
+            document.getElementById("loadingBlocker").className = "app-blocker-loading hidden";
+        }, (error) => {
+            alert("An error ocurred while retrieving the Worker response: "+error);
+            document.getElementById("loadingBlocker").className = "app-blocker-loading hidden";
         });
     }
 

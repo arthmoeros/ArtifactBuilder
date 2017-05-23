@@ -16,18 +16,14 @@
     <div class="col-xs-12">
       <h3>Select a generation form</h3>
     </div>
-    <div class="col-xs-12">
-      <ul class="list-group horizontal">
+    <div class="container">
           ::FORM_LIST_RADIO_TMPL::
-        <li class="list-group-item horizontal">
+      <label class="btn btn-primary">
             <input id="&{FORM_ID}ID" name="selectedGeneratorForm" type="radio" value="&{FORM_ID}" [routerLink]="['&{formLink}']"
             />
-            <label for="&{FORM_ID}ID">
           &{FORM_TITLE}
         </label>
-        </li>
           ::/FORM_LIST_RADIO_TMPL::
-      </ul>
     </div>
     <div>
       <router-outlet></router-outlet>

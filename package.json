@@ -7,7 +7,8 @@
     "build": "tsc -p src/",
     "build:watch": "tsc -p src/ -w",
     "start": "node index.js",
-    "dev": "npm run ui-builder && concurrently \"npm run build:watch\" \"node index.js\""
+    "dev": "npm run ui-builder && concurrently \"npm run build:watch\" \"node index.js\"",
+    "dev-test": "concurrently \"npm run build:watch\" \"node index.js\""
   },
   "keywords": [],
   "author": "",
