@@ -26,8 +26,10 @@ export class WorkerServiceConsumer {
         map = JSON.parse(JSON.stringify(map));
         for (var key in postSubmitProcess) {
             let value: string = map[key];
-            let postSubmit: any[] = postSubmitProcess[key];
-            map[key] = new PostSubmitProcessor(value, postSubmit).run();
+            if(value != null){
+                let postSubmit: any[] = postSubmitProcess[key];
+                map[key] = new PostSubmitProcessor(value, postSubmit).run();
+            }
         }
         let jsonRequest: any = {};
         jsonRequest.generator = generator;
