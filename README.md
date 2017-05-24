@@ -16,9 +16,10 @@ This module only uses the UI-Builder to generate the index and generation forms,
 
 #### How does it run?
 The UI-builder is incorporated into the package.json file as *npm run ui-builder*, it outputs the generated ui components into the *app/src/* folder.
+The *production* mode is run via *npm start* and development mode is run with *npm run dev*
 
 #### How does it stands? - Status
-This module was made using Angular's quickstart as a basis, so it has a bit of clutter to clean yet, but it does work fine as is. The presentation is OK to bad, is has yet to receive some styling.
+This module was made using Angular's quickstart as a basis, so it has a bit of clutter to clean yet, but it does work fine as is. The front is responsive though.
 
 #### What's next? - Planned features for a future release
 The first goal is to decouple this module with the Worker module, it primarly requires an upgrade of both configurations to make a single enough for Worker module only, such as a form describing configuration on Worker that may be requested by a rendering UI module such as this. This of course implicates that the UI building process must evolve to an online one, maybe express.js will be incorporated into this mix.
