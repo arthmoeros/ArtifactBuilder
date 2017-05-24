@@ -18,6 +18,9 @@ This module only uses the UI-Builder to generate the index and generation forms,
 The UI-builder is incorporated into the package.json file as *npm run ui-builder*, it outputs the generated ui components into the *app/src/* folder.
 The *production* mode is run via *npm start* and development mode is run with *npm run dev*
 
+#### Can I try this? - Live Demo
+Yes!, it is available as a Heroku App (please be mindful of your use, it is a free account), go here -> https://artifacter.herokuapp.com/
+
 #### How does it stands? - Status
 This module was made using Angular's quickstart as a basis, so it has a bit of clutter to clean yet, but it does work fine as is. The front is responsive though.
 
