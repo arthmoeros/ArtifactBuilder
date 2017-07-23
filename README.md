@@ -1,29 +1,28 @@
-# ![artifacter-logo](/src/rsz_artifacter-logo.png)@artifacter/ui
+# Ui
 
-### UI generation tool for Artifacter
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.3.
 
-#### What's this? - Intro
-This component consists of two parts, the first being the ui generation tool, "UI-Builder", it makes use of templates based on the Artifacter's Template Engine (it is based because is not using the engine as is and has sub-template functionality), the second part is the base UI components, which are the core NG components not directly dependant on the UI itself.
+## Development server
 
-#### What's the UI-Builder? - UI Generation tool
-The UI-Builder is a program that runs in the CLI, it builds all the Angular components necessary for the UI of Artifacter, it makes use of atmpl based files (see [Template Engine](https://github.com/arthmoeros/artifacter-template-engine), although it actually doesn't make use of it yet) and a JSON configuration file to render generation forms, which makes use of Artifacter's Worker module (see [Worker](https://github.com/arthmoeros/artifacter-worker)) to make artifact generation requests. Because of the requirement of the JSON configuration file, this module configuration is tightly coupled with Artifacter's Worker module configuration, making it a requirement to both configurations to be coordinated.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-##### Why is not using @artifacter/template-engine? - Or why @artifacer/template-engine is not this
-As many could have guessed, the Template Engine module is not powerful enough to handle the UI generation process required, so the engine is implemented here but in a specific way for this tool, so it cannot be used outside of it.
+## Code scaffolding
 
-#### What's this base UI? - Static components
-This module only uses the UI-Builder to generate the index and generation forms, every other angular component necessary for this to work is already written, also the component which serves the purpose of communicating with Artifacter's Worker module is already written, these component aren't part of the UI generation tool.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
 
-#### How does it run?
-The UI-builder is incorporated into the package.json file as *npm run ui-builder*, it outputs the generated ui components into the *app/src/* folder.
-The *production* mode is run via *npm start* and development mode is run with *npm run dev*
+## Build
 
-#### Can I try this? - Live Demo
-Yes!, it is available as a Heroku App (please be mindful of your use, it is a free account), go here -> https://artifacter.herokuapp.com/
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-#### How does it stands? - Status
-This module was made using Angular's quickstart as a basis, so it has a bit of clutter to clean yet, but it does work fine as is. The front is responsive though.
+## Running unit tests
 
-#### What's next? - Planned features for a future release
-The first goal is to decouple this module with the Worker module, it primarly requires an upgrade of both configurations to make a single enough for Worker module only, such as a form describing configuration on Worker that may be requested by a rendering UI module such as this. This of course implicates that the UI building process must evolve to an online one, maybe express.js will be incorporated into this mix.
-Next would be the upgrade of the Template Engine module to use sub-templates, which would require upgrades on here and the Worker module, so there is a lot of work on schedule.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
