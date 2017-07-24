@@ -1,3 +1,12 @@
-<p>
-  generator-index works!
-</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>{{title}}</h3>
+    </div>
+    <div class="col-xs-12">
+      <ul class="list-group" *ngFor="let form of formsIndex">
+        <li class="list-group-item"><a [routerLink]="['/render-form',form]">{{form}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

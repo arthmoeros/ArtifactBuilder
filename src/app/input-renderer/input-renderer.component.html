@@ -1,0 +1,44 @@
+<ng-container *ngIf="inputName.indexOf('$') != 0">
+  <ng-container *ngIf="input['@type'] != null">
+    <ng-container *ngIf="input['@type'] != 'array'">
+      <div class="row">
+        <div class="col-sm-3 col-xs-5">
+          {{inputName}}
+        </div>
+        <div class="col-sm-3 col-xs-7">
+          <input type="text" [(ngModel)]="input['value']" id="{{inputName}}" [disabled]="false" />
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <!--<div class="helptext">Indicates whether or not to generate additional empty folders</div>-->
+        </div>
+        <div class="col-xs-12 visible-xs">
+          <hr />
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="input['@type'] == 'array'">
+      <div class="row">
+        <div class="col-sm-3 col-xs-5">
+          {{inputName}} (array)
+        </div>
+        <div class="col-sm-3 col-xs-7">
+          <!--<input type="checkbox" [(ngModel)]="map.additionalFolders" id="additionalFolders" name="map.additionalFolders" [disabled]="false"
+        />-->
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <!--<div class="helptext">Indicates whether or not to generate additional empty folders</div>-->
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="input['@type'] == null">
+    <div class="row">
+      <div class="col-sm-12">
+        <h4>{{inputName}}</h4>
+      </div>
+    </div>
+    <ng-container *ngFor="let subInput of input | jsonIterator">
+      <input-renderer [inputName]="subInput.key" [input]="subInput.value"></input-renderer>
+    </ng-container>
+  </ng-container>
+</ng-container>

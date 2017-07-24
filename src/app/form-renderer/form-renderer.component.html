@@ -1,0 +1,12 @@
+<ng-container *ngIf="config">
+  <ng-container *ngFor="let form of config.$forms; let i = index">
+    <form #generationForm="ngForm" (ngSubmit)="submitForm($event, form.$requestSchema.$task);">
+      <div class="container-fluid">
+        <ng-container *ngFor="let input of form.$requestSchema | jsonIterator">
+          <input-renderer [input]="input.value" [inputName]="input.key" ></input-renderer>
+        </ng-container>
+      </div>
+      <button (click)="showme();">HOli</button>
+    </form>
+  </ng-container>
+</ng-container>
