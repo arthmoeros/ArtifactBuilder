@@ -3,13 +3,28 @@
     <ng-container *ngIf="input['@type'] != 'array'">
       <div class="row">
         <div class="col-sm-3 col-xs-5">
-          {{inputName}}
+          {{getLabel(form,inputHierarchy)}}
+          <button *ngIf="parentArray != null" (click)="removeArrayItem(parentArray,elementIndex)">X</button>
         </div>
         <div class="col-sm-3 col-xs-7">
-          <input type="text" [(ngModel)]="input['value']" id="{{inputName}}" [disabled]="false" />
+          <input class="form-control" [(ngModel)]="input['value']" id="{{inputName}}" [required]="input['@required']" [readonly]="input['@blocked']"
+            placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'string'" type="text" />
+          <input class="form-control" [(ngModel)]="input['value']" id="{{inputName}}" [required]="input['@required']" [readonly]="input['@blocked']"
+            placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'number'" type="number" />
+          <input class="form-control" [(ngModel)]="input['value']" id="{{inputName}}" [required]="input['@required']" [readonly]="input['@blocked']"
+            placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'date'" type="date" />
+          <input [(ngModel)]="input['value']" id="{{inputName}}" [required]="input['@required']" [disabled]="input['@blocked']" placeholder="{{getPlaceholder(form,inputHierarchy)}}"
+            *ngIf="input['@type'] == 'boolean'" type="checkbox" />
+
+          <select class="form-control" [(ngModel)]="input['value']" id="{{inputName}}" [required]="input['@required']" [disabled]="input['@blocked']"
+            *ngIf="input['@type'] == 'choice'">
+            <ng-container *ngFor="let option of input['@options']">
+            <option value="{{option}}">{{option}}</option>
+            </ng-container>
+        </select>
         </div>
         <div class="col-sm-6 col-xs-12">
-          <!--<div class="helptext">Indicates whether or not to generate additional empty folders</div>-->
+          <div class="helptext">{{getHelptext(form,inputHierarchy)}}</div>
         </div>
         <div class="col-xs-12 visible-xs">
           <hr />
@@ -19,9 +34,10 @@
     <ng-container *ngIf="input['@type'] == 'array'">
       <div class="row">
         <div class="col-sm-3 col-xs-5">
-          {{inputName}} (array)
+          {{getLabel(form,inputHierarchy)}} (array)
         </div>
         <div class="col-sm-3 col-xs-7">
+          <button (click)="addArrayItem(inputHierarchy,inputName,input)">&#x2295;</button>
           <!--<input type="checkbox" [(ngModel)]="map.additionalFolders" id="additionalFolders" name="map.additionalFolders" [disabled]="false"
         />-->
         </div>
@@ -29,16 +45,22 @@
           <!--<div class="helptext">Indicates whether or not to generate additional empty folders</div>-->
         </div>
       </div>
+      <ng-container *ngFor="let itemInputs of input['@items']">
+        <ng-container *ngFor="let itemInput of itemInputs | jsonIterator">
+          <input-renderer [inputName]="itemInput.key" [input]="itemInput.value" [inputHierarchy]="inputHierarchy+'.'+itemInput.key"
+            [form]="form" [parentArray]="input['@items']" [elementIndex]="itemInputs.$index"></input-renderer>
+        </ng-container>
+      </ng-container>
     </ng-container>
   </ng-container>
   <ng-container *ngIf="input['@type'] == null">
     <div class="row">
       <div class="col-sm-12">
-        <h4>{{inputName}}</h4>
+        <h4>{{getLabel(form,inputHierarchy)}}</h4>
       </div>
     </div>
     <ng-container *ngFor="let subInput of input | jsonIterator">
-      <input-renderer [inputName]="subInput.key" [input]="subInput.value"></input-renderer>
+      <input-renderer [inputName]="subInput.key" [input]="subInput.value" [inputHierarchy]="inputHierarchy+'.'+subInput.key" [form]="form"></input-renderer>
     </ng-container>
   </ng-container>
 </ng-container>

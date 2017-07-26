@@ -10,16 +10,16 @@ import { ArtifacterCoreService } from "./../artifacter-core.service";
 export class FormRendererComponent implements OnInit {
 
   formId: string;
-  config: {};
+  selectedForm: string;
+  config: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private artifacter: ArtifacterCoreService) {
     this.route.params.subscribe(params => {
       this.formId = params.id;
-      console.log('id :' + this.formId);
       artifacter.getFormConfiguration(this.formId)
         .then((result) => {
-          console.log(result);
           this.config = result;
+          this.selectedForm = this.config.$forms[0].$requestSchema.$task;
         })
         .catch((error) => {
           throw new Error(error);
@@ -27,7 +27,7 @@ export class FormRendererComponent implements OnInit {
     });
   }
 
-  public showme(){
+  public submitForm(event, task: string){
     console.log(JSON.stringify(this.config));
   }
 
