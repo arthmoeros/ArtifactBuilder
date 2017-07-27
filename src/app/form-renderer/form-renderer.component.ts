@@ -27,8 +27,47 @@ export class FormRendererComponent implements OnInit {
     });
   }
 
-  public submitForm(event, task: string){
-    console.log(JSON.stringify(this.config));
+  public submitForm(event, task: string) {
+    let currentForm: any = null;
+    for (let i = 0; i < this.config.$forms.length; i++) {
+      currentForm = this.config.$forms[i];
+      if (currentForm.$requestSchema.$task == task) {
+        break;
+      } else {
+        currentForm = null;
+      }
+    }
+    if (currentForm != null) {
+      let requestCopy: any = JSON.parse(JSON.stringify(currentForm.$requestSchema));
+      this.valuesSubmitter(requestCopy);
+      this.artifacter.requestArtifactGeneration(requestCopy)
+        .then((location) => {
+          this.artifacter.triggerArtifactDownload(location);
+        });
+    }
+  }
+
+  private valuesSubmitter(schema: any): any {
+    if (schema['$index'] != null) {
+      delete schema['$index'];
+    }
+    for (let key in schema) {
+      if (key == '@value') {
+        return schema['@value'];
+      } else if (schema['@type'] == 'array') {
+        let array: any[] = [];
+        if (schema['@items'] == null) {
+          return array;
+        }
+        for (let i = 0; i < schema['@items'].length; i++) {
+          array.push(this.valuesSubmitter(schema['@items'][i]));
+        }
+        return array;
+      } else if (typeof (schema[key]) == 'object') {
+        schema[key] = this.valuesSubmitter(schema[key]);
+      }
+    }
+    return schema;
   }
 
   ngOnInit() {
