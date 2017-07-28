@@ -42,12 +42,6 @@ testem.log
 Thumbs.db
 
 node_modules/
-src/app/generated/
-src/app/app-routing.module.ts
-src/app/app.component.ts
-src/app/app.module.ts
-ui-builder/src/**/*.js
-ui-builder/src/**/*.js.map
 src/app/**/*.js
 src/app/**/*.js.map
 .git_heroku
