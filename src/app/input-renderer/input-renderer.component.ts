@@ -1,11 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , forwardRef} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'input-renderer',
   templateUrl: './input-renderer.component.html',
-  styleUrls: ['./input-renderer.component.css']
+  styleUrls: ['./input-renderer.component.css'],
+  providers: [
+    { 
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputRendererComponent),
+      multi: true
+    }
+  ]
 })
-export class InputRendererComponent implements OnInit {
+export class InputRendererComponent implements ControlValueAccessor {
 
   @Input() input: any;
   @Input() inputName: string;
@@ -13,8 +21,24 @@ export class InputRendererComponent implements OnInit {
   @Input() form: any;
   @Input() parentArray: any[];
   @Input() elementIndex: number;
+  @Input() parentModel: any;
+  innerValue: any;
+
+  propagateChange = (_: any) => {};
 
   constructor() { }
+
+  public writeValue(value){
+    if(value !== undefined){
+      this.innerValue = value;
+    }
+  }
+
+  public registerOnChange(fn){
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched() {}
 
   public getLabel(form: any, inputHierarchy: any) {
     return form.$inputDisplayData[inputHierarchy].label;

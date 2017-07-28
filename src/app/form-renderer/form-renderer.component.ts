@@ -12,6 +12,7 @@ export class FormRendererComponent implements OnInit {
   formId: string;
   selectedForm: string;
   config: any;
+  picoText: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private artifacter: ArtifacterCoreService) {
     this.route.params.subscribe(params => {
@@ -45,6 +46,10 @@ export class FormRendererComponent implements OnInit {
           this.artifacter.triggerArtifactDownload(location);
         });
     }
+  }
+
+  public show(data){
+    console.log(data.form.valid);
   }
 
   private valuesSubmitter(schema: any): any {
