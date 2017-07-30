@@ -1,4 +1,4 @@
-# ![artifacter-logo](/src/rsz_artifacter-logo.png)@artifacter/ui
+# ![artifacter-logo](/src/assets/img/rsz_artifacter-logo.png)@artifacter/ui
 
 ### UI for Artifacter
 
