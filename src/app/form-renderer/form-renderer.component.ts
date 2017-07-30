@@ -7,25 +7,40 @@ import { ArtifacterCoreService } from "./../artifacter-core.service";
   templateUrl: './form-renderer.component.html',
   styleUrls: ['./form-renderer.component.css']
 })
-export class FormRendererComponent implements OnInit {
+export class FormRendererComponent {
 
+  formValid: boolean;
   formId: string;
   selectedForm: string;
   config: any;
-  picoText: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private artifacter: ArtifacterCoreService) {
+    this.formValid = false;
     this.route.params.subscribe(params => {
       this.formId = params.id;
       artifacter.getFormConfiguration(this.formId)
         .then((result) => {
           this.config = result;
           this.selectedForm = this.config.$forms[0].$requestSchema.$task;
+          this.config.formValid = false;
+          this.setupDefaultValues(this.config);
         })
         .catch((error) => {
           throw new Error(error);
         });
     });
+  }
+
+  private setupDefaultValues(node: any){
+    if(node['@defaultValue'] != null){
+      node['@value'] = node['@defaultValue'];
+    }else{
+      for(let key in node){
+        if(typeof(node[key]) == 'object'){
+          this.setupDefaultValues(node[key]);
+        }
+      }
+    }
   }
 
   public submitForm(event, task: string) {
@@ -48,18 +63,12 @@ export class FormRendererComponent implements OnInit {
     }
   }
 
-  public show(data){
-    console.log(data.form.valid);
-  }
-
   private valuesSubmitter(schema: any): any {
     if (schema['$index'] != null) {
       delete schema['$index'];
     }
     for (let key in schema) {
-      if (key == '@value') {
-        return schema['@value'];
-      } else if (schema['@type'] == 'array') {
+      if (schema['@type'] == 'array') {
         let array: any[] = [];
         if (schema['@items'] == null) {
           return array;
@@ -68,14 +77,13 @@ export class FormRendererComponent implements OnInit {
           array.push(this.valuesSubmitter(schema['@items'][i]));
         }
         return array;
+      } else if (key == '@type') {
+        return schema['@value'] != null ? schema['@value'] : null;
       } else if (typeof (schema[key]) == 'object') {
         schema[key] = this.valuesSubmitter(schema[key]);
       }
     }
     return schema;
-  }
-
-  ngOnInit() {
   }
 
 }

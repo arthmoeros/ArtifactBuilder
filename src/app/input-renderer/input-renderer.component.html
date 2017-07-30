@@ -45,7 +45,7 @@
       <ng-container *ngFor="let itemInputs of input['@items']">
         <ng-container *ngFor="let itemInput of itemInputs | jsonIterator">
           <input-renderer [inputName]="itemInput.key" [input]="itemInput.value" [inputHierarchy]="inputHierarchy+'.'+itemInput.key"
-            [form]="form" [parentArray]="input['@items']" [elementIndex]="itemInputs.$index" ngModel name="{{inputHierarchy+'.'+itemInput.key}}"></input-renderer>
+            [form]="form" [parentArray]="input['@items']" [elementIndex]="itemInputs.$index" [parentConfig]="parentConfig"></input-renderer>
         </ng-container>
       </ng-container>
     </ng-container>
@@ -57,7 +57,7 @@
       </div>
     </div>
     <ng-container *ngFor="let subInput of input | jsonIterator">
-      <input-renderer [inputName]="subInput.key" [input]="subInput.value" [inputHierarchy]="inputHierarchy+'.'+subInput.key" [form]="form"></input-renderer>
+      <input-renderer [inputName]="subInput.key" [input]="subInput.value" [inputHierarchy]="inputHierarchy+'.'+subInput.key" [form]="form" [parentConfig]="parentConfig"></input-renderer>
     </ng-container>
   </ng-container>
 </ng-container>

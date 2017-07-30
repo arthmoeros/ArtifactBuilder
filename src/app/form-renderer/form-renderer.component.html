@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-xs-12">
-        <a [routerLink]="['/generator-index']">Go back to Index</a>
+        <a [routerLink]="['/index']">Go back to Index</a>
       </div>
     </div>
     <div class="row">
@@ -37,14 +37,13 @@
      class="{{selectedForm == form.$requestSchema.$task ? 'form-visible' : 'form-invisible'}}" id="{{form.$requestSchema.$task}}">
       <div class="container-fluid">
         <ng-container *ngFor="let input of form.$requestSchema | jsonIterator">
-          <input-renderer [input]="input.value" [inputName]="input.key" [inputHierarchy]="input.key" [form]="form" ngModel name="{{input.key}}"></input-renderer>
+          <input-renderer [input]="input.value" [inputName]="input.key" [inputHierarchy]="input.key" [form]="form" [parentConfig]="config"></input-renderer>
         </ng-container>
         <div class="row">
           <div class="col-sm-3 hidden-xs">
           </div>
           <div class="col-sm-3 col-xs-12">
-            <div (click)="show(generationForm);">PICHULA</div>
-            <button type="submit" class="btn btn-primary btn-block" [disabled]="!generationForm.form.valid">Generate</button>
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!config.formValid">Generate</button>
           </div>
         </div>
       </div>

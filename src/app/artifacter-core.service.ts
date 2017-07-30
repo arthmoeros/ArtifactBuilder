@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import { environment } from "./../environments/environment";
 
 @Injectable()
 export class ArtifacterCoreService {
 
-  private baseEndpoint: string = "http://localhost:8080"
+  private baseEndpoint: string = environment.artifacterAPI;
   private endpointForms: string = this.baseEndpoint + "/forms";
   private endpointArtifacts: string = this.baseEndpoint + "/generatedArtifacts";
 
