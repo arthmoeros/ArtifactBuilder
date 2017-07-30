@@ -22,7 +22,7 @@ Although you must to provide a valid Artifacter host, this is done in the enviro
 Not yet, the old version is available as a Heroku App (please be mindful of your use, it is a free account), go here -> https://artifacter.herokuapp.com/
 
 #### How does it stands? - Status
-This module was made using Angular's quickstart as a basis, so it has a bit of clutter to clean yet, but it does work fine as is. The front is responsive though.
+The form validation is a bit sketchy and since is dynamic, some bugs may appear, feel free to submit an issue here on Github if you encounter one.
 
 #### What's next? - Planned features for a future release
 Not much, mostly a refactor of the ugly form validation method that is in place, because the form model is not shared between form-renderer and input-renderer, besides that nothing else, feel free to suggest any new feature, with a sample use case.
