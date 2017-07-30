@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+
+    @media (min-width: 900px) {
+      .container-fluid {
+        max-width: 900px;
+        margin-left: 0;
+      }
+    }
+
+    ul.list-group.horizontal:after {
+      clear: both;
+      display: block;
+      content: "";
+    }
+
+    .list-group-item.horizontal {
+      float: left;
+    }
+
+    .helptext {
+      color: gray;
+      font-style: italic;
+    }
+
+    .app-blocker-loading {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      text-align: center;
+    }
+
+    .loading-icon {
+      background-color: white;
+      text-align: center;
+      position: inherit;
+      display: inline-block;
+      top: 50%;
+      margin-left: -65px;
+      margin-top: -65px;
+    }

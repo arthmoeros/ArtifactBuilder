@@ -1,0 +1,52 @@
+<ng-container *ngIf="config">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+        <a [routerLink]="['/index']">Go back to Index</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>
+          {{config.$formsTitle}}
+        </h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h5>
+          {{config.$formsDescription}}
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Select a generation form</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="container" *ngFor="let form of config.$forms; let i = index">
+        <label class="btn btn-primary">
+          <input type="radio" value="{{form.$requestSchema.$task}}" [(ngModel)]="selectedForm" /> {{form.$formName}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngFor="let form of config.$forms; let i = index">
+    <form #generationForm="ngForm" (ngSubmit)="submitForm($event, form.$requestSchema.$task);"
+     class="{{selectedForm == form.$requestSchema.$task ? 'form-visible' : 'form-invisible'}}" id="{{form.$requestSchema.$task}}">
+      <div class="container-fluid">
+        <ng-container *ngFor="let input of form.$requestSchema | jsonIterator">
+          <input-renderer [input]="input.value" [inputName]="input.key" [inputHierarchy]="input.key" [form]="form" [parentConfig]="config"></input-renderer>
+        </ng-container>
+        <div class="row">
+          <div class="col-sm-3 hidden-xs">
+          </div>
+          <div class="col-sm-3 col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="!config.formValid">Generate</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </ng-container>
+</ng-container>
