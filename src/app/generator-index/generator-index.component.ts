@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArtifacterCoreService } from "./../artifacter-core.service";
+import { QSDTCoreService } from "./../qsdt-core.service";
 
 @Component({
   selector: 'app-generator-index',
@@ -10,7 +10,7 @@ export class GeneratorIndexComponent implements OnInit {
 
   private formsIndex: string[];
 
-  constructor(private coreService: ArtifacterCoreService) {
+  constructor(private coreService: QSDTCoreService) {
     this.loadIndex();
   }
 

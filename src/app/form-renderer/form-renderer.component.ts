@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { ArtifacterCoreService } from "./../artifacter-core.service";
+import { QSDTCoreService } from "./../qsdt-core.service";
 
 @Component({
   selector: 'app-form-renderer',
@@ -14,11 +14,11 @@ export class FormRendererComponent {
   selectedForm: string;
   config: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private artifacter: ArtifacterCoreService) {
+  constructor(private router: Router, private route: ActivatedRoute, private qsdt: QSDTCoreService) {
     this.formValid = false;
     this.route.params.subscribe(params => {
       this.formId = params.id;
-      artifacter.getFormConfiguration(this.formId)
+      qsdt.getFormConfiguration(this.formId)
         .then((result) => {
           this.config = result;
           this.selectedForm = this.config.$forms[0].$requestSchema.$task;
@@ -56,9 +56,9 @@ export class FormRendererComponent {
     if (currentForm != null) {
       let requestCopy: any = JSON.parse(JSON.stringify(currentForm.$requestSchema));
       this.valuesSubmitter(requestCopy);
-      this.artifacter.requestArtifactGeneration(requestCopy)
+      this.qsdt.requestArtifactGeneration(requestCopy)
         .then((location) => {
-          this.artifacter.triggerArtifactDownload(location);
+          this.qsdt.triggerArtifactDownload(location);
         });
     }
   }

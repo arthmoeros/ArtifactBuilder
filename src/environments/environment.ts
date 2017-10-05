@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  artifacterAPI: "http://localhost:8080",
+  qsdtAPI: "http://localhost:8080",
 };

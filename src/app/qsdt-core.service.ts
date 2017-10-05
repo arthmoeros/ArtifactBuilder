@@ -4,16 +4,16 @@ import { Observable } from "rxjs/Observable";
 import { environment } from "./../environments/environment";
 
 @Injectable()
-export class ArtifacterCoreService {
+export class QSDTCoreService {
 
-  private baseEndpoint: string = environment.artifacterAPI;
+  private baseEndpoint: string = environment.qsdtAPI;
   private endpointForms: string = this.baseEndpoint + "/forms";
   private endpointArtifacts: string = this.baseEndpoint + "/generatedArtifacts";
 
   constructor(private http: Http) { }
 
   /**
-   * Retrieves a list of form configurations available on Artifacter
+   * Retrieves a list of form configurations available on QSDT
    */
   public getFormConfigurations(): Promise<string[]> {
     return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ export class ArtifacterCoreService {
   }
 
   /**
-   * Requests an Artifact Generation to Artifacter using a Request object
+   * Requests an Artifact Generation to QSDT using a Request object
    * based on the Form Configuration
    * @param request Request object based on Form Configuration
    */

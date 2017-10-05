@@ -6,7 +6,7 @@ import { HttpModule } from "@angular/http";
 
 import { AppComponent } from './app.component';
 import { GeneratorIndexComponent } from './generator-index/generator-index.component';
-import { ArtifacterCoreService } from "./artifacter-core.service";
+import { QSDTCoreService } from "./qsdt-core.service";
 import { FormRendererComponent } from './form-renderer/form-renderer.component';
 import { JsonIteratorPipe } from './json-iterator.pipe';
 import { InputRendererComponent } from './input-renderer/input-renderer.component';
@@ -26,7 +26,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module'
     FormsModule,
     AppRoutingModule
   ],
-  providers: [ArtifacterCoreService],
+  providers: [QSDTCoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
