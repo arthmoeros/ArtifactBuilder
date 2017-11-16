@@ -7,16 +7,16 @@
           <span *ngIf="parentArray != null" class="array-button" (click)="removeArrayItem(parentArray,elementIndex)">&#x2716;</span>
         </div>
         <div class="col-sm-3 col-xs-7">
-          <input class="form-control" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
+          <input class="form-control selected-form-{{form.$requestSchema.$task}}" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
             placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'string'" type="text" />
-          <input class="form-control" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
+          <input class="form-control selected-form-{{form.$requestSchema.$task}}" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
             placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'number'" type="number" />
-          <input class="form-control" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
+          <input class="form-control selected-form-{{form.$requestSchema.$task}}" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [readonly]="input['@blocked']"
             placeholder="{{getPlaceholder(form,inputHierarchy)}}" *ngIf="input['@type'] == 'date'" type="date" />
           <input [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [disabled]="input['@blocked']" placeholder="{{getPlaceholder(form,inputHierarchy)}}"
             *ngIf="input['@type'] == 'boolean'" type="checkbox" />
 
-          <select class="form-control" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [disabled]="input['@blocked']"
+          <select class="form-control selected-form-{{form.$requestSchema.$task}}" [(ngModel)]="input['@value']" name="{{inputHierarchy}}" [required]="input['@required']" [disabled]="input['@blocked']"
             *ngIf="input['@type'] == 'choice'">
             <ng-container *ngFor="let option of input['@options']">
             <option value="{{option}}">{{option}}</option>
@@ -45,7 +45,7 @@
       <ng-container *ngFor="let itemInputs of input['@items']">
         <ng-container *ngFor="let itemInput of itemInputs | jsonIterator">
           <input-renderer [inputName]="itemInput.key" [input]="itemInput.value" [inputHierarchy]="inputHierarchy+'.'+itemInput.key"
-            [form]="form" [parentArray]="input['@items']" [elementIndex]="itemInputs.$index" [parentConfig]="parentConfig"></input-renderer>
+            [form]="form" [parentArray]="input['@items']" [elementIndex]="itemInputs.$index" [parentConfig]="parentConfig" [selectedForm]="selectedForm"></input-renderer>
         </ng-container>
       </ng-container>
     </ng-container>
@@ -57,7 +57,7 @@
       </div>
     </div>
     <ng-container *ngFor="let subInput of input | jsonIterator">
-      <input-renderer [inputName]="subInput.key" [input]="subInput.value" [inputHierarchy]="inputHierarchy+'.'+subInput.key" [form]="form" [parentConfig]="parentConfig"></input-renderer>
+      <input-renderer [inputName]="subInput.key" [input]="subInput.value" [inputHierarchy]="inputHierarchy+'.'+subInput.key" [form]="form" [parentConfig]="parentConfig" [selectedForm]="selectedForm"></input-renderer>
     </ng-container>
   </ng-container>
 </ng-container>

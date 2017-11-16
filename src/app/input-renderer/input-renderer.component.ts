@@ -14,6 +14,7 @@ export class InputRendererComponent implements DoCheck {
   @Input() parentArray: any[];
   @Input() elementIndex: number;
   @Input() parentConfig: any;
+  @Input() selectedForm: string;
 
   constructor() { }
 
@@ -54,7 +55,7 @@ export class InputRendererComponent implements DoCheck {
    * https://stackoverflow.com/questions/41109500/angular2-recursive-html-without-making-a-new-component
    */
   ngDoCheck(){
-    let elements: HTMLCollectionOf<Element> = document.getElementsByClassName("ng-invalid");
+    let elements: HTMLCollectionOf<Element> = document.getElementsByClassName(`ng-invalid selected-form-${this.form.$requestSchema.$task}`);
     for(let i = 0; i < elements.length; i++){
       if(elements.item(i).nodeName == 'INPUT'){
         this.parentConfig.formValid = false;

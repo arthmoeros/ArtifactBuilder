@@ -37,7 +37,7 @@
      class="{{selectedForm == form.$requestSchema.$task ? 'form-visible' : 'form-invisible'}}" id="{{form.$requestSchema.$task}}">
       <div class="container-fluid">
         <ng-container *ngFor="let input of form.$requestSchema | jsonIterator">
-          <input-renderer [input]="input.value" [inputName]="input.key" [inputHierarchy]="input.key" [form]="form" [parentConfig]="config"></input-renderer>
+          <input-renderer [input]="input.value" [inputName]="input.key" [inputHierarchy]="input.key" [form]="form" [parentConfig]="config" [selectedForm]="selectedForm"></input-renderer>
         </ng-container>
         <div class="row">
           <div class="col-sm-3 hidden-xs">
