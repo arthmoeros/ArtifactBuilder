@@ -26,7 +26,8 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
-        "embedded": "environments/environment.embedded.ts"
+        "embedded": "environments/environment.embedded.ts",
+        "custom": "environments/environment.custom.ts"
       }
     }
   ],
