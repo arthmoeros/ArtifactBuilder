@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   qsdtAPI: "http://localhost:8080",
+  safeDownload: false,
 };

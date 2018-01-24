@@ -50,3 +50,14 @@ body {
       margin-left: -65px;
       margin-top: -65px;
     }
+
+    .downloader-window {
+      background-color: white;
+      text-align: center;
+      position: inherit;
+      display: inline-block;
+      top: 50%;
+      margin-left: -65px;
+      margin-top: -65px;
+      padding: 10px;
+    }

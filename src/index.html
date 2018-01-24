@@ -19,6 +19,11 @@
       <img src="assets/img/qsdt-logo-loading.gif" /><br /> Loading...
     </div>
   </div>
+  <div class="app-blocker-loading hidden" id="downloader">
+    <div class="downloader-window" style="border: 1px black solid;">
+      <a id="downloaderLink" href="#" onclick="document.getElementById('downloader').className = 'app-blocker-loading hidden';">Click here to download your file</a>
+    </div>
+  </div>
   <app-root>
     <div style="position: absolute; width: 100%; height: 100%;">
       <div class="loading-icon" style="left: 50%;">
