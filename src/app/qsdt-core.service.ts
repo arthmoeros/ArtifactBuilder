@@ -63,19 +63,19 @@ export class QSDTCoreService {
    * @param location Location of the generated artifact
    */
   public triggerArtifactDownload(location: string) {
+    if (document.getElementById("downloaderFrame") == null) {
+      let iframe: HTMLIFrameElement = document.createElement("iframe");
+      iframe.name = "downloader";
+      iframe.id = "downloaderFrame";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+    }
     if(environment.safeDownload){
       let downloader = document.getElementById("downloader");
       downloader.className = "app-blocker-loading";
       let anchor: any = document.getElementById("downloaderLink");
       anchor.href = this.baseEndpoint + location;
     }else{
-      if (document.getElementById("downloaderFrame") == null) {
-        let iframe: HTMLIFrameElement = document.createElement("iframe");
-        iframe.name = "downloader";
-        iframe.id = "downloaderFrame";
-        iframe.style.display = "none";
-        document.body.appendChild(iframe);
-      }
       window.open(this.baseEndpoint + location, "downloader");
     }
     
