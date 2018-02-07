@@ -76,7 +76,7 @@ export class QSDTCoreService {
       let anchor: any = document.getElementById("downloaderLink");
       anchor.href = this.baseEndpoint + location;
     }else{
-      window.open(this.baseEndpoint + location, "downloader");
+      window.open(this.baseEndpoint + location + "/generatedArtifacts.zip", "downloader");
     }
     
   }
