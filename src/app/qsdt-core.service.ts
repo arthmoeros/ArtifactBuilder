@@ -74,7 +74,7 @@ export class QSDTCoreService {
       let downloader = document.getElementById("downloader");
       downloader.className = "app-blocker-loading";
       let anchor: any = document.getElementById("downloaderLink");
-      anchor.href = this.baseEndpoint + location;
+      anchor.href = this.baseEndpoint + location + "/generatedArtifacts.zip";
     }else{
       window.open(this.baseEndpoint + location + "/generatedArtifacts.zip", "downloader");
     }
