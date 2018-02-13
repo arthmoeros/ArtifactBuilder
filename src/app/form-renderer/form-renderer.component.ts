@@ -58,6 +58,7 @@ export class FormRendererComponent {
       this.valuesSubmitter(requestCopy);
       let blocker = document.getElementById("loadingBlocker");
       blocker.className = "app-blocker-loading";
+      blocker.focus();
       this.qsdt.requestArtifactGeneration(requestCopy)
         .then((location) => {
           this.qsdt.triggerArtifactDownload(location);
