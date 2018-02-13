@@ -78,6 +78,8 @@ export class QSDTCoreService {
     }else{
       window.open(this.baseEndpoint + location + "/generatedArtifacts.zip", "downloader");
     }
+    let blocker = document.getElementById("loadingBlocker");
+    blocker.className = "app-blocker-loading hidden";
     
   }
 
